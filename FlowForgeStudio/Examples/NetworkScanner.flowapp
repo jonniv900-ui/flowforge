@@ -1,0 +1,738 @@
+{
+  "FormatVersion": 2,
+  "Name": "NetworkScanner",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Network Scanner"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "860, 610"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "876, 649"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 12"
+            },
+            {
+              "Key": "Size",
+              "Value": "500, 32"
+            },
+            {
+              "Key": "Text",
+              "Value": "NETWORK SCANNER"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 14pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "NetworkLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NetworkLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 48"
+            },
+            {
+              "Key": "Size",
+              "Value": "822, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Interface local: detectando..."
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "DimGray"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "BaseLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "BaseLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 82"
+            },
+            {
+              "Key": "Size",
+              "Value": "95, 22"
+            },
+            {
+              "Key": "Text",
+              "Value": "IP base /24:"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "IPAddressBox",
+          "Name": "BaseIpBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "BaseIpBox"
+            },
+            {
+              "Key": "Location",
+              "Value": "112, 78"
+            },
+            {
+              "Key": "Size",
+              "Value": "145, 28"
+            },
+            {
+              "Key": "Text",
+              "Value": "192.168.001.001"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "FromLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "FromLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "275, 82"
+            },
+            {
+              "Key": "Size",
+              "Value": "28, 22"
+            },
+            {
+              "Key": "Text",
+              "Value": "De"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NumericUpDown",
+          "Name": "StartHost",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StartHost"
+            },
+            {
+              "Key": "Location",
+              "Value": "307, 78"
+            },
+            {
+              "Key": "Size",
+              "Value": "58, 28"
+            },
+            {
+              "Key": "Minimum",
+              "Value": "1"
+            },
+            {
+              "Key": "Maximum",
+              "Value": "254"
+            },
+            {
+              "Key": "Value",
+              "Value": "1"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "ToLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ToLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "375, 82"
+            },
+            {
+              "Key": "Size",
+              "Value": "28, 22"
+            },
+            {
+              "Key": "Text",
+              "Value": "Até"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NumericUpDown",
+          "Name": "EndHost",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "EndHost"
+            },
+            {
+              "Key": "Location",
+              "Value": "405, 78"
+            },
+            {
+              "Key": "Size",
+              "Value": "58, 28"
+            },
+            {
+              "Key": "Minimum",
+              "Value": "1"
+            },
+            {
+              "Key": "Maximum",
+              "Value": "254"
+            },
+            {
+              "Key": "Value",
+              "Value": "254"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "DetectButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "DetectButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "480, 76"
+            },
+            {
+              "Key": "Size",
+              "Value": "120, 31"
+            },
+            {
+              "Key": "Text",
+              "Value": "Detectar rede"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "ScanButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ScanButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "610, 76"
+            },
+            {
+              "Key": "Size",
+              "Value": "115, 31"
+            },
+            {
+              "Key": "Text",
+              "Value": "Varrer IPs"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "CancelButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "CancelButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "735, 76"
+            },
+            {
+              "Key": "Size",
+              "Value": "105, 31"
+            },
+            {
+              "Key": "Text",
+              "Value": "Cancelar"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "False"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ProgressBar",
+          "Name": "ScanProgress",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ScanProgress"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 118"
+            },
+            {
+              "Key": "Size",
+              "Value": "822, 18"
+            },
+            {
+              "Key": "Minimum",
+              "Value": "0"
+            },
+            {
+              "Key": "Maximum",
+              "Value": "254"
+            },
+            {
+              "Key": "Value",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SearchBox",
+          "Name": "SearchBox1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SearchBox1"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 150"
+            },
+            {
+              "Key": "Size",
+              "Value": "340, 30"
+            },
+            {
+              "Key": "Placeholder",
+              "Value": "Filtrar por IP ou hostname"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "FoundLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "FoundLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "380, 154"
+            },
+            {
+              "Key": "Size",
+              "Value": "215, 22"
+            },
+            {
+              "Key": "Text",
+              "Value": "Dispositivos encontrados"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SignalStrength",
+          "Name": "PingSignal",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PingSignal"
+            },
+            {
+              "Key": "Location",
+              "Value": "600, 142"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 42"
+            },
+            {
+              "Key": "Value",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "PingValueLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PingValueLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "690, 154"
+            },
+            {
+              "Key": "Size",
+              "Value": "150, 22"
+            },
+            {
+              "Key": "Text",
+              "Value": "Ping médio: -- ms"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "DataGridView",
+          "Name": "GridHosts",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "GridHosts"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 192"
+            },
+            {
+              "Key": "Size",
+              "Value": "515, 338"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Sparkline",
+          "Name": "PingSparkline",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PingSparkline"
+            },
+            {
+              "Key": "Location",
+              "Value": "548, 192"
+            },
+            {
+              "Key": "Size",
+              "Value": "292, 130"
+            },
+            {
+              "Key": "Title",
+              "Value": "Latência dos dispositivos"
+            },
+            {
+              "Key": "LegendText",
+              "Value": "Ping (ms)"
+            },
+            {
+              "Key": "ShowGrid",
+              "Value": "True"
+            },
+            {
+              "Key": "ShowBorder",
+              "Value": "True"
+            },
+            {
+              "Key": "ShowLastValue",
+              "Value": "True"
+            },
+            {
+              "Key": "ShowMinMax",
+              "Value": "True"
+            },
+            {
+              "Key": "FillArea",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "SpeedTitle",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SpeedTitle"
+            },
+            {
+              "Key": "Location",
+              "Value": "548, 336"
+            },
+            {
+              "Key": "Size",
+              "Value": "292, 26"
+            },
+            {
+              "Key": "Text",
+              "Value": "TESTE DE VELOCIDADE"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 10pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LcdDisplay",
+          "Name": "SpeedDisplay",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SpeedDisplay"
+            },
+            {
+              "Key": "Location",
+              "Value": "548, 368"
+            },
+            {
+              "Key": "Size",
+              "Value": "292, 66"
+            },
+            {
+              "Key": "Value",
+              "Value": "0.00 Mbps"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SimpleChart",
+          "Name": "SpeedChart",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SpeedChart"
+            },
+            {
+              "Key": "Location",
+              "Value": "548, 444"
+            },
+            {
+              "Key": "Size",
+              "Value": "292, 86"
+            },
+            {
+              "Key": "DataPoints",
+              "Value": ""
+            },
+            {
+              "Key": "ChartStyle",
+              "Value": "Line"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "SpeedButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SpeedButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "548, 542"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 34"
+            },
+            {
+              "Key": "Text",
+              "Value": "Testar download"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ProgressBar",
+          "Name": "SpeedProgress",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SpeedProgress"
+            },
+            {
+              "Key": "Location",
+              "Value": "738, 548"
+            },
+            {
+              "Key": "Size",
+              "Value": "102, 22"
+            },
+            {
+              "Key": "Minimum",
+              "Value": "0"
+            },
+            {
+              "Key": "Maximum",
+              "Value": "100"
+            },
+            {
+              "Key": "Value",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "StatusLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StatusLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 546"
+            },
+            {
+              "Key": "Size",
+              "Value": "515, 48"
+            },
+            {
+              "Key": "Text",
+              "Value": "Pronto."
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "FixedSingle"
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleLeft"
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Collections.Generic\nImports System.Diagnostics\nImports System.Globalization\nImports System.Net\nImports System.Net.Http\nImports System.Net.NetworkInformation\nImports System.Net.Sockets\nImports System.Threading.Tasks\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private Class HostResult\n        Public Property Address As String\n        Public Property HostName As String\n        Public Property Latency As Long\n        Public Property Alive As Boolean\n    End Class\n\n    Private ReadOnly hosts As New List(Of HostResult)()\n    Private ReadOnly pingHistory As New List(Of Long)()\n    Private ReadOnly speedHistory As New List(Of Double)()\n    Private cancelScan As Boolean\n\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\n        ConfigureGrid()\n        DetectLocalNetwork()\n        PingSparkline.DataPoints = \"\"\n        SpeedChart.DataPoints = \"\"\n        SpeedDisplay.Value = \"0.00 Mbps\"\n        StatusLabel.Text = \"Pronto. Detecte a rede ou inicie a varredura.\"\n    End Sub\n\n    Private Sub ConfigureGrid()\n        GridHosts.AutoGenerateColumns = False\n        GridHosts.AllowUserToAddRows = False\n        GridHosts.AllowUserToDeleteRows = False\n        GridHosts.ReadOnly = True\n        GridHosts.MultiSelect = False\n        GridHosts.SelectionMode = DataGridViewSelectionMode.FullRowSelect\n        GridHosts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill\n        GridHosts.Columns.Clear()\n        GridHosts.Columns.Add(\"IP\", \"Endereço IP\")\n        GridHosts.Columns.Add(\"Host\", \"Nome do dispositivo\")\n        GridHosts.Columns.Add(\"Ping\", \"Ping (ms)\")\n        GridHosts.Columns.Add(\"Status\", \"Status\")\n    End Sub\n\n    Private Sub DetectButton_Click(sender As Object, e As EventArgs) Handles DetectButton.Click\n        DetectLocalNetwork()\n    End Sub\n\n    Private Sub DetectLocalNetwork()\n        Dim localAddress As String = GetLocalIPv4()\n        If String.IsNullOrWhiteSpace(localAddress) Then\n            StatusLabel.Text = \"Não foi possível detectar um IPv4 ativo.\"\n            Return\n        End If\n\n        Dim octets As String() = localAddress.Split(\".\"c)\n        If octets.Length <> 4 Then Return\n\n        BaseIpBox.Text = PadOctet(octets(0)) & \".\" &\n                         PadOctet(octets(1)) & \".\" &\n                         PadOctet(octets(2)) & \".001\"\n\n        NetworkLabel.Text = \"Interface local: \" & localAddress &\n                            \"   |   Rede sugerida: \" &\n                            octets(0) & \".\" & octets(1) & \".\" & octets(2) & \".0/24\"\n        StatusLabel.Text = \"Rede detectada. Faixa padrão: .1 até .254.\"\n    End Sub\n\n    Private Function PadOctet(value As String) As String\n        Dim number As Integer\n        If Not Integer.TryParse(value, number) Then number = 0\n        Return Math.Max(0, Math.Min(255, number)).ToString(\"000\", CultureInfo.InvariantCulture)\n    End Function\n\n    Private Function GetLocalIPv4() As String\n        For Each adapter As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces()\n            If adapter.OperationalStatus <> OperationalStatus.Up Then Continue For\n            If adapter.NetworkInterfaceType = NetworkInterfaceType.Loopback Then Continue For\n            For Each address As UnicastIPAddressInformation In adapter.GetIPProperties().UnicastAddresses\n                If address.Address.AddressFamily = AddressFamily.InterNetwork Then\n                    Dim value As String = address.Address.ToString()\n                    If Not value.StartsWith(\"169.254.\", StringComparison.Ordinal) Then Return value\n                End If\n            Next\n        Next\n        Return \"\"\n    End Function\n\n    Private Function GetPrefix() As String\n        Dim textValue As String = BaseIpBox.Text.Trim().Replace(\" \", \"\").Replace(\",\"c, \".\"c)\n        Dim parts As String() = textValue.Split(\".\"c)\n        If parts.Length <> 4 Then Return \"\"\n\n        Dim values(3) As Integer\n        For i As Integer = 0 To 3\n            Dim octet As String = parts(i).Trim()\n            If octet = \"\" Then Return \"\"\n            If Not Integer.TryParse(octet, NumberStyles.Integer, CultureInfo.InvariantCulture, values(i)) Then Return \"\"\n            If values(i) < 0 OrElse values(i) > 255 Then Return \"\"\n        Next\n\n        Return values(0).ToString(CultureInfo.InvariantCulture) & \".\" &\n               values(1).ToString(CultureInfo.InvariantCulture) & \".\" &\n               values(2).ToString(CultureInfo.InvariantCulture) & \".\"\n    End Function\n\n    Private Async Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click\n        Dim prefix As String = GetPrefix()\n        If prefix = \"\" Then\n            MessageBox.Show(\"Informe um endereço IPv4 válido.\", \"Network Scanner\", MessageBoxButtons.OK, MessageBoxIcon.Warning)\n            Return\n        End If\n\n        Dim firstAddress As Integer = Decimal.ToInt32(StartHost.Value)\n        Dim lastAddress As Integer = Decimal.ToInt32(EndHost.Value)\n        If firstAddress > lastAddress Then\n            Dim swap As Integer = firstAddress\n            firstAddress = lastAddress\n            lastAddress = swap\n        End If\n\n        cancelScan = False\n        hosts.Clear()\n        pingHistory.Clear()\n        GridHosts.Rows.Clear()\n        PingSparkline.DataPoints = \"\"\n        PingSignal.Value = 0\n        ScanProgress.Minimum = 0\n        ScanProgress.Maximum = Math.Max(1, lastAddress - firstAddress + 1)\n        ScanProgress.Value = 0\n        SetScanState(True)\n\n        Try\n            Const batchSize As Integer = 24\n            Dim current As Integer = firstAddress\n\n            While current <= lastAddress AndAlso Not cancelScan\n                Dim tasks As New List(Of Task(Of HostResult))()\n                Dim batchEnd As Integer = Math.Min(lastAddress, current + batchSize - 1)\n\n                For hostNumber As Integer = current To batchEnd\n                    tasks.Add(PingHostAsync(prefix & hostNumber.ToString(CultureInfo.InvariantCulture)))\n                Next\n\n                Dim results As HostResult() = Await Task.WhenAll(tasks)\n\n                For Each result As HostResult In results\n                    If cancelScan Then Exit For\n                    ScanProgress.Value = Math.Min(ScanProgress.Maximum, ScanProgress.Value + 1)\n                    If result.Alive Then\n                        hosts.Add(result)\n                        AddPingSample(result.Latency)\n                    End If\n                Next\n\n                RefreshGrid()\n                StatusLabel.Text = \"Verificados \" & ScanProgress.Value.ToString() &\n                                   \" de \" & ScanProgress.Maximum.ToString() &\n                                   \" endereços. Ativos: \" & hosts.Count.ToString()\n                current = batchEnd + 1\n            End While\n\n            StatusLabel.Text = If(cancelScan, \"Varredura cancelada. \", \"Varredura concluída. \") &\n                               \"Dispositivos encontrados: \" & hosts.Count.ToString()\n        Catch ex As Exception\n            StatusLabel.Text = \"Erro durante a varredura: \" & ex.Message\n        Finally\n            SetScanState(False)\n        End Try\n    End Sub\n\n    Private Async Function PingHostAsync(address As String) As Task(Of HostResult)\n        Dim result As New HostResult() With {.Address = address, .HostName = \"\", .Latency = -1, .Alive = False}\n        Try\n            Using p As New Ping()\n                Dim reply As PingReply = Await p.SendPingAsync(address, 450)\n                If reply IsNot Nothing AndAlso reply.Status = IPStatus.Success Then\n                    result.Alive = True\n                    result.Latency = reply.RoundtripTime\n                    result.HostName = Await Task.Run(Function() ResolveHostName(address))\n                End If\n            End Using\n        Catch\n        End Try\n        Return result\n    End Function\n\n    Private Function ResolveHostName(address As String) As String\n        Try\n            Dim entry As IPHostEntry = Dns.GetHostEntry(address)\n            If entry IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(entry.HostName) Then Return entry.HostName\n        Catch\n        End Try\n        Return \"(não identificado)\"\n    End Function\n\n    Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click\n        cancelScan = True\n        CancelButton.Enabled = False\n        StatusLabel.Text = \"Cancelando após o lote atual...\"\n    End Sub\n\n    Private Sub SetScanState(scanning As Boolean)\n        ScanButton.Enabled = Not scanning\n        DetectButton.Enabled = Not scanning\n        BaseIpBox.Enabled = Not scanning\n        StartHost.Enabled = Not scanning\n        EndHost.Enabled = Not scanning\n        CancelButton.Enabled = scanning\n    End Sub\n\n    Private Sub AddPingSample(latency As Long)\n        pingHistory.Add(latency)\n        While pingHistory.Count > 40\n            pingHistory.RemoveAt(0)\n        End While\n\n        Dim values As New List(Of String)()\n        Dim total As Long = 0\n        For Each item As Long In pingHistory\n            values.Add(item.ToString(CultureInfo.InvariantCulture))\n            total += item\n        Next\n        PingSparkline.DataPoints = String.Join(\",\", values.ToArray())\n\n        If pingHistory.Count > 0 Then\n            Dim average As Double = total / CDbl(pingHistory.Count)\n            PingValueLabel.Text = \"Ping médio: \" & average.ToString(\"0.0\") & \" ms\"\n            PingSignal.Value = LatencyQuality(average)\n        End If\n    End Sub\n\n    Private Function LatencyQuality(milliseconds As Double) As Integer\n        If milliseconds <= 10 Then Return 100\n        If milliseconds <= 30 Then Return 85\n        If milliseconds <= 60 Then Return 65\n        If milliseconds <= 100 Then Return 45\n        If milliseconds <= 180 Then Return 25\n        Return 10\n    End Function\n\n    Private Sub SearchBox1_Search(sender As Object, e As EventArgs) Handles SearchBox1.Search\n        RefreshGrid()\n    End Sub\n\n    Private Sub RefreshGrid()\n        Dim filter As String = SearchBox1.Text.Trim()\n        GridHosts.Rows.Clear()\n\n        For Each host As HostResult In hosts\n            If filter <> \"\" AndAlso\n               host.Address.IndexOf(filter, StringComparison.OrdinalIgnoreCase) < 0 AndAlso\n               host.HostName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) < 0 Then Continue For\n\n            GridHosts.Rows.Add(host.Address, host.HostName,\n                               host.Latency.ToString(CultureInfo.InvariantCulture), \"ONLINE\")\n        Next\n    End Sub\n\n    Private Async Sub SpeedButton_Click(sender As Object, e As EventArgs) Handles SpeedButton.Click\n        SpeedButton.Enabled = False\n        speedHistory.Clear()\n        SpeedChart.DataPoints = \"\"\n        SpeedDisplay.Value = \"TESTANDO...\"\n        SpeedProgress.Value = 0\n        StatusLabel.Text = \"Executando teste de download...\"\n\n        Try\n            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12\n\n            Using client As New HttpClient()\n                client.Timeout = TimeSpan.FromSeconds(35)\n                Dim url As String = \"https://speed.cloudflare.com/__down?bytes=10000000&t=\" &\n                                    DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture)\n\n                Using response As HttpResponseMessage = Await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)\n                    response.EnsureSuccessStatusCode()\n                    Using stream As IO.Stream = Await response.Content.ReadAsStreamAsync()\n                        Dim buffer(65535) As Byte\n                        Dim totalBytes As Long = 0\n                        Dim intervalBytes As Long = 0\n                        Dim watch As Stopwatch = Stopwatch.StartNew()\n                        Dim intervalWatch As Stopwatch = Stopwatch.StartNew()\n\n                        Do\n                            Dim count As Integer = Await stream.ReadAsync(buffer, 0, buffer.Length)\n                            If count <= 0 Then Exit Do\n                            totalBytes += count\n                            intervalBytes += count\n\n                            If intervalWatch.ElapsedMilliseconds >= 250 Then\n                                Dim instantMbps As Double = (intervalBytes * 8.0) /\n                                    (intervalWatch.Elapsed.TotalSeconds * 1000000.0)\n                                AddSpeedSample(instantMbps)\n                                intervalBytes = 0\n                                intervalWatch.Restart()\n                                SpeedProgress.Value = Math.Min(100, CInt(Math.Round(totalBytes / 100000.0)))\n                            End If\n                        Loop\n\n                        watch.Stop()\n                        Dim averageMbps As Double = (totalBytes * 8.0) /\n                            (Math.Max(0.001, watch.Elapsed.TotalSeconds) * 1000000.0)\n\n                        AddSpeedSample(averageMbps)\n                        SpeedDisplay.Value = averageMbps.ToString(\"0.00\") & \" Mbps\"\n                        SpeedProgress.Value = 100\n                        StatusLabel.Text = \"Teste concluído: \" & averageMbps.ToString(\"0.00\") &\n                                           \" Mbps (\" & FormatBytes(totalBytes) & \" recebidos).\"\n                    End Using\n                End Using\n            End Using\n        Catch ex As Exception\n            SpeedDisplay.Value = \"ERRO\"\n            StatusLabel.Text = \"Falha no teste de velocidade: \" & ex.Message\n        Finally\n            SpeedButton.Enabled = True\n        End Try\n    End Sub\n\n    Private Sub AddSpeedSample(value As Double)\n        speedHistory.Add(value)\n        While speedHistory.Count > 30\n            speedHistory.RemoveAt(0)\n        End While\n\n        Dim values As New List(Of String)()\n        For Each item As Double In speedHistory\n            values.Add(item.ToString(\"0.00\", CultureInfo.InvariantCulture))\n        Next\n        SpeedChart.DataPoints = String.Join(\",\", values.ToArray())\n        SpeedDisplay.Value = value.ToString(\"0.00\") & \" Mbps\"\n    End Sub\n\n    Private Function FormatBytes(value As Long) As String\n        Dim amount As Double = value\n        Dim units As String() = {\"B\", \"KB\", \"MB\", \"GB\"}\n        Dim index As Integer = 0\n        While amount >= 1024.0 AndAlso index < units.Length - 1\n            amount /= 1024.0\n            index += 1\n        End While\n        Return amount.ToString(\"0.##\") & \" \" & units(index)\n    End Function\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Network Scanner",
+  "AssemblyDescription": "Scanner IPv4 com ping, hostname, latência e teste de velocidade",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "NetworkScanner",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Libraries": []
+}

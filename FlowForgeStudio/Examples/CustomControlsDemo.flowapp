@@ -1,0 +1,247 @@
+{
+  "Name": "PainelControles",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Painel de Controles FlowForge"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "640, 360"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 10pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "28, 24"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "True"
+            },
+            {
+              "Key": "Text",
+              "Value": "CONTROLES CUSTOMIZADOS"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 15.75pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "DigitalDisplay",
+          "Name": "DigitalDisplay1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "DigitalDisplay1"
+            },
+            {
+              "Key": "Location",
+              "Value": "28, 72"
+            },
+            {
+              "Key": "Size",
+              "Value": "330, 64"
+            },
+            {
+              "Key": "Digits",
+              "Value": "10"
+            },
+            {
+              "Key": "Value",
+              "Value": "PRONTO"
+            },
+            {
+              "Key": "DisplayStyle",
+              "Value": "DotMatrix"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LedIndicator",
+          "Name": "LedIndicator1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LedIndicator1"
+            },
+            {
+              "Key": "Location",
+              "Value": "38, 166"
+            },
+            {
+              "Key": "Size",
+              "Value": "48, 48"
+            },
+            {
+              "Key": "IsOn",
+              "Value": "False"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ToggleSwitch",
+          "Name": "ToggleSwitch1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ToggleSwitch1"
+            },
+            {
+              "Key": "Location",
+              "Value": "108, 175"
+            },
+            {
+              "Key": "Size",
+              "Value": "70, 34"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "RoundedButton",
+          "Name": "CountButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "CountButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "28, 244"
+            },
+            {
+              "Key": "Size",
+              "Value": "150, 48"
+            },
+            {
+              "Key": "Text",
+              "Value": "CONTAR"
+            },
+            {
+              "Key": "CornerRadius",
+              "Value": "18"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "RoundedButton",
+          "Name": "ColorsButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ColorsButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "194, 244"
+            },
+            {
+              "Key": "Size",
+              "Value": "164, 48"
+            },
+            {
+              "Key": "Text",
+              "Value": "TROCAR CORES"
+            },
+            {
+              "Key": "CornerRadius",
+              "Value": "18"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "GradientPanel",
+          "Name": "GradientPanel1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "GradientPanel1"
+            },
+            {
+              "Key": "Location",
+              "Value": "398, 24"
+            },
+            {
+              "Key": "Size",
+              "Value": "210, 268"
+            },
+            {
+              "Key": "StartColor",
+              "Value": "RoyalBlue"
+            },
+            {
+              "Key": "EndColor",
+              "Value": "MediumPurple"
+            },
+            {
+              "Key": "GradientAngle",
+              "Value": "45"
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private counter As Integer\n\n    Private Sub ToggleSwitch1_CheckedChanged() Handles ToggleSwitch1.CheckedChanged\n        LedIndicator1.IsOn = ToggleSwitch1.Checked\n        DigitalDisplay1.Value = If(ToggleSwitch1.Checked, \"LIGADO\", \"DESLIGADO\")\n    End Sub\n\n    Private Sub CountButton_Click() Handles CountButton.Click\n        counter += 1\n        DigitalDisplay1.Value = counter.ToString()\n        LedIndicator1.Toggle()\n    End Sub\n\n    Private Sub ColorsButton_Click() Handles ColorsButton.Click\n        GradientPanel1.SwapColors()\n        DigitalDisplay1.AppendValue(\".\")\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Painel de Controles",
+  "AssemblyDescription": "Demonstração dos controles customizados do FlowForge",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "Painel de Controles",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0"
+}

@@ -1,0 +1,524 @@
+{
+  "FormatVersion": 2,
+  "Name": "FormularioModerno",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Formulário Moderno"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "900, 520"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "350, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "FORMULÁRIO MODERNO"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 11pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "SearchLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SearchLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 65"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Pesquisa"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SearchBox",
+          "Name": "SearchBox1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SearchBox1"
+            },
+            {
+              "Key": "Location",
+              "Value": "130, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "310, 32"
+            },
+            {
+              "Key": "Placeholder",
+              "Value": "Digite e pressione Enter..."
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "PasswordLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PasswordLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 115"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Senha"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "PasswordBox",
+          "Name": "PasswordBox1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PasswordBox1"
+            },
+            {
+              "Key": "Location",
+              "Value": "130, 110"
+            },
+            {
+              "Key": "Size",
+              "Value": "220, 28"
+            },
+            {
+              "Key": "Text",
+              "Value": "flowforge"
+            },
+            {
+              "Key": "ShowPassword",
+              "Value": "False"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "ShowButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ShowButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "365, 108"
+            },
+            {
+              "Key": "Size",
+              "Value": "130, 32"
+            },
+            {
+              "Key": "Text",
+              "Value": "Mostrar/ocultar"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "IpLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "IpLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 165"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Endereço IP"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "IPAddressBox",
+          "Name": "IPAddressBox1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "IPAddressBox1"
+            },
+            {
+              "Key": "Location",
+              "Value": "130, 160"
+            },
+            {
+              "Key": "Size",
+              "Value": "160, 28"
+            },
+            {
+              "Key": "Text",
+              "Value": "192.168.001.100"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "IpStatus",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "IpStatus"
+            },
+            {
+              "Key": "Location",
+              "Value": "305, 163"
+            },
+            {
+              "Key": "Size",
+              "Value": "220, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "DateLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "DateLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 215"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Data"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ModernDatePicker",
+          "Name": "ModernDatePicker1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ModernDatePicker1"
+            },
+            {
+              "Key": "Location",
+              "Value": "130, 208"
+            },
+            {
+              "Key": "Size",
+              "Value": "220, 34"
+            },
+            {
+              "Key": "Format",
+              "Value": "Long"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "TagsLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TagsLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 270"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Tags"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "TagInput",
+          "Name": "TagInput1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TagInput1"
+            },
+            {
+              "Key": "Location",
+              "Value": "130, 260"
+            },
+            {
+              "Key": "Size",
+              "Value": "600, 70"
+            },
+            {
+              "Key": "Tags",
+              "Value": "VB.NET,WinForms,FlowForge"
+            },
+            {
+              "Key": "Placeholder",
+              "Value": "Digite uma tag e Enter"
+            },
+            {
+              "Key": "TagColor",
+              "Value": "LightSkyBlue"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "TabStripCustom",
+          "Name": "TabStripCustom1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TabStripCustom1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 365"
+            },
+            {
+              "Key": "Size",
+              "Value": "520, 40"
+            },
+            {
+              "Key": "Tabs",
+              "Value": "Geral,Conexão,Segurança,Avançado"
+            },
+            {
+              "Key": "SelectedIndex",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NavigationButton",
+          "Name": "PrevButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PrevButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "580, 360"
+            },
+            {
+              "Key": "Size",
+              "Value": "55, 48"
+            },
+            {
+              "Key": "Direction",
+              "Value": "Left"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NavigationButton",
+          "Name": "NextButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NextButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "650, 360"
+            },
+            {
+              "Key": "Size",
+              "Value": "55, 48"
+            },
+            {
+              "Key": "Direction",
+              "Value": "Right"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ImageButton",
+          "Name": "ImageButton1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ImageButton1"
+            },
+            {
+              "Key": "Location",
+              "Value": "730, 360"
+            },
+            {
+              "Key": "Size",
+              "Value": "140, 48"
+            },
+            {
+              "Key": "Text",
+              "Value": "Imagem"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "StatusLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StatusLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 450"
+            },
+            {
+              "Key": "Size",
+              "Value": "840, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Interaja com os controles acima."
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private Sub SearchBox1_Search() Handles SearchBox1.Search\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"Pesquisa solicitada por: \" & SearchBox1.Text\n    End Sub\n\n    Private Sub ShowButton_Click() Handles ShowButton.Click\n        PasswordBox1.ShowPassword = Not PasswordBox1.ShowPassword\n    End Sub\n\n    Private Sub IPAddressBox1_TextChanged() Handles IPAddressBox1.TextChanged\n        If IpStatus Is Nothing Then Return\n        IpStatus.Text = If(IPAddressBox1.IsValidAddress, \"IP válido\", \"IP incompleto/inválido\")\n    End Sub\n\n    Private Sub ModernDatePicker1_ValueChanged() Handles ModernDatePicker1.ValueChanged\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"Data escolhida: \" & ModernDatePicker1.Value.ToLongDateString()\n    End Sub\n\n    Private Sub TagInput1_TagsChanged() Handles TagInput1.TagsChanged\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"Tags cadastradas: \" & TagInput1.TagCount.ToString()\n    End Sub\n\n    Private Sub TabStripCustom1_SelectedIndexChanged() Handles TabStripCustom1.SelectedIndexChanged\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"Aba: \" & TabStripCustom1.SelectedTabText\n    End Sub\n\n    Private Sub PrevButton_Click() Handles PrevButton.Click\n        TabStripCustom1.SelectedIndex = Math.Max(0, TabStripCustom1.SelectedIndex - 1)\n    End Sub\n\n    Private Sub NextButton_Click() Handles NextButton.Click\n        TabStripCustom1.SelectedIndex = Math.Min(3, TabStripCustom1.SelectedIndex + 1)\n    End Sub\n\n    Private Sub ImageButton1_Click() Handles ImageButton1.Click\n        StatusLabel.Text = \"ImageButton também funciona como um botão normal.\"\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Formulário Moderno",
+  "AssemblyDescription": "Campos modernos e navegação",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "FormularioModerno",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Libraries": []
+}

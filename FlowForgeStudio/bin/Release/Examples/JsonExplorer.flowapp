@@ -1,0 +1,220 @@
+{
+  "FormatVersion": 2,
+  "Name": "JsonExplorer",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "JSON Explorer"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "900, 550"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "350, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "JSON EXPLORER"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 11pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SyntaxCodeEditor",
+          "Name": "SyntaxCodeEditor1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SyntaxCodeEditor1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "430, 400"
+            },
+            {
+              "Key": "Text",
+              "Value": "{\"produto\":\"FlowForge\",\"versao\":2,\"ativo\":true,\"recursos\":[\"designer\",\"vb.net\",\"iot\"]}"
+            },
+            {
+              "Key": "Language",
+              "Value": "Json"
+            },
+            {
+              "Key": "ShowLineNumbers",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "JsonTreeViewer",
+          "Name": "JsonTreeViewer1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "JsonTreeViewer1"
+            },
+            {
+              "Key": "Location",
+              "Value": "480, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "380, 400"
+            },
+            {
+              "Key": "JsonText",
+              "Value": "{\"produto\":\"FlowForge\",\"versao\":2,\"ativo\":true,\"recursos\":[\"designer\",\"vb.net\",\"iot\"]}"
+            },
+            {
+              "Key": "ShowRootLines",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "ParseButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ParseButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 480"
+            },
+            {
+              "Key": "Size",
+              "Value": "160, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Atualizar árvore"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "InvalidButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "InvalidButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "195, 480"
+            },
+            {
+              "Key": "Size",
+              "Value": "170, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Testar JSON inválido"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "StatusLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StatusLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "390, 482"
+            },
+            {
+              "Key": "Size",
+              "Value": "470, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Edite o JSON e clique em Atualizar árvore."
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private Sub ParseButton_Click() Handles ParseButton.Click\n        JsonTreeViewer1.JsonText = SyntaxCodeEditor1.Text\n        If JsonTreeViewer1.IsValid Then\n            StatusLabel.Text = \"JSON válido\"\n        Else\n            StatusLabel.Text = \"Erro: \" & JsonTreeViewer1.LastError\n        End If\n    End Sub\n\n    Private Sub InvalidButton_Click() Handles InvalidButton.Click\n        SyntaxCodeEditor1.Text = \"{\"\"nome\"\": \"\"FlowForge\"\", \"\"valor\"\": }\"\n        JsonTreeViewer1.JsonText = SyntaxCodeEditor1.Text\n    End Sub\n\n    Private Sub JsonTreeViewer1_JsonParsed() Handles JsonTreeViewer1.JsonParsed\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"JSON analisado com sucesso.\"\n    End Sub\n\n    Private Sub JsonTreeViewer1_JsonError() Handles JsonTreeViewer1.JsonError\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"Erro de JSON: \" & JsonTreeViewer1.LastError\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "JSON Explorer",
+  "AssemblyDescription": "Editor de código e árvore JSON",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "JsonExplorer",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Libraries": []
+}

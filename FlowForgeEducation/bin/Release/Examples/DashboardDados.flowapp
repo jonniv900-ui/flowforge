@@ -1,0 +1,306 @@
+{
+  "FormatVersion": 2,
+  "Name": "DashboardDados",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Dashboard de Dados"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "900, 520"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "350, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "DASHBOARD DE DADOS"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 11pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Sparkline",
+          "Name": "Sparkline1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Sparkline1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "520, 220"
+            },
+            {
+              "Key": "DataPoints",
+              "Value": "12,18,14,26,22,35,31,44,39,52"
+            },
+            {
+              "Key": "Title",
+              "Value": "Vendas por período"
+            },
+            {
+              "Key": "ShowLegend",
+              "Value": "True"
+            },
+            {
+              "Key": "LegendText",
+              "Value": "Vendas"
+            },
+            {
+              "Key": "LegendPosition",
+              "Value": "TopRight"
+            },
+            {
+              "Key": "ChartStyle",
+              "Value": "Area"
+            },
+            {
+              "Key": "ShowGrid",
+              "Value": "True"
+            },
+            {
+              "Key": "GridLines",
+              "Value": "4"
+            },
+            {
+              "Key": "ShowMinMax",
+              "Value": "True"
+            },
+            {
+              "Key": "ShowLastValue",
+              "Value": "True"
+            },
+            {
+              "Key": "ShowValueLabels",
+              "Value": "False"
+            },
+            {
+              "Key": "FillArea",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SimpleChart",
+          "Name": "SimpleChart1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SimpleChart1"
+            },
+            {
+              "Key": "Location",
+              "Value": "565, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "300, 220"
+            },
+            {
+              "Key": "DataPoints",
+              "Value": "8,16,11,27,21,36,32"
+            },
+            {
+              "Key": "ChartStyle",
+              "Value": "Bars"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LcdDisplay",
+          "Name": "LcdDisplay1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LcdDisplay1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 320"
+            },
+            {
+              "Key": "Size",
+              "Value": "300, 60"
+            },
+            {
+              "Key": "Value",
+              "Value": "52.0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SevenSegmentDigit",
+          "Name": "SevenSegmentDigit1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SevenSegmentDigit1"
+            },
+            {
+              "Key": "Location",
+              "Value": "350, 310"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 110"
+            },
+            {
+              "Key": "Value",
+              "Value": "7"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "RandomButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "RandomButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "490, 330"
+            },
+            {
+              "Key": "Size",
+              "Value": "170, 38"
+            },
+            {
+              "Key": "Text",
+              "Value": "Gerar novos dados"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "StyleButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StyleButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "680, 330"
+            },
+            {
+              "Key": "Size",
+              "Value": "170, 38"
+            },
+            {
+              "Key": "Text",
+              "Value": "Alternar gráfico"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "InfoLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "InfoLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 455"
+            },
+            {
+              "Key": "Size",
+              "Value": "830, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "Use os botões para atualizar os gráficos e displays."
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Collections.Generic\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private ReadOnly rng As New Random()\n\n    Private Sub RandomButton_Click() Handles RandomButton.Click\n        Dim values As New List(Of String)()\n        For i As Integer = 1 To 10\n            values.Add(rng.Next(10, 90).ToString())\n        Next\n        Sparkline1.DataPoints = String.Join(\",\", values)\n        SimpleChart1.DataPoints = Sparkline1.DataPoints\n        Dim lastValue As Integer = Integer.Parse(values(values.Count - 1))\n        LcdDisplay1.Value = lastValue.ToString()\n        SevenSegmentDigit1.Value = lastValue Mod 10\n        InfoLabel.Text = \"Último valor gerado: \" & lastValue.ToString()\n    End Sub\n\n    Private Sub StyleButton_Click() Handles StyleButton.Click\n        If SimpleChart1.ChartStyle = FlowForgeStudio.SimpleChartStyle.Line Then\n            SimpleChart1.ChartStyle = FlowForgeStudio.SimpleChartStyle.Bars\n            Sparkline1.ChartStyle = FlowForgeStudio.SparklineStyle.Bars\n        Else\n            SimpleChart1.ChartStyle = FlowForgeStudio.SimpleChartStyle.Line\n            Sparkline1.ChartStyle = FlowForgeStudio.SparklineStyle.Line\n        End If\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Dashboard de Dados",
+  "AssemblyDescription": "Sparkline, gráficos e displays",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "DashboardDados",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Libraries": []
+}

@@ -1,0 +1,138 @@
+# FlowForge Education 0.10.1 Preview
+
+Fork educacional independente do FlowForge Studio, escrito inteiramente em VB.NET Windows Forms e direcionado ao .NET Framework 4.8. A edição Studio permanece separada e não é substituída por este projeto.
+
+## Recursos educacionais
+
+- Display gráfico com modos de 7 segmentos, matriz de pontos e texto.
+- Sete novos controles visuais com propriedades, eventos e dicas educacionais contextuais.
+- Exemplo interativo de controles avançados para aprender eventos e ligação entre componentes.
+- Painel de telemetria para aprender sensores, porcentagens, estados e ligação entre eventos.
+- Editores completos para criar documentos formatados e ensinar código com destaque de sintaxe e números de linha.
+- Lista própria de projetos recentes e abertura de `.flowapp` por arrastar e soltar.
+- Proteção contra perda de alterações ao criar, abrir ou fechar projetos.
+- `Ctrl+Shift+S` para Salvar como, abertura da pasta e cópia do caminho do projeto.
+- Quiz interativo com seis perguntas sobre fundamentos do Visual Basic.
+- Conclusão do quiz integrada ao progresso quando o aluno alcança a nota mínima.
+- Caderno pessoal persistente para anotações e ideias de aplicativos.
+- Guia integrado com atalhos do editor, designer e compilação.
+- Explicador ampliado para Function, Return, Select Case, coleções, arquivos, objetos e TryParse.
+- Acessos diretos aos novos módulos pelo menu Aprender.
+- Recuperação automática a cada minuto, oferecida após encerramento inesperado.
+- Diagnóstico de saúde do projeto: Form inicial, nomes inválidos, duplicidades e código ausente.
+- Projeto guiado com dois Forms, demonstrando `ShowDialog` e `Close`.
+- Exportação do relatório de progresso para arquivo de texto.
+- Mapa do código que identifica Imports, rotinas, eventos e variáveis.
+- Catálogo integrado de erros comuns com explicações em linguagem simples.
+- Painel Meu Progresso com quatro níveis de medalhas.
+- Zoom acessível do editor entre 8 e 28 pontos.
+- Projetos guiados adicionais: Lista de Tarefas e Adivinhe o Número.
+- Novos blocos guiados: InputBox, listas, cores e Functions.
+- Verificação adicional de blocos For/Next e While/End While.
+- Sete projetos guiados para começar: Olá Mundo, contador, semáforo, quiz, lista de tarefas, adivinhação e aplicativo com dois Forms.
+- Verificador amigável de estrutura do código VB, disponível no menu Aprender e na barra de ferramentas.
+- Dicas contextuais sobre o componente selecionado na barra de status.
+- Progresso local para aulas e desafios, com conquistas por marcos de aprendizado.
+- Central de Aprendizado interativa com atividades que podem ser marcadas como concluídas.
+- Corrigida a tipagem do item **Modo iniciante** para compilação com `Option Strict On`.
+- Modo Iniciante ativado por padrão, com caixa de ferramentas reduzida aos componentes essenciais.
+- Modo Avançado libera os menus de projeto, formatação, bibliotecas, OCX e demais ferramentas profissionais.
+- Central de Aprendizado com introdução, oito aulas, glossário, desafios graduados e explicador de código.
+- Primeiro tutorial aberto automaticamente apenas na primeira execução.
+- Menu **Aprender** e botões de acesso rápido na barra de ferramentas.
+- Inserção guiada de MessageBox, If/Else, For, Try/Catch e abertura de outro Form.
+- Explicação local do código selecionado ou do método onde está o cursor.
+- Erros de compilação acompanhados de dicas em linguagem simples para crianças.
+- Exemplos classificados visualmente por dificuldade: uma, duas ou três estrelas.
+- Projeto inicial chamado `MeuProjeto`, com comentários que orientam o primeiro evento.
+- Componente Timer apresentado como relógio, adequado para animações, contadores e jogos.
+- Executável e solução próprios: `FlowForgeEducation.exe` e `FlowForgeEducation.sln`.
+
+## Recursos
+
+- Corrigido o conflito entre variáveis chamadas `path` e a classe `System.IO.Path`, que impedia a compilação do FlowForge 0.34.
+- Geração opcional de EXE único com imagens, textos, JSON, DLLs .NET e DLLs nativas incorporados como recursos.
+- Carregador de runtime gerado automaticamente: restaura recursos em uma pasta privada versionada e resolve assemblies .NET sem configuração manual.
+- DLLs nativas x86/x64 são selecionadas conforme a arquitetura do processo e disponibilizadas ao carregador do Windows antes da abertura do primeiro Form.
+- API gerada para o código do aplicativo: `FlowForgeResources.GetPath`, `GetBytes` e `GetImage`.
+- Cada arquivo anexado pode alternar entre **Dentro do EXE** e **Ao lado do EXE**.
+- Gerenciador de bibliotecas incorporadas em **Projeto > Bibliotecas incorporadas**.
+- DLLs gerenciadas e nativas são armazenadas em Base64 dentro do `.flowapp`, tornando o projeto portátil.
+- Referências .NET incorporadas participam automaticamente da compilação; arquivos nativos/runtime são copiados sem serem enviados ao compilador.
+- Destinos relativos como `x86\pdfium.dll` e `x64\pdfium.dll` são preservados na pasta do aplicativo gerado.
+- Bibliotecas de controles importadas pela caixa de ferramentas passam a ser incorporadas automaticamente ao projeto.
+- O Explorador do Projeto exibe a lista de bibliotecas, seu destino e a distinção entre referência e runtime.
+- Incluído o projeto `FlowPDFViewer_PDFium.flowapp`, preparado para exibir páginas PDF em `PictureBox`; consulte `PDFIUM_NO_FLOWFORGE.md` para incorporar os três binários necessários.
+- Projetos com vários Forms e escolha do Form inicial.
+- Forms do projeto podem ser chamados diretamente com `Form2.Show()`, `Form2.ShowDialog()` ou por uma nova instância com `Dim janela As New Form2()`.
+- Caixa de ferramentas ampliada com RichTextBox, MaskedTextBox, ColorComboBox, RadioButton, LinkLabel, CheckedListBox, TreeView, ListView, NumericUpDown, DomainUpDown, MonthCalendar, barras de rolagem e novos contêineres.
+- Corrigida a geração do evento `SelectedColorChanged` do ColorComboBox para o compilador VB.NET Framework 4.8.
+- Novo menu **Exemplos** com FlowPaint e Mini Editor de Texto, carregados como projetos editáveis sem sobrescrever os originais.
+- A propriedade `Name` agora aparece na categoria **Design** para Forms, controles, componentes e itens de MenuStrip/ToolStrip.
+- Corrigido o filtro do PropertyGrid que ainda removia `Name` antes de aplicar o descritor visível.
+- O adaptador de propriedades agora preserva integralmente a coleção original e acrescenta somente `Name` quando necessário.
+- Propriedades de texto com várias linhas agora são geradas como expressões VB.NET válidas.
+- Mini HTML Renderer 1.2 com campo de URL, acesso assíncrono a páginas HTTP/HTTPS e tratamento de falhas de rede.
+- Categoria **Web** no menu Exemplos com Mini HTML Renderer e Mini HTML Renderer Web; ambos são copiados automaticamente para a saída da compilação.
+- Componente não visual **SerialConnection** para Arduino e outros dispositivos seriais, com propriedades de porta, velocidade, formato, timeouts e eventos de recepção/erro.
+- Exemplo **Serial Console** com descoberta de portas COM, baud rates usuais, conexão, terminal, envio de linhas e limpeza da saída.
+- Corrigida a geração do componente serial: `SerialConnection` é traduzido para `System.IO.Ports.SerialPort` na declaração e na instanciação do Form compilado.
+- Seis novos exemplos: Visualizador de Imagens, Leitor de CSV, Cronômetro, Informações do Sistema, Cliente TCP e Controle de LED Arduino.
+- Menu de exemplos ampliado para 21 projetos e nova categoria **Rede**.
+- Caixa de ferramentas com busca instantânea por nome, tipo ou categoria.
+- Novo menu **Formatar** com duplicação, centralização horizontal/vertical e controle de ordem visual.
+- Movimento preciso com as setas, movimento pela grade com `Ctrl + setas` e redimensionamento com `Shift + setas`.
+- Painéis do Explorador, Caixa de Ferramentas e Propriedades podem ser recolhidos; comando para restaurar o layout.
+- Barra de status ampliada com Form ativo, componente selecionado e posição do cursor no código.
+- Tamanho da grade configurável em 5, 8, 10 ou 16 pixels.
+- Corrigidos os exemplos Leitor de CSV, Visualizador de Imagens e Controle de LED Arduino; código expandido, handlers tipados e sobrecargas resolvidas explicitamente.
+- Corrigido o evento `KeyDown` da pesquisa da caixa de ferramentas, agora implementado por um método VB.NET normal em vez de uma lambda com `If/ElseIf` de linha única.
+- Corrigidas as três chamadas das rotinas de formatação para usar o método existente `PositionHandles`, eliminando os erros BC30451 em `DesignerSurface.vb`.
+- Exemplo Informações do Sistema 1.0.1 reescrito com blocos VB.NET completos, variáveis tipadas e tratamento seguro das unidades.
+- Editor com régua externa de números de linha, sincronizada com rolagem, cursor, fonte e redimensionamento.
+- Linha atual destacada na régua e navegação direta ao clicar sobre um número.
+- Corrigida a chamada `Select` da navegação por linha para `Me.Select`, impedindo que o compilador a interprete como uma instrução `Select Case`.
+- Novo exemplo Calculadora Científica com 57 componentes, teclado, histórico, memória, modos graus/radianos e funções matemáticas avançadas.
+- Corrigido o layout do exemplo Mini Editor para impedir que o RichTextBox cubra menus e barras.
+- Corrigida a persistência de MenuStrip/ToolStrip: estados transitórios `Visible`, `Available`, `Selected` e `Pressed` não ocultam mais controles ou itens no EXE.
+- Menus com subitens agora abrem no próprio designer ao serem selecionados.
+- Terceiro projeto oficial no menu **Exemplos**: FlowExplorer, demonstrando TreeView, ListView e ComboBox em um explorador de arquivos funcional.
+- O compilador de projetos agora ativa `Option Infer` e `Option Explicit`; corrigida também a tipagem explícita do exemplo FlowExplorer.
+- Menu **Exemplos** reorganizado em Básicos, Produtividade e Jogos, com 12 projetos `.flowapp` editáveis.
+- Novos exemplos da comunidade: Calculadora, Conversor de Temperatura, Adivinhe o Número, Lista de Tarefas, Clicker Game, Flappy Bird, Jogo da Forca e Jogo da Velha para dois jogadores ou contra IA.
+- Adicionar, duplicar e excluir Forms.
+- Designer WYSIWYG com controles WinForms reais.
+- Arrastar da caixa de ferramentas, mover e redimensionar com oito alças.
+- Redimensionar o Form pelo canto inferior direito.
+- `PropertyGrid` nativo com todas as propriedades públicas do Form e dos componentes.
+- Duplo clique abre o evento padrão; botão direito lista todos os eventos do controle.
+- Editor VB.NET com realce de sintaxe e exemplos.
+- Salvamento `.flowapp` em JSON.
+- Compilação da prévia pelo `VBCodeProvider` do .NET Framework, sem SDK .NET 8.
+- Layout redimensionável normalizado após a abertura da janela.
+- Exemplos inseridos dentro do método atual ou em um novo método válido.
+- Erros de compilação identificam o arquivo e a linha do projeto.
+- Interface de IDE com menus completos, atalhos e barras de ferramentas com ícones.
+- Componentes OpenFileDialog, SaveFileDialog, FolderBrowserDialog, ColorDialog, FontDialog e diálogos de impressão.
+- Importação de controles e componentes de bibliotecas .NET pelo menu Ferramentas ou pelo menu da caixa de ferramentas.
+- Importação de ActiveX/OCX por meio do AxImp do SDK do .NET Framework.
+- Autocompletar VB.NET durante a digitação e acionamento manual por `Ctrl+Espaço`.
+- Sugestões de palavras-chave, APIs, Forms e componentes do projeto.
+- Autocompletar contextual por reflexão: ao digitar `PictureBox1.`, lista propriedades, métodos e eventos reais do tipo `PictureBox`.
+- Suporte contextual também para Forms, diálogos, componentes não visuais e controles importados de DLLs.
+- Editor sem cintilação durante o realce: o redesenho é suspenso e a rolagem/caret são preservados.
+- Números de linha, indicador de linha/coluna e cores distintas para métodos, tipos, palavras-chave, strings, comentários e números.
+- MenuStrip, ToolStrip (toolbar) e StatusStrip disponíveis na caixa de ferramentas.
+- Inserção de MenuItem, botão, separador, label, TextBox, ComboBox, DropDownButton, SplitButton, StatusLabel e ProgressBar.
+- Itens e submenus editáveis pelo PropertyGrid, com eventos, persistência e geração no executável final.
+- Janela de compilação com destino, ícone ICO, título, descrição, empresa, produto, copyright, marca e versões.
+- Metadados gravados como atributos reais do assembly e ícone incorporado ao EXE com `/win32icon`.
+- Título principal simplificado para `FlowForge - NomeDoProjeto` e guia renomeada para `CÓDIGO`.
+- Renomear projeto, localizar/substituir, navegar entre ocorrências, ir para linha e comentar/descomentar seleção.
+- Autoindentação inteligente ao pressionar Enter em estruturas VB.NET.
+- O nome `NovoProjeto` é substituído automaticamente pelo nome do arquivo ao abrir ou salvar um projeto.
+- Comando `Gerar EXE` com escolha de destino, configuração do .NET Framework 4.8 e cópia das dependências externas.
+
+## Compilar
+
+Abra `FlowForgeStudio.sln` no Visual Studio 2026 com o Developer Pack/Targeting Pack do .NET Framework 4.8, ou execute `build_release.bat`.

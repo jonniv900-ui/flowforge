@@ -1,0 +1,568 @@
+{
+  "Name": "FlowPDFViewerPDFium",
+  "Version": "1.2.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "FlowPDF Viewer PDFium"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "1100, 700"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "760, 520"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "FormBorderStyle",
+          "Value": "Sizable"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "Control"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        },
+        {
+          "Key": "KeyPreview",
+          "Value": "True"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "ToolStrip",
+          "Name": "barraFerramentas",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "barraFerramentas"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "Size",
+              "Value": "1100, 34"
+            },
+            {
+              "Key": "Dock",
+              "Value": "Top"
+            },
+            {
+              "Key": "GripStyle",
+              "Value": "Hidden"
+            }
+          ],
+          "Items": [
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnAbrir",
+              "Text": "Abrir PDF",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnAbrir"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Abrir PDF"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Abrir documento PDF"
+                },
+                {
+                  "Key": "DisplayStyle",
+                  "Value": "ImageAndText"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripSeparator",
+              "Name": "sep1",
+              "Text": "-",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "sep1"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "-"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnPrimeira",
+              "Text": "|◀",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnPrimeira"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "|◀"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Primeira página"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnAnterior",
+              "Text": "◀",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnAnterior"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "◀"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Página anterior"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripLabel",
+              "Name": "lblPagina",
+              "Text": "Página",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "lblPagina"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Página"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripTextBox",
+              "Name": "txtPagina",
+              "Text": "1",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "txtPagina"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "1"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Número da página"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripLabel",
+              "Name": "lblTotal",
+              "Text": "de 0",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "lblTotal"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "de 0"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnProxima",
+              "Text": "▶",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnProxima"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "▶"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Próxima página"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnUltima",
+              "Text": "▶|",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnUltima"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "▶|"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Última página"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripSeparator",
+              "Name": "sep2",
+              "Text": "-",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "sep2"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "-"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnMenos",
+              "Text": "−",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnMenos"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "−"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Diminuir zoom"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripLabel",
+              "Name": "lblZoom",
+              "Text": "100%",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "lblZoom"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "100%"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnMais",
+              "Text": "+",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnMais"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "+"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Aumentar zoom"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnAjustar",
+              "Text": "Ajustar",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnAjustar"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Ajustar"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Ajustar página à janela"
+                },
+                {
+                  "Key": "CheckOnClick",
+                  "Value": "True"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripSeparator",
+              "Name": "sep3",
+              "Text": "-",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "sep3"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "-"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnGirarEsquerda",
+              "Text": "↶",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnGirarEsquerda"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "↶"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Girar para a esquerda"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "btnGirarDireita",
+              "Text": "↷",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "btnGirarDireita"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "↷"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Girar para a direita"
+                }
+              ],
+              "DropDownItems": []
+            }
+          ]
+        },
+        {
+          "TypeName": "Panel",
+          "Name": "painelRolagem",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "painelRolagem"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 34"
+            },
+            {
+              "Key": "Size",
+              "Value": "1100, 644"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Bottom, Left, Right"
+            },
+            {
+              "Key": "AutoScroll",
+              "Value": "True"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "DimGray"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "Fixed3D"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "PictureBox",
+          "Name": "imagemPagina",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "imagemPagina"
+            },
+            {
+              "Key": "Location",
+              "Value": "16, 16"
+            },
+            {
+              "Key": "Size",
+              "Value": "780, 580"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "White"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "FixedSingle"
+            },
+            {
+              "Key": "SizeMode",
+              "Value": "AutoSize"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "StatusStrip",
+          "Name": "barraStatus",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "barraStatus"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 678"
+            },
+            {
+              "Key": "Size",
+              "Value": "1100, 22"
+            },
+            {
+              "Key": "Dock",
+              "Value": "Bottom"
+            }
+          ],
+          "Items": [
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "statusArquivo",
+              "Text": "Nenhum PDF aberto",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "statusArquivo"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Nenhum PDF aberto"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "statusMotor",
+              "Text": "Renderizador: procurando...",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "statusMotor"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Renderizador: procurando..."
+                },
+                {
+                  "Key": "Spring",
+                  "Value": "True"
+                },
+                {
+                  "Key": "TextAlign",
+                  "Value": "MiddleRight"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "statusTamanho",
+              "Text": "",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "statusTamanho"
+                },
+                {
+                  "Key": "Text",
+                  "Value": ""
+                }
+              ],
+              "DropDownItems": []
+            }
+          ]
+        }
+      ],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Drawing.Drawing2D\nImports System.IO\nImports System.Windows.Forms\nImports PdfiumViewer\n\nPartial Public Class Form1\n    Private documento As PdfDocument\n    Private arquivoAtual As String = \"\"\n    Private paginaAtual As Integer = 0\n    Private zoom As Single = 1.0F\n    Private rotacao As Integer = 0\n    Private imagemOriginal As Bitmap\n\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\n        painelRolagem.Controls.Add(imagemPagina)\n        statusMotor.Text = \"Renderizador: PDFium incorporado\"\n        AtualizarInterface()\n    End Sub\n\n    Private Sub Abrir_Click(sender As Object, e As EventArgs) Handles btnAbrir.Click\n        Using janela As New OpenFileDialog()\n            janela.Filter = \"Documentos PDF|*.pdf\"\n            janela.Title = \"Abrir documento PDF\"\n            If janela.ShowDialog(Me) <> DialogResult.OK Then\n                Return\n            End If\n            AbrirDocumento(janela.FileName)\n        End Using\n    End Sub\n\n    Private Sub AbrirDocumento(caminho As String)\n        Cursor = Cursors.WaitCursor\n        Try\n            FecharDocumento()\n            documento = PdfDocument.Load(caminho)\n            arquivoAtual = caminho\n            paginaAtual = 1\n            zoom = 1.0F\n            rotacao = 0\n            btnAjustar.Checked = True\n            statusArquivo.Text = Path.GetFileName(caminho)\n            Text = \"FlowPDF Viewer PDFium - \" & Path.GetFileName(caminho)\n            RenderizarPagina()\n        Catch ex As Exception\n            FecharDocumento()\n            MessageBox.Show(\"Não foi possível abrir o PDF.\" & Environment.NewLine & Environment.NewLine & ex.Message, \"FlowPDF Viewer\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n        Finally\n            Cursor = Cursors.Default\n        End Try\n    End Sub\n\n    Private Sub RenderizarPagina()\n        If documento Is Nothing OrElse paginaAtual < 1 Then\n            Return\n        End If\n        Cursor = Cursors.WaitCursor\n        Try\n            Dim indice As Integer = paginaAtual - 1\n            Dim tamanho As SizeF = documento.PageSizes(indice)\n            Dim dpi As Single = 150.0F\n            Dim largura As Integer = Math.Max(1, CInt(tamanho.Width * dpi / 72.0F))\n            Dim altura As Integer = Math.Max(1, CInt(tamanho.Height * dpi / 72.0F))\n            Using renderizada As Image = documento.Render(indice, largura, altura, dpi, dpi, PdfRenderFlags.Annotations)\n                SubstituirImagemOriginal(New Bitmap(renderizada))\n            End Using\n            rotacao = 0\n            AtualizarImagemExibida()\n            AtualizarInterface()\n        Catch ex As Exception\n            MessageBox.Show(\"Não foi possível renderizar a página \" & paginaAtual.ToString() & \".\" & Environment.NewLine & Environment.NewLine & ex.Message, \"FlowPDF Viewer\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n        Finally\n            Cursor = Cursors.Default\n        End Try\n    End Sub\n\n    Private Sub SubstituirImagemOriginal(novaImagem As Bitmap)\n        If imagemOriginal IsNot Nothing Then\n            imagemOriginal.Dispose()\n        End If\n        imagemOriginal = novaImagem\n    End Sub\n\n    Private Sub AtualizarImagemExibida()\n        If imagemOriginal Is Nothing Then\n            Return\n        End If\n        Dim escala As Single = zoom\n        If btnAjustar.Checked Then\n            Dim larguraDisponivel As Integer = Math.Max(100, painelRolagem.ClientSize.Width - 36)\n            Dim alturaDisponivel As Integer = Math.Max(100, painelRolagem.ClientSize.Height - 36)\n            escala = Math.Min(CSng(larguraDisponivel) / imagemOriginal.Width, CSng(alturaDisponivel) / imagemOriginal.Height)\n            escala = Math.Min(escala, 1.0F)\n        End If\n        Dim largura As Integer = Math.Max(1, CInt(imagemOriginal.Width * escala))\n        Dim altura As Integer = Math.Max(1, CInt(imagemOriginal.Height * escala))\n        Dim exibida As New Bitmap(largura, altura)\n        Using desenho As Graphics = Graphics.FromImage(exibida)\n            desenho.Clear(Color.White)\n            desenho.InterpolationMode = InterpolationMode.HighQualityBicubic\n            desenho.DrawImage(imagemOriginal, New Rectangle(0, 0, largura, altura))\n        End Using\n        Dim anterior As Image = imagemPagina.Image\n        imagemPagina.Image = exibida\n        imagemPagina.Size = exibida.Size\n        imagemPagina.Location = New Point(Math.Max(12, (painelRolagem.ClientSize.Width - largura) \\ 2), 12)\n        If anterior IsNot Nothing Then\n            anterior.Dispose()\n        End If\n        lblZoom.Text = CInt(escala * 100.0F).ToString() & \"%\"\n        statusTamanho.Text = largura.ToString() & \" × \" & altura.ToString() & \" px\"\n    End Sub\n\n    Private Sub AtualizarInterface()\n        Dim aberto As Boolean = documento IsNot Nothing\n        Dim total As Integer = If(aberto, documento.PageCount, 0)\n        btnPrimeira.Enabled = aberto AndAlso paginaAtual > 1\n        btnAnterior.Enabled = aberto AndAlso paginaAtual > 1\n        btnProxima.Enabled = aberto AndAlso paginaAtual < total\n        btnUltima.Enabled = aberto AndAlso paginaAtual < total\n        btnMenos.Enabled = aberto\n        btnMais.Enabled = aberto\n        btnAjustar.Enabled = aberto\n        btnGirarEsquerda.Enabled = aberto\n        btnGirarDireita.Enabled = aberto\n        txtPagina.Enabled = aberto\n        txtPagina.Text = If(aberto, paginaAtual.ToString(), \"\")\n        lblTotal.Text = \"de \" & total.ToString()\n    End Sub\n\n    Private Sub IrParaPagina(numero As Integer)\n        If documento Is Nothing Then\n            Return\n        End If\n        numero = Math.Max(1, Math.Min(numero, documento.PageCount))\n        If numero = paginaAtual AndAlso imagemOriginal IsNot Nothing Then\n            Return\n        End If\n        paginaAtual = numero\n        RenderizarPagina()\n    End Sub\n\n    Private Sub Primeira_Click(sender As Object, e As EventArgs) Handles btnPrimeira.Click\n        IrParaPagina(1)\n    End Sub\n\n    Private Sub Anterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click\n        IrParaPagina(paginaAtual - 1)\n    End Sub\n\n    Private Sub Proxima_Click(sender As Object, e As EventArgs) Handles btnProxima.Click\n        IrParaPagina(paginaAtual + 1)\n    End Sub\n\n    Private Sub Ultima_Click(sender As Object, e As EventArgs) Handles btnUltima.Click\n        If documento IsNot Nothing Then\n            IrParaPagina(documento.PageCount)\n        End If\n    End Sub\n\n    Private Sub Pagina_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPagina.KeyDown\n        If e.KeyCode <> Keys.Enter Then\n            Return\n        End If\n        Dim numero As Integer\n        If Integer.TryParse(txtPagina.Text, numero) Then\n            IrParaPagina(numero)\n        Else\n            txtPagina.Text = paginaAtual.ToString()\n        End If\n        e.SuppressKeyPress = True\n    End Sub\n\n    Private Sub Mais_Click(sender As Object, e As EventArgs) Handles btnMais.Click\n        btnAjustar.Checked = False\n        zoom = Math.Min(4.0F, zoom + 0.15F)\n        AtualizarImagemExibida()\n    End Sub\n\n    Private Sub Menos_Click(sender As Object, e As EventArgs) Handles btnMenos.Click\n        btnAjustar.Checked = False\n        zoom = Math.Max(0.1F, zoom - 0.15F)\n        AtualizarImagemExibida()\n    End Sub\n\n    Private Sub Ajustar_Click(sender As Object, e As EventArgs) Handles btnAjustar.Click\n        AtualizarImagemExibida()\n    End Sub\n\n    Private Sub GirarEsquerda_Click(sender As Object, e As EventArgs) Handles btnGirarEsquerda.Click\n        If imagemOriginal Is Nothing Then\n            Return\n        End If\n        imagemOriginal.RotateFlip(RotateFlipType.Rotate270FlipNone)\n        rotacao = (rotacao + 270) Mod 360\n        AtualizarImagemExibida()\n    End Sub\n\n    Private Sub GirarDireita_Click(sender As Object, e As EventArgs) Handles btnGirarDireita.Click\n        If imagemOriginal Is Nothing Then\n            Return\n        End If\n        imagemOriginal.RotateFlip(RotateFlipType.Rotate90FlipNone)\n        rotacao = (rotacao + 90) Mod 360\n        AtualizarImagemExibida()\n    End Sub\n\n    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize\n        If btnAjustar.Checked AndAlso imagemOriginal IsNot Nothing Then\n            AtualizarImagemExibida()\n        End If\n    End Sub\n\n    Private Sub FecharDocumento()\n        If imagemPagina.Image IsNot Nothing Then\n            imagemPagina.Image.Dispose()\n            imagemPagina.Image = Nothing\n        End If\n        If imagemOriginal IsNot Nothing Then\n            imagemOriginal.Dispose()\n            imagemOriginal = Nothing\n        End If\n        If documento IsNot Nothing Then\n            documento.Dispose()\n            documento = Nothing\n        End If\n        arquivoAtual = \"\"\n        paginaAtual = 0\n        AtualizarInterface()\n    End Sub\n\n    Private Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed\n        FecharDocumento()\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "FlowPDF Viewer PDFium",
+  "AssemblyDescription": "Visualizador portátil de PDF com PDFium incorporado ao EXE",
+  "AssemblyCompany": "Wtec",
+  "AssemblyProduct": "FlowPDFViewerPDFium",
+  "AssemblyCopyright": "Copyright © 2026",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.2.0.0",
+  "FileVersion": "1.2.0.0",
+  "Description": "Visualizador PDFium paginado em PictureBox, preparado para EXE único",
+  "Libraries": []
+}
