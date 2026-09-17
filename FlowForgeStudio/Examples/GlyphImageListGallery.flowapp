@@ -1,0 +1,228 @@
+{
+  "Name": "GlyphImageListGallery",
+  "Version": "1.0.0",
+  "FormatVersion": 2,
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "GlyphImageList — 480 glyphs"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "920, 580"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 12"
+            },
+            {
+              "Key": "Size",
+              "Value": "860, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "GLYPH IMAGELIST — catálogo dinâmico"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 14pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "InfoLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "InfoLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 45"
+            },
+            {
+              "Key": "Size",
+              "Value": "860, 35"
+            },
+            {
+              "Key": "Text",
+              "Value": "Escolha uma categoria. Os glyphs são gerados por GDI+ em runtime."
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ComboBox",
+          "Name": "CategoryBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "CategoryBox"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 82"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 28"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ComboBox",
+          "Name": "ThemeBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ThemeBox"
+            },
+            {
+              "Key": "Location",
+              "Value": "210, 82"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 28"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "LoadButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LoadButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "402, 80"
+            },
+            {
+              "Key": "Size",
+              "Value": "130, 32"
+            },
+            {
+              "Key": "Text",
+              "Value": "Carregar"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "FlowLayoutPanel",
+          "Name": "GalleryPanel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "GalleryPanel"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 125"
+            },
+            {
+              "Key": "Size",
+              "Value": "860, 420"
+            },
+            {
+              "Key": "AutoScroll",
+              "Value": "True"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "White"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "FixedSingle"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "GlyphImageList",
+          "Name": "Glyphs1",
+          "AssemblyPath": "",
+          "IsNonVisual": true,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Glyphs1"
+            },
+            {
+              "Key": "GlyphSize",
+              "Value": "24"
+            },
+            {
+              "Key": "Theme",
+              "Value": "Modern"
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports FlowForgeStudio\nImports System\nImports System.Drawing\nImports System.Windows.Forms\n' EXEMPLO COMENTADO do GlyphImageList. Não existem PNGs externos.\nPartial Public Class Form1\n    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load\n        CategoryBox.Items.AddRange(New Object() {\"File\",\"Edit\",\"Text\",\"Navigation\",\"UI\",\"Image\",\"Media\",\"Network\",\"Hardware\",\"Database\",\"Development\",\"IoT\",\"Security\",\"System\",\"Status\",\"Office\"})\n        CategoryBox.SelectedIndex = 0\n        ThemeBox.Items.AddRange(New Object() {\"Modern\",\"Office2003\",\"Classic\",\"Windows9x\",\"Dark\",\"Monochrome\"})\n        ThemeBox.SelectedIndex = 0\n        FillGallery()\n    End Sub\n    Private Sub LoadButton_Click(sender As Object, e As System.EventArgs) Handles LoadButton.Click\n        Dim selectedTheme As FlowForgeStudio.GlyphTheme\n        If [Enum].TryParse(Of FlowForgeStudio.GlyphTheme)(ThemeBox.Text, selectedTheme) Then Glyphs1.Theme = selectedTheme\n        FillGallery()\n    End Sub\n    Private Sub FillGallery()\n        GalleryPanel.Controls.Clear()\n        Dim prefix As String = CategoryBox.Text & \"_\"\n        ' Percorre o enum completo e filtra pela categoria.\n        For Each glyph As FlowForgeStudio.GlyphType In [Enum].GetValues(GetType(FlowForgeStudio.GlyphType))\n            If Not glyph.ToString().StartsWith(prefix, StringComparison.OrdinalIgnoreCase) Then Continue For\n            Dim b As New Button()\n            b.Width=150 : b.Height=54\n            b.Text=glyph.ToString().Substring(prefix.Length)\n            b.TextImageRelation=TextImageRelation.ImageBeforeText\n            b.Image=Glyphs1.GetGlyph(glyph)\n            b.Tag=glyph\n            AddHandler b.Click, AddressOf GlyphButtonClick\n            GalleryPanel.Controls.Add(b)\n        Next\n    End Sub\n    Private Sub GlyphButtonClick(sender As Object, e As System.EventArgs)\n        Dim b As Button=DirectCast(sender,Button)\n        MessageBox.Show(\"FlowForgeStudio.GlyphType.\" & b.Tag.ToString(),\"Glyph selecionado\")\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "GlyphImageList — 480 glyphs",
+  "AssemblyDescription": "Exemplo comentado dos componentes customizados do FlowForge",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "GlyphImageList — 480 glyphs",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0"
+}

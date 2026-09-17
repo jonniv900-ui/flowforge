@@ -973,6 +973,11 @@ Namespace FlowForgeStudio
             If typeName = "ColorSwatch" Then Return New Size(70, 45)
             If typeName = "NavigationButton" Then Return New Size(48, 48)
             If typeName = "MarqueeLabel" Then Return New Size(240, 32)
+            If typeName = "FontPreviewComboBox" Then Return New Size(190, 28)
+            If typeName = "ToastNotification" Then Return New Size(280, 48)
+            If typeName = "Accordion" Then Return New Size(260, 220)
+            If typeName = "ProgressStepper" Then Return New Size(360, 60)
+            If typeName = "TerminalView" Then Return New Size(400, 220)
             If typeName = "RichTextEditor" Then Return New Size(480, 300)
             If typeName = "SyntaxCodeEditor" Then Return New Size(520, 320)
             If typeName = "Sparkline" Then Return New Size(220, 90)
@@ -1026,6 +1031,11 @@ Namespace FlowForgeStudio
                 Case "ColorSwatch" : Return New ColorSwatch()
                 Case "NavigationButton" : Return New NavigationButton()
                 Case "MarqueeLabel" : Return New MarqueeLabel()
+                Case "FontPreviewComboBox" : Return New FontPreviewComboBox()
+                Case "ToastNotification" : Return New ToastNotification()
+                Case "Accordion" : Return New Accordion()
+                Case "ProgressStepper" : Return New ProgressStepper()
+                Case "TerminalView" : Return New TerminalView()
                 Case "RichTextEditor" : Return New RichTextEditor()
                 Case "SyntaxCodeEditor" : Return New SyntaxCodeEditor()
                 Case "Sparkline" : Return New Sparkline()
@@ -1155,6 +1165,7 @@ Namespace FlowForgeStudio
             Dim type As Type
             If String.IsNullOrWhiteSpace(assemblyPath) Then
                 If typeName.Equals("SerialConnection", StringComparison.OrdinalIgnoreCase) Then Return New SerialConnection()
+                If typeName.Equals("GlyphImageList", StringComparison.OrdinalIgnoreCase) Then Return New GlyphImageList()
                 type = GetType(Form).Assembly.GetType("System.Windows.Forms." & typeName, True, True)
             Else
                 type = Assembly.LoadFrom(assemblyPath).GetType(typeName, True, True)

@@ -1,1 +1,1984 @@
-{"ApplicationIcon":"","AssemblyCompany":"Wtec","AssemblyCopyright":"Copyright © 2026","AssemblyDescription":"Jogo da Velha contra Computador em Windows Forms","AssemblyProduct":"JogoDaVelhaIAVB","AssemblyTitle":"JogoDaVelhaIAVB","AssemblyTrademark":"","AssemblyVersion":"1.0.0.0","FileVersion":"1.0.0.0","Forms":[{"Code":"Imports System\nImports System.Drawing\nImports System.Windows.Forms\nImports System.Collections.Generic\n\nPartial Public Class Form1\n\n    Private buttons(2, 2) As Button\n    Private moveCount As Integer = 0\n    Private gameActive As Boolean = True\n    Private rand As New Random()\n\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\n        buttons(0, 0) = btn00 : buttons(0, 1) = btn01 : buttons(0, 2) = btn02\n        buttons(1, 0) = btn10 : buttons(1, 1) = btn11 : buttons(1, 2) = btn12\n        buttons(2, 0) = btn20 : buttons(2, 1) = btn21 : buttons(2, 2) = btn22\n    End Sub\n\n    Private Sub Cell_Click(sender As Object, e As EventArgs) Handles btn00.Click, btn01.Click, btn02.Click, btn10.Click, btn11.Click, btn12.Click, btn20.Click, btn21.Click, btn22.Click\n        If Not gameActive Then Return\n        \n        Dim btn As Button = CType(sender, Button)\n        If btn.Text <> \"\" Then Return\n\n        ' Jogada do Jogador (X)\n        btn.Text = \"X\"\n        btn.ForeColor = Color.Blue\n        moveCount += 1\n\n        If CheckWinner(\"X\") Then\n            lblStatus.Text = \"Parabéns, você venceu!\"\n            MessageBox.Show(\"Você venceu!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n            gameActive = False\n            Return\n        End If\n\n        If moveCount = 9 Then\n            lblStatus.Text = \"Empate!\"\n            MessageBox.Show(\"Empate!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n            gameActive = False\n            Return\n        End If\n\n        ' Vez do Computador\n        gameActive = False\n        lblStatus.Text = \"Computador (O) pensando...\"\n        aiTimer.Start()\n    End Sub\n\n    Private Sub aiTimer_Tick(sender As Object, e As EventArgs) Handles aiTimer.Tick\n        aiTimer.Stop()\n        If Not gameActive AndAlso moveCount < 9 Then\n            RealizarJogadaIA()\n        End If\n    End Sub\n\n    Private Sub RealizarJogadaIA()\n        Dim bestMove As Button = EncontrarMelhorJogada()\n        If bestMove IsNot Nothing Then\n            bestMove.Text = \"O\"\n            bestMove.ForeColor = Color.Red\n            moveCount += 1\n\n            If CheckWinner(\"O\") Then\n                lblStatus.Text = \"Computador venceu!\"\n                MessageBox.Show(\"O Computador venceu!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n                gameActive = False\n                Return\n            End If\n\n            If moveCount = 9 Then\n                lblStatus.Text = \"Empate!\"\n                MessageBox.Show(\"Empate!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n                gameActive = False\n                Return\n            End If\n        End If\n\n        gameActive = True\n        lblStatus.Text = \"Sua vez (X)\"\n    End Sub\n\n    Private Function EncontrarMelhorJogada() As Button\n        ' 1. Tentar vencer na próxima jogada\n        Dim btn As Button = EncontrarJogadaEstrategica(\"O\")\n        If btn IsNot Nothing Then Return btn\n\n        ' 2. Bloquear vitória iminente do Jogador\n        btn = EncontrarJogadaEstrategica(\"X\")\n        If btn IsNot Nothing Then Return btn\n\n        ' 3. Pegar o centro se estiver livre\n        If buttons(1, 1).Text = \"\" Then Return buttons(1, 1)\n\n        ' 4. Escolher qualquer casa vazia aleatoriamente\n        Dim vazias As New List(Of Button)()\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                If buttons(i, j).Text = \"\" Then\n                    vazias.Add(buttons(i, j))\n                End If\n            Next\n        Next\n\n        If vazias.Count > 0 Then\n            Return vazias(rand.Next(vazias.Count))\n        End If\n\n        Return Nothing\n    End Function\n\n    Private Function EncontrarJogadaEstrategica(simbolo As String) As Button\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                If buttons(i, j).Text = \"\" Then\n                    buttons(i, j).Text = simbolo\n                    Dim vence As Boolean = CheckWinner(simbolo)\n                    buttons(i, j).Text = \"\"\n                    If vence Then Return buttons(i, j)\n                End If\n            Next\n        Next\n        Return Nothing\n    End Function\n\n    Private Function CheckWinner(simbolo As String) As Boolean\n        For i As Integer = 0 To 2\n            If buttons(i, 0).Text = simbolo AndAlso buttons(i, 1).Text = simbolo AndAlso buttons(i, 2).Text = simbolo Then Return True\n            If buttons(0, i).Text = simbolo AndAlso buttons(1, i).Text = simbolo AndAlso buttons(2, i).Text = simbolo Then Return True\n        Next\n        If buttons(0, 0).Text = simbolo AndAlso buttons(1, 1).Text = simbolo AndAlso buttons(2, 2).Text = simbolo Then Return True\n        If buttons(0, 2).Text = simbolo AndAlso buttons(1, 1).Text = simbolo AndAlso buttons(2, 0).Text = simbolo Then Return True\n        Return False\n    End Function\n\n    Private Sub btnReiniciar_Click(sender As Object, e As EventArgs) Handles btnReiniciar.Click\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                buttons(i, j).Text = \"\"\n                buttons(i, j).Enabled = True\n            Next\n        Next\n        moveCount = 0\n        gameActive = True\n        lblStatus.Text = \"Sua vez (X)\"\n    End Sub\n\nEnd Class","Controls":[{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"lblStatus","Properties":[{"Key":"AutoSize","Value":"False"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"BorderStyle","Value":"None"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"LiveSetting","Value":"Off"},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"Text","Value":"Sua vez (X)"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseMnemonic","Value":"True"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 13pt, style=Bold"},{"Key":"ForeColor","Value":"DarkSlateGray"},{"Key":"Location","Value":"30, 15"},{"Key":"Margin","Value":"3, 0, 3, 0"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"310, 30"},{"Key":"TabIndex","Value":"0"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Label"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn00","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"50, 60"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"1"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn01","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"138, 60"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"2"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn02","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"226, 60"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"3"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn10","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"50, 148"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"4"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn11","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"138, 148"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"5"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn12","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"226, 148"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"6"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn20","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"50, 236"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"7"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn21","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"138, 236"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"8"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btn22","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":""},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 28pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"226, 236"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"80, 80"},{"Key":"TabIndex","Value":"9"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":false,"Items":[],"Name":"btnReiniciar","Properties":[{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"DialogResult","Value":"None"},{"Key":"AutoEllipsis","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FlatStyle","Value":"Standard"},{"Key":"ImageAlign","Value":"MiddleCenter"},{"Key":"ImageIndex","Value":"(nenhum\/a)"},{"Key":"ImageKey","Value":"(nenhum\/a)"},{"Key":"Text","Value":"Reiniciar Jogo"},{"Key":"TextAlign","Value":"MiddleCenter"},{"Key":"TextImageRelation","Value":"Overlay"},{"Key":"UseMnemonic","Value":"True"},{"Key":"UseCompatibleTextRendering","Value":"False"},{"Key":"UseVisualStyleBackColor","Value":"False"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Arial, 10pt, style=Bold"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"Location","Value":"95, 330"},{"Key":"Margin","Value":"3, 3, 3, 3"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"RightToLeft","Value":"No"},{"Key":"Size","Value":"180, 35"},{"Key":"TabIndex","Value":"10"},{"Key":"TabStop","Value":"True"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"}],"TypeName":"Button"},{"AssemblyPath":"","IsNonVisual":true,"Items":[],"Name":"aiTimer","Properties":[{"Key":"Tag","Value":""},{"Key":"Enabled","Value":"False"},{"Key":"Interval","Value":"400"},{"Key":"__TrayLocation","Value":"20, 20"}],"TypeName":"Timer"}],"IsStartup":true,"Name":"Form1","Properties":[{"Key":"AutoScroll","Value":"False"},{"Key":"AutoSize","Value":"False"},{"Key":"AutoSizeMode","Value":"GrowOnly"},{"Key":"AutoValidate","Value":"EnablePreventFocusChange"},{"Key":"BackColor","Value":"WhiteSmoke"},{"Key":"FormBorderStyle","Value":"FixedSingle"},{"Key":"ControlBox","Value":"True"},{"Key":"HelpButton","Value":"False"},{"Key":"IsMdiContainer","Value":"False"},{"Key":"KeyPreview","Value":"False"},{"Key":"Location","Value":"0, 0"},{"Key":"MaximumSize","Value":"0, 0"},{"Key":"MinimumSize","Value":"0, 0"},{"Key":"MaximizeBox","Value":"False"},{"Key":"MinimizeBox","Value":"True"},{"Key":"Opacity","Value":"100%"},{"Key":"RightToLeftLayout","Value":"False"},{"Key":"ShowInTaskbar","Value":"True"},{"Key":"ShowIcon","Value":"True"},{"Key":"Size","Value":"386, 499"},{"Key":"SizeGripStyle","Value":"Auto"},{"Key":"StartPosition","Value":"CenterScreen"},{"Key":"Text","Value":"Jogo da Velha vs Computador"},{"Key":"TopMost","Value":"False"},{"Key":"TransparencyKey","Value":""},{"Key":"WindowState","Value":"Normal"},{"Key":"AutoScrollMargin","Value":"0, 0"},{"Key":"AutoScrollMinSize","Value":"0, 0"},{"Key":"AccessibleDescription","Value":""},{"Key":"AccessibleName","Value":""},{"Key":"AccessibleRole","Value":"Default"},{"Key":"AllowDrop","Value":"False"},{"Key":"Anchor","Value":"Top, Left"},{"Key":"BackgroundImageLayout","Value":"Tile"},{"Key":"CausesValidation","Value":"True"},{"Key":"Cursor","Value":"Default"},{"Key":"Dock","Value":"None"},{"Key":"Enabled","Value":"True"},{"Key":"Font","Value":"Microsoft Sans Serif, 8.25pt"},{"Key":"ForeColor","Value":"ControlText"},{"Key":"RightToLeft","Value":"No"},{"Key":"Tag","Value":""},{"Key":"UseWaitCursor","Value":"False"},{"Key":"Padding","Value":"0, 0, 0, 0"},{"Key":"ImeMode","Value":"NoControl"}]}],"Name":"JogoDaVelhaIA","Version":"1.0.0"}
+{
+  "ApplicationIcon": "",
+  "AssemblyCompany": "Wtec",
+  "AssemblyCopyright": "Copyright © 2026",
+  "AssemblyDescription": "Jogo da Velha contra Computador em Windows Forms",
+  "AssemblyProduct": "JogoDaVelhaIAVB",
+  "AssemblyTitle": "JogoDaVelhaIAVB",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Forms": [
+    {
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\nImports System.Collections.Generic\n\nPartial Public Class Form1\n\n    Private buttons(2, 2) As Button\n    Private moveCount As Integer = 0\n    Private gameActive As Boolean = True\n    Private rand As New Random()\n\n    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load\n        buttons(0, 0) = btn00 : buttons(0, 1) = btn01 : buttons(0, 2) = btn02\n        buttons(1, 0) = btn10 : buttons(1, 1) = btn11 : buttons(1, 2) = btn12\n        buttons(2, 0) = btn20 : buttons(2, 1) = btn21 : buttons(2, 2) = btn22\n    End Sub\n\n    Private Sub Cell_Click(sender As Object, e As System.EventArgs) Handles btn00.Click, btn01.Click, btn02.Click, btn10.Click, btn11.Click, btn12.Click, btn20.Click, btn21.Click, btn22.Click\n        If Not gameActive Then Return\n        \n        Dim btn As Button = CType(sender, Button)\n        If btn.Text <> \"\" Then Return\n\n        ' Jogada do Jogador (X)\n        btn.Text = \"X\"\n        btn.ForeColor = Color.Blue\n        moveCount += 1\n\n        If CheckWinner(\"X\") Then\n            lblStatus.Text = \"Parabéns, você venceu!\"\n            MessageBox.Show(\"Você venceu!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n            gameActive = False\n            Return\n        End If\n\n        If moveCount = 9 Then\n            lblStatus.Text = \"Empate!\"\n            MessageBox.Show(\"Empate!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n            gameActive = False\n            Return\n        End If\n\n        ' Vez do Computador\n        gameActive = False\n        lblStatus.Text = \"Computador (O) pensando...\"\n        aiTimer.Start()\n    End Sub\n\n    Private Sub aiTimer_Tick(sender As Object, e As System.EventArgs) Handles aiTimer.Tick\n        aiTimer.Stop()\n        If Not gameActive AndAlso moveCount < 9 Then\n            RealizarJogadaIA()\n        End If\n    End Sub\n\n    Private Sub RealizarJogadaIA()\n        Dim bestMove As Button = EncontrarMelhorJogada()\n        If bestMove IsNot Nothing Then\n            bestMove.Text = \"O\"\n            bestMove.ForeColor = Color.Red\n            moveCount += 1\n\n            If CheckWinner(\"O\") Then\n                lblStatus.Text = \"Computador venceu!\"\n                MessageBox.Show(\"O Computador venceu!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n                gameActive = False\n                Return\n            End If\n\n            If moveCount = 9 Then\n                lblStatus.Text = \"Empate!\"\n                MessageBox.Show(\"Empate!\", \"Fim de Jogo\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n                gameActive = False\n                Return\n            End If\n        End If\n\n        gameActive = True\n        lblStatus.Text = \"Sua vez (X)\"\n    End Sub\n\n    Private Function EncontrarMelhorJogada() As Button\n        ' 1. Tentar vencer na próxima jogada\n        Dim btn As Button = EncontrarJogadaEstrategica(\"O\")\n        If btn IsNot Nothing Then Return btn\n\n        ' 2. Bloquear vitória iminente do Jogador\n        btn = EncontrarJogadaEstrategica(\"X\")\n        If btn IsNot Nothing Then Return btn\n\n        ' 3. Pegar o centro se estiver livre\n        If buttons(1, 1).Text = \"\" Then Return buttons(1, 1)\n\n        ' 4. Escolher qualquer casa vazia aleatoriamente\n        Dim vazias As New List(Of Button)()\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                If buttons(i, j).Text = \"\" Then\n                    vazias.Add(buttons(i, j))\n                End If\n            Next\n        Next\n\n        If vazias.Count > 0 Then\n            Return vazias(rand.Next(vazias.Count))\n        End If\n\n        Return Nothing\n    End Function\n\n    Private Function EncontrarJogadaEstrategica(simbolo As String) As Button\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                If buttons(i, j).Text = \"\" Then\n                    buttons(i, j).Text = simbolo\n                    Dim vence As Boolean = CheckWinner(simbolo)\n                    buttons(i, j).Text = \"\"\n                    If vence Then Return buttons(i, j)\n                End If\n            Next\n        Next\n        Return Nothing\n    End Function\n\n    Private Function CheckWinner(simbolo As String) As Boolean\n        For i As Integer = 0 To 2\n            If buttons(i, 0).Text = simbolo AndAlso buttons(i, 1).Text = simbolo AndAlso buttons(i, 2).Text = simbolo Then Return True\n            If buttons(0, i).Text = simbolo AndAlso buttons(1, i).Text = simbolo AndAlso buttons(2, i).Text = simbolo Then Return True\n        Next\n        If buttons(0, 0).Text = simbolo AndAlso buttons(1, 1).Text = simbolo AndAlso buttons(2, 2).Text = simbolo Then Return True\n        If buttons(0, 2).Text = simbolo AndAlso buttons(1, 1).Text = simbolo AndAlso buttons(2, 0).Text = simbolo Then Return True\n        Return False\n    End Function\n\n    Private Sub btnReiniciar_Click(sender As Object, e As System.EventArgs) Handles btnReiniciar.Click\n        For i As Integer = 0 To 2\n            For j As Integer = 0 To 2\n                buttons(i, j).Text = \"\"\n                buttons(i, j).Enabled = True\n            Next\n        Next\n        moveCount = 0\n        gameActive = True\n        lblStatus.Text = \"Sua vez (X)\"\n    End Sub\n\nEnd Class",
+      "Controls": [
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "lblStatus",
+          "Properties": [
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "None"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "LiveSetting",
+              "Value": "Off"
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "Text",
+              "Value": "Sua vez (X)"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 13pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "DarkSlateGray"
+            },
+            {
+              "Key": "Location",
+              "Value": "30, 15"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 0, 3, 0"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "310, 30"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "0"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Label"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn00",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "50, 60"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "1"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn01",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "138, 60"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "2"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn02",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "226, 60"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "3"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn10",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "50, 148"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "4"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn11",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "138, 148"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "5"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn12",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "226, 148"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "6"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn20",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "50, 236"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "7"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn21",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "138, 236"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "8"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btn22",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": ""
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 28pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "226, 236"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 80"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "9"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Name": "btnReiniciar",
+          "Properties": [
+            {
+              "Key": "AutoSizeMode",
+              "Value": "GrowOnly"
+            },
+            {
+              "Key": "DialogResult",
+              "Value": "None"
+            },
+            {
+              "Key": "AutoEllipsis",
+              "Value": "False"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "WhiteSmoke"
+            },
+            {
+              "Key": "FlatStyle",
+              "Value": "Standard"
+            },
+            {
+              "Key": "ImageAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "ImageIndex",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "ImageKey",
+              "Value": "(nenhum/a)"
+            },
+            {
+              "Key": "Text",
+              "Value": "Reiniciar Jogo"
+            },
+            {
+              "Key": "TextAlign",
+              "Value": "MiddleCenter"
+            },
+            {
+              "Key": "TextImageRelation",
+              "Value": "Overlay"
+            },
+            {
+              "Key": "UseMnemonic",
+              "Value": "True"
+            },
+            {
+              "Key": "UseCompatibleTextRendering",
+              "Value": "False"
+            },
+            {
+              "Key": "UseVisualStyleBackColor",
+              "Value": "False"
+            },
+            {
+              "Key": "AccessibleDescription",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleName",
+              "Value": ""
+            },
+            {
+              "Key": "AccessibleRole",
+              "Value": "Default"
+            },
+            {
+              "Key": "AllowDrop",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Left"
+            },
+            {
+              "Key": "BackgroundImageLayout",
+              "Value": "Tile"
+            },
+            {
+              "Key": "CausesValidation",
+              "Value": "True"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Default"
+            },
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Enabled",
+              "Value": "True"
+            },
+            {
+              "Key": "Font",
+              "Value": "Arial, 10pt, style=Bold"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "ControlText"
+            },
+            {
+              "Key": "Location",
+              "Value": "95, 330"
+            },
+            {
+              "Key": "Margin",
+              "Value": "3, 3, 3, 3"
+            },
+            {
+              "Key": "MaximumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "MinimumSize",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "RightToLeft",
+              "Value": "No"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 35"
+            },
+            {
+              "Key": "TabIndex",
+              "Value": "10"
+            },
+            {
+              "Key": "TabStop",
+              "Value": "True"
+            },
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "UseWaitCursor",
+              "Value": "False"
+            },
+            {
+              "Key": "Padding",
+              "Value": "0, 0, 0, 0"
+            }
+          ],
+          "TypeName": "Button"
+        },
+        {
+          "AssemblyPath": "",
+          "IsNonVisual": true,
+          "Items": [],
+          "Name": "aiTimer",
+          "Properties": [
+            {
+              "Key": "Tag",
+              "Value": ""
+            },
+            {
+              "Key": "Enabled",
+              "Value": "False"
+            },
+            {
+              "Key": "Interval",
+              "Value": "400"
+            },
+            {
+              "Key": "__TrayLocation",
+              "Value": "20, 20"
+            }
+          ],
+          "TypeName": "Timer"
+        }
+      ],
+      "IsStartup": true,
+      "Name": "Form1",
+      "Properties": [
+        {
+          "Key": "AutoScroll",
+          "Value": "False"
+        },
+        {
+          "Key": "AutoSize",
+          "Value": "False"
+        },
+        {
+          "Key": "AutoSizeMode",
+          "Value": "GrowOnly"
+        },
+        {
+          "Key": "AutoValidate",
+          "Value": "EnablePreventFocusChange"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "FormBorderStyle",
+          "Value": "FixedSingle"
+        },
+        {
+          "Key": "ControlBox",
+          "Value": "True"
+        },
+        {
+          "Key": "HelpButton",
+          "Value": "False"
+        },
+        {
+          "Key": "IsMdiContainer",
+          "Value": "False"
+        },
+        {
+          "Key": "KeyPreview",
+          "Value": "False"
+        },
+        {
+          "Key": "Location",
+          "Value": "0, 0"
+        },
+        {
+          "Key": "MaximumSize",
+          "Value": "0, 0"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "0, 0"
+        },
+        {
+          "Key": "MaximizeBox",
+          "Value": "False"
+        },
+        {
+          "Key": "MinimizeBox",
+          "Value": "True"
+        },
+        {
+          "Key": "Opacity",
+          "Value": "100%"
+        },
+        {
+          "Key": "RightToLeftLayout",
+          "Value": "False"
+        },
+        {
+          "Key": "ShowInTaskbar",
+          "Value": "True"
+        },
+        {
+          "Key": "ShowIcon",
+          "Value": "True"
+        },
+        {
+          "Key": "Size",
+          "Value": "386, 499"
+        },
+        {
+          "Key": "SizeGripStyle",
+          "Value": "Auto"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "Text",
+          "Value": "Jogo da Velha vs Computador"
+        },
+        {
+          "Key": "TopMost",
+          "Value": "False"
+        },
+        {
+          "Key": "TransparencyKey",
+          "Value": ""
+        },
+        {
+          "Key": "WindowState",
+          "Value": "Normal"
+        },
+        {
+          "Key": "AutoScrollMargin",
+          "Value": "0, 0"
+        },
+        {
+          "Key": "AutoScrollMinSize",
+          "Value": "0, 0"
+        },
+        {
+          "Key": "AccessibleDescription",
+          "Value": ""
+        },
+        {
+          "Key": "AccessibleName",
+          "Value": ""
+        },
+        {
+          "Key": "AccessibleRole",
+          "Value": "Default"
+        },
+        {
+          "Key": "AllowDrop",
+          "Value": "False"
+        },
+        {
+          "Key": "Anchor",
+          "Value": "Top, Left"
+        },
+        {
+          "Key": "BackgroundImageLayout",
+          "Value": "Tile"
+        },
+        {
+          "Key": "CausesValidation",
+          "Value": "True"
+        },
+        {
+          "Key": "Cursor",
+          "Value": "Default"
+        },
+        {
+          "Key": "Dock",
+          "Value": "None"
+        },
+        {
+          "Key": "Enabled",
+          "Value": "True"
+        },
+        {
+          "Key": "Font",
+          "Value": "Microsoft Sans Serif, 8.25pt"
+        },
+        {
+          "Key": "ForeColor",
+          "Value": "ControlText"
+        },
+        {
+          "Key": "RightToLeft",
+          "Value": "No"
+        },
+        {
+          "Key": "Tag",
+          "Value": ""
+        },
+        {
+          "Key": "UseWaitCursor",
+          "Value": "False"
+        },
+        {
+          "Key": "Padding",
+          "Value": "0, 0, 0, 0"
+        },
+        {
+          "Key": "ImeMode",
+          "Value": "NoControl"
+        }
+      ]
+    }
+  ],
+  "Name": "JogoDaVelhaIA",
+  "Version": "1.0.0"
+}

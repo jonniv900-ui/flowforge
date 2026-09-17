@@ -80,3 +80,5 @@ C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\obj\Release\F
 C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\obj\Release\FlowForgeStudio.vbproj.CoreCompileInputs.cache
 C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\obj\Release\FlowForgeStudio.exe
 C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\obj\Release\FlowForgeStudio.pdb
+C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\bin\Release\Examples\NovosComponentes_v5.flowapp
+C:\Users\Jonni\Documents\FlowForgeStudio\flowforge\FlowForgeStudio\bin\Release\Examples\GlyphImageListGallery.flowapp

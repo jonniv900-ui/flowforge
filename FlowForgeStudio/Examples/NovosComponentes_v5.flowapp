@@ -1,0 +1,273 @@
+{
+  "Name": "NovosComponentesV5",
+  "Version": "1.0.0",
+  "FormatVersion": 2,
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Novos componentes FlowForge v5"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "920, 600"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "850, 32"
+            },
+            {
+              "Key": "Text",
+              "Value": "NOVOS COMPONENTES — Toast, Accordion, ProgressStepper e Terminal"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 14pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ProgressStepper",
+          "Name": "Stepper1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Stepper1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 60"
+            },
+            {
+              "Key": "Size",
+              "Value": "850, 75"
+            },
+            {
+              "Key": "Steps",
+              "Value": "Início,Configuração,Teste,Concluído"
+            },
+            {
+              "Key": "CurrentStep",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Accordion",
+          "Name": "Accordion1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Accordion1"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 150"
+            },
+            {
+              "Key": "Size",
+              "Value": "390, 300"
+            },
+            {
+              "Key": "Sections",
+              "Value": "O que é o Accordion?::Um painel com seções expansíveis.;;Como abrir uma seção?::Clique no título ou use ExpandSection pelo código.;;Posso fechar tudo?::Sim. Use CollapseAll()."
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "TerminalView",
+          "Name": "Terminal1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Terminal1"
+            },
+            {
+              "Key": "Location",
+              "Value": "430, 150"
+            },
+            {
+              "Key": "Size",
+              "Value": "440, 300"
+            },
+            {
+              "Key": "Prompt",
+              "Value": ">"
+            },
+            {
+              "Key": "ShowInputLine",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ToastNotification",
+          "Name": "Toast1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "Toast1"
+            },
+            {
+              "Key": "Location",
+              "Value": "590, 470"
+            },
+            {
+              "Key": "Size",
+              "Value": "280, 48"
+            },
+            {
+              "Key": "Message",
+              "Value": "Pronto para testar"
+            },
+            {
+              "Key": "DurationMs",
+              "Value": "2500"
+            },
+            {
+              "Key": "Visible",
+              "Value": "False"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "NextButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NextButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 470"
+            },
+            {
+              "Key": "Size",
+              "Value": "120, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Próxima etapa"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "PrevButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PrevButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "150, 470"
+            },
+            {
+              "Key": "Size",
+              "Value": "120, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Etapa anterior"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "ToastButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ToastButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "280, 470"
+            },
+            {
+              "Key": "Size",
+              "Value": "130, 36"
+            },
+            {
+              "Key": "Text",
+              "Value": "Mostrar Toast"
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports FlowForgeStudio\nImports System\nImports System.Windows.Forms\n' EXEMPLO COMENTADO dos novos componentes da v5.\nPartial Public Class Form1\n    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load\n        ' TerminalView funciona como console/log e também aceita comandos.\n        Terminal1.WriteLine(\"FlowForge TerminalView pronto.\")\n        Terminal1.WriteLine(\"Digite HELP e pressione Enter.\")\n        ' Accordion pode ser controlado por código.\n        Accordion1.ExpandSection(0)\n    End Sub\n    Private Sub NextButton_Click(sender As Object, e As System.EventArgs) Handles NextButton.Click\n        ' Avança uma etapa e exibe uma notificação.\n        Stepper1.NextStep()\n        Toast1.Show(\"Etapa atual: \" & Stepper1.CurrentStep.ToString(), FlowForgeStudio.ToastKind.Success)\n    End Sub\n    Private Sub PrevButton_Click(sender As Object, e As System.EventArgs) Handles PrevButton.Click\n        Stepper1.PreviousStep()\n    End Sub\n    Private Sub ToastButton_Click(sender As Object, e As System.EventArgs) Handles ToastButton.Click\n        Toast1.Show(\"Esta é uma notificação dinâmica.\", FlowForgeStudio.ToastKind.Info)\n    End Sub\n    Private Sub Terminal1_CommandEntered(sender As Object, e As FlowForgeStudio.TerminalCommandEventArgs) Handles Terminal1.CommandEntered\n        ' CommandEntered entrega o comando digitado no terminal.\n        Dim cmd As String = e.Command.Trim().ToUpperInvariant()\n        Select Case cmd\n            Case \"HELP\" : Terminal1.WriteLine(\"Comandos: HELP, CLEAR, STATUS\")\n            Case \"CLEAR\" : Terminal1.ClearScreen()\n            Case \"STATUS\" : Terminal1.WriteLine(\"Stepper = \" & Stepper1.CurrentStep.ToString())\n            Case Else : Terminal1.WriteLine(\"Comando recebido: \" & e.Command)\n        End Select\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Novos componentes FlowForge v5",
+  "AssemblyDescription": "Exemplo comentado dos componentes customizados do FlowForge",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "Novos componentes FlowForge v5",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0"
+}

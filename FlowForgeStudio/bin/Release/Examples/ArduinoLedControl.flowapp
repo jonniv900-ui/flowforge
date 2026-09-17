@@ -1,1 +1,368 @@
-{"Name":"ArduinoLedControl","Version":"1.0.1","Forms":[{"Name":"Form1","IsStartup":true,"Properties":[{"Key":"Name","Value":"Form1"},{"Key":"Text","Value":"Controle LED Arduino"},{"Key":"ClientSize","Value":"800, 500"},{"Key":"StartPosition","Value":"CenterScreen"},{"Key":"FormBorderStyle","Value":"Sizable"},{"Key":"MinimumSize","Value":"640, 420"}],"Controls":[{"TypeName":"Label","Name":"lblPorta","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"lblPorta"},{"Key":"Location","Value":"18, 20"},{"Key":"AutoSize","Value":"True"},{"Key":"Text","Value":"Porta COM:"}]},{"TypeName":"ComboBox","Name":"cmbPorta","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"cmbPorta"},{"Key":"Location","Value":"100, 16"},{"Key":"Size","Value":"115, 24"},{"Key":"DropDownStyle","Value":"DropDownList"}]},{"TypeName":"Button","Name":"btnAtualizar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnAtualizar"},{"Key":"Location","Value":"225, 15"},{"Key":"Size","Value":"90, 27"},{"Key":"Text","Value":"Atualizar"}]},{"TypeName":"Button","Name":"btnConectar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnConectar"},{"Key":"Location","Value":"325, 15"},{"Key":"Size","Value":"95, 27"},{"Key":"Text","Value":"Conectar"}]},{"TypeName":"Label","Name":"lblEstado","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"lblEstado"},{"Key":"Location","Value":"440, 21"},{"Key":"AutoSize","Value":"True"},{"Key":"Text","Value":"Desconectado"}]},{"TypeName":"Button","Name":"btnLigar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnLigar"},{"Key":"Location","Value":"150, 100"},{"Key":"Size","Value":"200, 90"},{"Key":"Text","Value":"LIGAR LED"},{"Key":"Font","Value":"Segoe UI, 16pt"}]},{"TypeName":"Button","Name":"btnDesligar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnDesligar"},{"Key":"Location","Value":"440, 100"},{"Key":"Size","Value":"200, 90"},{"Key":"Text","Value":"DESLIGAR LED"},{"Key":"Font","Value":"Segoe UI, 16pt"}]},{"TypeName":"TextBox","Name":"txtComando","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"txtComando"},{"Key":"Location","Value":"150, 230"},{"Key":"Size","Value":"380, 25"}]},{"TypeName":"Button","Name":"btnEnviar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnEnviar"},{"Key":"Location","Value":"540, 228"},{"Key":"Size","Value":"100, 29"},{"Key":"Text","Value":"Enviar"}]},{"TypeName":"RichTextBox","Name":"txtLog","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"txtLog"},{"Key":"Location","Value":"150, 285"},{"Key":"Size","Value":"490, 180"},{"Key":"ReadOnly","Value":"True"},{"Key":"BackColor","Value":"30, 30, 30"},{"Key":"ForeColor","Value":"White"},{"Key":"Font","Value":"Consolas, 10pt"},{"Key":"Anchor","Value":"Top, Bottom, Left, Right"}]},{"TypeName":"SerialConnection","Name":"SerialConnection1","AssemblyPath":"","IsNonVisual":true,"Properties":[{"Key":"Name","Value":"SerialConnection1"},{"Key":"PortName","Value":"COM1"},{"Key":"BaudRate","Value":"9600"},{"Key":"DataBits","Value":"8"},{"Key":"Parity","Value":"None"},{"Key":"StopBits","Value":"One"},{"Key":"Handshake","Value":"None"},{"Key":"DtrEnable","Value":"False"},{"Key":"RtsEnable","Value":"False"},{"Key":"ReadTimeout","Value":"1000"},{"Key":"WriteTimeout","Value":"1000"},{"Key":"EncodingName","Value":"utf-8"},{"Key":"__TrayLocation","Value":"20, 20"}]}],"Code":"Imports System\r\nImports System.IO.Ports\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\r\n        AtualizarPortas()\r\n        AtualizarInterface(False)\r\n    End Sub\r\n\r\n    Private Sub btnAtualizar_Click(sender As Object, e As EventArgs) Handles btnAtualizar.Click\r\n        AtualizarPortas()\r\n    End Sub\r\n\r\n    Private Sub AtualizarPortas()\r\n        cmbPorta.Items.Clear()\r\n        Dim portas As String() = SerialPort.GetPortNames()\r\n        Array.Sort(portas)\r\n        cmbPorta.Items.AddRange(portas)\r\n        If cmbPorta.Items.Count > 0 Then cmbPorta.SelectedIndex = 0\r\n    End Sub\r\n\r\n    Private Sub btnConectar_Click(sender As Object, e As EventArgs) Handles btnConectar.Click\r\n        If SerialConnection1.IsOpen Then\r\n            Desconectar()\r\n            Return\r\n        End If\r\n        If cmbPorta.SelectedItem Is Nothing Then\r\n            MessageBox.Show(\"Selecione uma porta COM.\", \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n            Return\r\n        End If\r\n        Try\r\n            SerialConnection1.PortName = cmbPorta.SelectedItem.ToString()\r\n            SerialConnection1.BaudRate = 9600\r\n            SerialConnection1.DataBits = 8\r\n            SerialConnection1.Parity = Parity.None\r\n            SerialConnection1.StopBits = StopBits.One\r\n            SerialConnection1.Handshake = Handshake.None\r\n            SerialConnection1.DtrEnable = True\r\n            SerialConnection1.Open()\r\n            AtualizarInterface(True)\r\n            AdicionarLog(\"[CONECTADO] \" & SerialConnection1.PortName & Environment.NewLine)\r\n        Catch ex As Exception\r\n            MessageBox.Show(ex.Message, \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Error)\r\n            AtualizarInterface(False)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub btnLigar_Click(sender As Object, e As EventArgs) Handles btnLigar.Click\r\n        Enviar(\"LED_ON\")\r\n    End Sub\r\n\r\n    Private Sub btnDesligar_Click(sender As Object, e As EventArgs) Handles btnDesligar.Click\r\n        Enviar(\"LED_OFF\")\r\n    End Sub\r\n\r\n    Private Sub btnEnviar_Click(sender As Object, e As EventArgs) Handles btnEnviar.Click\r\n        Enviar(txtComando.Text)\r\n    End Sub\r\n\r\n    Private Sub Enviar(comando As String)\r\n        If Not SerialConnection1.IsOpen Then\r\n            MessageBox.Show(\"Conecte o Arduino primeiro.\", \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n            Return\r\n        End If\r\n        Try\r\n            SerialConnection1.WriteLine(comando)\r\n            AdicionarLog(\"TX > \" & comando & Environment.NewLine)\r\n        Catch ex As Exception\r\n            AdicionarLog(\"[ERRO TX] \" & ex.Message & Environment.NewLine)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub SerialConnection1_DataReceived(sender As Object, e As SerialDataReceivedEventArgs) Handles SerialConnection1.DataReceived\r\n        Try\r\n            Dim recebido As String = SerialConnection1.ReadExisting()\r\n            If recebido <> \"\" Then AdicionarLogSeguro(\"RX < \" & recebido)\r\n        Catch ex As Exception\r\n            AdicionarLogSeguro(\"[ERRO RX] \" & ex.Message & Environment.NewLine)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub AdicionarLogSeguro(texto As String)\r\n        If txtLog.InvokeRequired Then\r\n            txtLog.BeginInvoke(New Action(Of String)(AddressOf AdicionarLog), New Object() {texto})\r\n        Else\r\n            AdicionarLog(texto)\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub AdicionarLog(texto As String)\r\n        txtLog.AppendText(texto)\r\n        txtLog.SelectionStart = txtLog.TextLength\r\n        txtLog.ScrollToCaret()\r\n    End Sub\r\n\r\n    Private Sub Desconectar()\r\n        Try\r\n            If SerialConnection1.IsOpen Then SerialConnection1.Close()\r\n        Catch\r\n        End Try\r\n        AtualizarInterface(False)\r\n        AdicionarLog(\"[DESCONECTADO]\" & Environment.NewLine)\r\n    End Sub\r\n\r\n    Private Sub AtualizarInterface(conectado As Boolean)\r\n        lblEstado.Text = If(conectado, \"Conectado\", \"Desconectado\")\r\n        btnConectar.Text = If(conectado, \"Desconectar\", \"Conectar\")\r\n        cmbPorta.Enabled = Not conectado\r\n        btnAtualizar.Enabled = Not conectado\r\n        btnLigar.Enabled = conectado\r\n        btnDesligar.Enabled = conectado\r\n        btnEnviar.Enabled = conectado\r\n    End Sub\r\n\r\n    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing\r\n        If SerialConnection1.IsOpen Then SerialConnection1.Close()\r\n    End Sub\r\nEnd Class"}],"ApplicationIcon":"","AssemblyTitle":"Controle LED Arduino","AssemblyDescription":"Painel serial para controlar LED em Arduino","AssemblyCompany":"Wtec","AssemblyProduct":"ArduinoLedControl","AssemblyCopyright":"Copyright © 2026","AssemblyTrademark":"","AssemblyVersion":"1.0.1.0","FileVersion":"1.0.1.0"}
+{
+  "Name": "ArduinoLedControl",
+  "Version": "1.0.1",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Controle LED Arduino"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "800, 500"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "FormBorderStyle",
+          "Value": "Sizable"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "640, 420"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "lblPorta",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "lblPorta"
+            },
+            {
+              "Key": "Location",
+              "Value": "18, 20"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "True"
+            },
+            {
+              "Key": "Text",
+              "Value": "Porta COM:"
+            }
+          ]
+        },
+        {
+          "TypeName": "ComboBox",
+          "Name": "cmbPorta",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "cmbPorta"
+            },
+            {
+              "Key": "Location",
+              "Value": "100, 16"
+            },
+            {
+              "Key": "Size",
+              "Value": "115, 24"
+            },
+            {
+              "Key": "DropDownStyle",
+              "Value": "DropDownList"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnAtualizar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnAtualizar"
+            },
+            {
+              "Key": "Location",
+              "Value": "225, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "90, 27"
+            },
+            {
+              "Key": "Text",
+              "Value": "Atualizar"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnConectar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnConectar"
+            },
+            {
+              "Key": "Location",
+              "Value": "325, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "95, 27"
+            },
+            {
+              "Key": "Text",
+              "Value": "Conectar"
+            }
+          ]
+        },
+        {
+          "TypeName": "Label",
+          "Name": "lblEstado",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "lblEstado"
+            },
+            {
+              "Key": "Location",
+              "Value": "440, 21"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "True"
+            },
+            {
+              "Key": "Text",
+              "Value": "Desconectado"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnLigar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnLigar"
+            },
+            {
+              "Key": "Location",
+              "Value": "150, 100"
+            },
+            {
+              "Key": "Size",
+              "Value": "200, 90"
+            },
+            {
+              "Key": "Text",
+              "Value": "LIGAR LED"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 16pt"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnDesligar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnDesligar"
+            },
+            {
+              "Key": "Location",
+              "Value": "440, 100"
+            },
+            {
+              "Key": "Size",
+              "Value": "200, 90"
+            },
+            {
+              "Key": "Text",
+              "Value": "DESLIGAR LED"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 16pt"
+            }
+          ]
+        },
+        {
+          "TypeName": "TextBox",
+          "Name": "txtComando",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "txtComando"
+            },
+            {
+              "Key": "Location",
+              "Value": "150, 230"
+            },
+            {
+              "Key": "Size",
+              "Value": "380, 25"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnEnviar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnEnviar"
+            },
+            {
+              "Key": "Location",
+              "Value": "540, 228"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 29"
+            },
+            {
+              "Key": "Text",
+              "Value": "Enviar"
+            }
+          ]
+        },
+        {
+          "TypeName": "RichTextBox",
+          "Name": "txtLog",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "txtLog"
+            },
+            {
+              "Key": "Location",
+              "Value": "150, 285"
+            },
+            {
+              "Key": "Size",
+              "Value": "490, 180"
+            },
+            {
+              "Key": "ReadOnly",
+              "Value": "True"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "30, 30, 30"
+            },
+            {
+              "Key": "ForeColor",
+              "Value": "White"
+            },
+            {
+              "Key": "Font",
+              "Value": "Consolas, 10pt"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Bottom, Left, Right"
+            }
+          ]
+        },
+        {
+          "TypeName": "SerialConnection",
+          "Name": "SerialConnection1",
+          "AssemblyPath": "",
+          "IsNonVisual": true,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SerialConnection1"
+            },
+            {
+              "Key": "PortName",
+              "Value": "COM1"
+            },
+            {
+              "Key": "BaudRate",
+              "Value": "9600"
+            },
+            {
+              "Key": "DataBits",
+              "Value": "8"
+            },
+            {
+              "Key": "Parity",
+              "Value": "None"
+            },
+            {
+              "Key": "StopBits",
+              "Value": "One"
+            },
+            {
+              "Key": "Handshake",
+              "Value": "None"
+            },
+            {
+              "Key": "DtrEnable",
+              "Value": "False"
+            },
+            {
+              "Key": "RtsEnable",
+              "Value": "False"
+            },
+            {
+              "Key": "ReadTimeout",
+              "Value": "1000"
+            },
+            {
+              "Key": "WriteTimeout",
+              "Value": "1000"
+            },
+            {
+              "Key": "EncodingName",
+              "Value": "utf-8"
+            },
+            {
+              "Key": "__TrayLocation",
+              "Value": "20, 20"
+            }
+          ]
+        }
+      ],
+      "Code": "Imports System\r\nImports System.IO.Ports\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load\r\n        AtualizarPortas()\r\n        AtualizarInterface(False)\r\n    End Sub\r\n\r\n    Private Sub btnAtualizar_Click(sender As Object, e As System.EventArgs) Handles btnAtualizar.Click\r\n        AtualizarPortas()\r\n    End Sub\r\n\r\n    Private Sub AtualizarPortas()\r\n        cmbPorta.Items.Clear()\r\n        Dim portas As String() = SerialPort.GetPortNames()\r\n        Array.Sort(portas)\r\n        cmbPorta.Items.AddRange(portas)\r\n        If cmbPorta.Items.Count > 0 Then cmbPorta.SelectedIndex = 0\r\n    End Sub\r\n\r\n    Private Sub btnConectar_Click(sender As Object, e As System.EventArgs) Handles btnConectar.Click\r\n        If SerialConnection1.IsOpen Then\r\n            Desconectar()\r\n            Return\r\n        End If\r\n        If cmbPorta.SelectedItem Is Nothing Then\r\n            MessageBox.Show(\"Selecione uma porta COM.\", \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n            Return\r\n        End If\r\n        Try\r\n            SerialConnection1.PortName = cmbPorta.SelectedItem.ToString()\r\n            SerialConnection1.BaudRate = 9600\r\n            SerialConnection1.DataBits = 8\r\n            SerialConnection1.Parity = Parity.None\r\n            SerialConnection1.StopBits = StopBits.One\r\n            SerialConnection1.Handshake = Handshake.None\r\n            SerialConnection1.DtrEnable = True\r\n            SerialConnection1.Open()\r\n            AtualizarInterface(True)\r\n            AdicionarLog(\"[CONECTADO] \" & SerialConnection1.PortName & Environment.NewLine)\r\n        Catch ex As Exception\r\n            MessageBox.Show(ex.Message, \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Error)\r\n            AtualizarInterface(False)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub btnLigar_Click(sender As Object, e As System.EventArgs) Handles btnLigar.Click\r\n        Enviar(\"LED_ON\")\r\n    End Sub\r\n\r\n    Private Sub btnDesligar_Click(sender As Object, e As System.EventArgs) Handles btnDesligar.Click\r\n        Enviar(\"LED_OFF\")\r\n    End Sub\r\n\r\n    Private Sub btnEnviar_Click(sender As Object, e As System.EventArgs) Handles btnEnviar.Click\r\n        Enviar(txtComando.Text)\r\n    End Sub\r\n\r\n    Private Sub Enviar(comando As String)\r\n        If Not SerialConnection1.IsOpen Then\r\n            MessageBox.Show(\"Conecte o Arduino primeiro.\", \"Arduino\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n            Return\r\n        End If\r\n        Try\r\n            SerialConnection1.WriteLine(comando)\r\n            AdicionarLog(\"TX > \" & comando & Environment.NewLine)\r\n        Catch ex As Exception\r\n            AdicionarLog(\"[ERRO TX] \" & ex.Message & Environment.NewLine)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub SerialConnection1_DataReceived(sender As Object, e As SerialDataReceivedEventArgs) Handles SerialConnection1.DataReceived\r\n        Try\r\n            Dim recebido As String = SerialConnection1.ReadExisting()\r\n            If recebido <> \"\" Then AdicionarLogSeguro(\"RX < \" & recebido)\r\n        Catch ex As Exception\r\n            AdicionarLogSeguro(\"[ERRO RX] \" & ex.Message & Environment.NewLine)\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub AdicionarLogSeguro(texto As String)\r\n        If txtLog.InvokeRequired Then\r\n            txtLog.BeginInvoke(New Action(Of String)(AddressOf AdicionarLog), New Object() {texto})\r\n        Else\r\n            AdicionarLog(texto)\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub AdicionarLog(texto As String)\r\n        txtLog.AppendText(texto)\r\n        txtLog.SelectionStart = txtLog.TextLength\r\n        txtLog.ScrollToCaret()\r\n    End Sub\r\n\r\n    Private Sub Desconectar()\r\n        Try\r\n            If SerialConnection1.IsOpen Then SerialConnection1.Close()\r\n        Catch\r\n        End Try\r\n        AtualizarInterface(False)\r\n        AdicionarLog(\"[DESCONECTADO]\" & Environment.NewLine)\r\n    End Sub\r\n\r\n    Private Sub AtualizarInterface(conectado As Boolean)\r\n        lblEstado.Text = If(conectado, \"Conectado\", \"Desconectado\")\r\n        btnConectar.Text = If(conectado, \"Desconectar\", \"Conectar\")\r\n        cmbPorta.Enabled = Not conectado\r\n        btnAtualizar.Enabled = Not conectado\r\n        btnLigar.Enabled = conectado\r\n        btnDesligar.Enabled = conectado\r\n        btnEnviar.Enabled = conectado\r\n    End Sub\r\n\r\n    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing\r\n        If SerialConnection1.IsOpen Then SerialConnection1.Close()\r\n    End Sub\r\nEnd Class"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Controle LED Arduino",
+  "AssemblyDescription": "Painel serial para controlar LED em Arduino",
+  "AssemblyCompany": "Wtec",
+  "AssemblyProduct": "ArduinoLedControl",
+  "AssemblyCopyright": "Copyright © 2026",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.1.0",
+  "FileVersion": "1.0.1.0"
+}

@@ -1,1 +1,120 @@
-{"Name":"SystemInfo","Version":"1.0.1","Forms":[{"Name":"Form1","IsStartup":true,"Properties":[{"Key":"Name","Value":"Form1"},{"Key":"Text","Value":"Informações do Sistema"},{"Key":"ClientSize","Value":"800, 520"},{"Key":"StartPosition","Value":"CenterScreen"},{"Key":"FormBorderStyle","Value":"Sizable"},{"Key":"MinimumSize","Value":"640, 420"}],"Controls":[{"TypeName":"Button","Name":"btnAtualizar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnAtualizar"},{"Key":"Location","Value":"12, 12"},{"Key":"Size","Value":"100, 30"},{"Key":"Text","Value":"Atualizar"}]},{"TypeName":"Button","Name":"btnCopiar","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"btnCopiar"},{"Key":"Location","Value":"120, 12"},{"Key":"Size","Value":"100, 30"},{"Key":"Text","Value":"Copiar"}]},{"TypeName":"TreeView","Name":"treeInfo","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"treeInfo"},{"Key":"Location","Value":"12, 52"},{"Key":"Size","Value":"776, 456"},{"Key":"Anchor","Value":"Top, Bottom, Left, Right"}]}],"Code":"Imports System\r\nImports System.IO\r\nImports System.Text\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\r\n        CarregarInformacoes()\r\n    End Sub\r\n\r\n    Private Sub btnAtualizar_Click(sender As Object, e As EventArgs) Handles btnAtualizar.Click\r\n        CarregarInformacoes()\r\n    End Sub\r\n\r\n    Private Sub CarregarInformacoes()\r\n        treeInfo.BeginUpdate()\r\n        Try\r\n            treeInfo.Nodes.Clear()\r\n            AdicionarSistema()\r\n            AdicionarPastas()\r\n            AdicionarUnidades()\r\n            treeInfo.ExpandAll()\r\n        Finally\r\n            treeInfo.EndUpdate()\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub AdicionarSistema()\r\n        Dim sistema As TreeNode = treeInfo.Nodes.Add(\"Sistema\")\r\n        sistema.Nodes.Add(\"Máquina: \" & Environment.MachineName)\r\n        sistema.Nodes.Add(\"Usuário: \" & Environment.UserName)\r\n        sistema.Nodes.Add(\"Sistema operacional: \" & Environment.OSVersion.ToString())\r\n        sistema.Nodes.Add(\"SO de 64 bits: \" & Environment.Is64BitOperatingSystem.ToString())\r\n        sistema.Nodes.Add(\"Processo de 64 bits: \" & Environment.Is64BitProcess.ToString())\r\n        sistema.Nodes.Add(\"Processadores lógicos: \" & Environment.ProcessorCount.ToString())\r\n        sistema.Nodes.Add(\"Versão do .NET: \" & Environment.Version.ToString())\r\n        sistema.Nodes.Add(\"Diretório do sistema: \" & Environment.SystemDirectory)\r\n        sistema.Nodes.Add(\"Tempo ligado: \" & FormatarTempoLigado())\r\n    End Sub\r\n\r\n    Private Sub AdicionarPastas()\r\n        Dim pastas As TreeNode = treeInfo.Nodes.Add(\"Pastas especiais\")\r\n        pastas.Nodes.Add(\"Windows: \" & Environment.GetFolderPath(Environment.SpecialFolder.Windows))\r\n        pastas.Nodes.Add(\"Documentos: \" & Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))\r\n        pastas.Nodes.Add(\"Área de trabalho: \" & Environment.GetFolderPath(Environment.SpecialFolder.Desktop))\r\n        pastas.Nodes.Add(\"Aplicativos: \" & Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles))\r\n        pastas.Nodes.Add(\"Dados locais: \" & Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))\r\n    End Sub\r\n\r\n    Private Sub AdicionarUnidades()\r\n        Dim unidades As TreeNode = treeInfo.Nodes.Add(\"Unidades\")\r\n        For Each unidade As DriveInfo In DriveInfo.GetDrives()\r\n            Dim texto As String = unidade.Name & \" (\" & unidade.DriveType.ToString() & \")\"\r\n            Dim noUnidade As TreeNode = unidades.Nodes.Add(texto)\r\n            If unidade.IsReady Then\r\n                Try\r\n                    noUnidade.Nodes.Add(\"Rótulo: \" & unidade.VolumeLabel)\r\n                    noUnidade.Nodes.Add(\"Formato: \" & unidade.DriveFormat)\r\n                    noUnidade.Nodes.Add(\"Total: \" & FormatarBytes(unidade.TotalSize))\r\n                    noUnidade.Nodes.Add(\"Livre: \" & FormatarBytes(unidade.AvailableFreeSpace))\r\n                    Dim usado As Long = unidade.TotalSize - unidade.AvailableFreeSpace\r\n                    noUnidade.Nodes.Add(\"Usado: \" & FormatarBytes(usado))\r\n                Catch ex As IOException\r\n                    noUnidade.Nodes.Add(\"Não foi possível consultar: \" & ex.Message)\r\n                Catch ex As UnauthorizedAccessException\r\n                    noUnidade.Nodes.Add(\"Acesso negado\")\r\n                End Try\r\n            Else\r\n                noUnidade.Nodes.Add(\"Unidade não está pronta\")\r\n            End If\r\n        Next\r\n    End Sub\r\n\r\n    Private Function FormatarBytes(valor As Long) As String\r\n        Dim unidades As String() = {\"B\", \"KB\", \"MB\", \"GB\", \"TB\"}\r\n        Dim tamanho As Double = CDbl(valor)\r\n        Dim indice As Integer = 0\r\n        While tamanho >= 1024.0 AndAlso indice < unidades.Length - 1\r\n            tamanho /= 1024.0\r\n            indice += 1\r\n        End While\r\n        Return tamanho.ToString(\"0.##\") & \" \" & unidades(indice)\r\n    End Function\r\n\r\n    Private Function FormatarTempoLigado() As String\r\n        Dim tempo As TimeSpan = TimeSpan.FromMilliseconds(Environment.TickCount)\r\n        Return tempo.Days.ToString() & \"d \" & tempo.Hours.ToString(\"00\") & \"h \" & tempo.Minutes.ToString(\"00\") & \"min\"\r\n    End Function\r\n\r\n    Private Sub btnCopiar_Click(sender As Object, e As EventArgs) Handles btnCopiar.Click\r\n        Dim texto As New StringBuilder()\r\n        For Each noRaiz As TreeNode In treeInfo.Nodes\r\n            ExportarNo(noRaiz, texto, 0)\r\n        Next\r\n        If texto.Length > 0 Then\r\n            Clipboard.SetText(texto.ToString())\r\n            MessageBox.Show(\"Informações copiadas.\", \"Informações do Sistema\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub ExportarNo(noAtual As TreeNode, texto As StringBuilder, nivel As Integer)\r\n        texto.AppendLine(New String(\" \"c, nivel * 2) & noAtual.Text)\r\n        For Each filho As TreeNode In noAtual.Nodes\r\n            ExportarNo(filho, texto, nivel + 1)\r\n        Next\r\n    End Sub\r\nEnd Class"}],"ApplicationIcon":"","AssemblyTitle":"Informações do Sistema","AssemblyDescription":"Exemplo criado no FlowForge","AssemblyCompany":"Wtec","AssemblyProduct":"SystemInfo","AssemblyCopyright":"Copyright © 2026","AssemblyTrademark":"","AssemblyVersion":"1.0.1.0","FileVersion":"1.0.1.0"}
+{
+  "Name": "SystemInfo",
+  "Version": "1.0.1",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Informações do Sistema"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "800, 520"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "FormBorderStyle",
+          "Value": "Sizable"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "640, 420"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Button",
+          "Name": "btnAtualizar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnAtualizar"
+            },
+            {
+              "Key": "Location",
+              "Value": "12, 12"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "Atualizar"
+            }
+          ]
+        },
+        {
+          "TypeName": "Button",
+          "Name": "btnCopiar",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "btnCopiar"
+            },
+            {
+              "Key": "Location",
+              "Value": "120, 12"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "Copiar"
+            }
+          ]
+        },
+        {
+          "TypeName": "TreeView",
+          "Name": "treeInfo",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "treeInfo"
+            },
+            {
+              "Key": "Location",
+              "Value": "12, 52"
+            },
+            {
+              "Key": "Size",
+              "Value": "776, 456"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Bottom, Left, Right"
+            }
+          ]
+        }
+      ],
+      "Code": "Imports System\r\nImports System.IO\r\nImports System.Text\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load\r\n        CarregarInformacoes()\r\n    End Sub\r\n\r\n    Private Sub btnAtualizar_Click(sender As Object, e As System.EventArgs) Handles btnAtualizar.Click\r\n        CarregarInformacoes()\r\n    End Sub\r\n\r\n    Private Sub CarregarInformacoes()\r\n        treeInfo.BeginUpdate()\r\n        Try\r\n            treeInfo.Nodes.Clear()\r\n            AdicionarSistema()\r\n            AdicionarPastas()\r\n            AdicionarUnidades()\r\n            treeInfo.ExpandAll()\r\n        Finally\r\n            treeInfo.EndUpdate()\r\n        End Try\r\n    End Sub\r\n\r\n    Private Sub AdicionarSistema()\r\n        Dim sistema As TreeNode = treeInfo.Nodes.Add(\"Sistema\")\r\n        sistema.Nodes.Add(\"Máquina: \" & Environment.MachineName)\r\n        sistema.Nodes.Add(\"Usuário: \" & Environment.UserName)\r\n        sistema.Nodes.Add(\"Sistema operacional: \" & Environment.OSVersion.ToString())\r\n        sistema.Nodes.Add(\"SO de 64 bits: \" & Environment.Is64BitOperatingSystem.ToString())\r\n        sistema.Nodes.Add(\"Processo de 64 bits: \" & Environment.Is64BitProcess.ToString())\r\n        sistema.Nodes.Add(\"Processadores lógicos: \" & Environment.ProcessorCount.ToString())\r\n        sistema.Nodes.Add(\"Versão do .NET: \" & Environment.Version.ToString())\r\n        sistema.Nodes.Add(\"Diretório do sistema: \" & Environment.SystemDirectory)\r\n        sistema.Nodes.Add(\"Tempo ligado: \" & FormatarTempoLigado())\r\n    End Sub\r\n\r\n    Private Sub AdicionarPastas()\r\n        Dim pastas As TreeNode = treeInfo.Nodes.Add(\"Pastas especiais\")\r\n        pastas.Nodes.Add(\"Windows: \" & Environment.GetFolderPath(Environment.SpecialFolder.Windows))\r\n        pastas.Nodes.Add(\"Documentos: \" & Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))\r\n        pastas.Nodes.Add(\"Área de trabalho: \" & Environment.GetFolderPath(Environment.SpecialFolder.Desktop))\r\n        pastas.Nodes.Add(\"Aplicativos: \" & Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles))\r\n        pastas.Nodes.Add(\"Dados locais: \" & Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))\r\n    End Sub\r\n\r\n    Private Sub AdicionarUnidades()\r\n        Dim unidades As TreeNode = treeInfo.Nodes.Add(\"Unidades\")\r\n        For Each unidade As DriveInfo In DriveInfo.GetDrives()\r\n            Dim texto As String = unidade.Name & \" (\" & unidade.DriveType.ToString() & \")\"\r\n            Dim noUnidade As TreeNode = unidades.Nodes.Add(texto)\r\n            If unidade.IsReady Then\r\n                Try\r\n                    noUnidade.Nodes.Add(\"Rótulo: \" & unidade.VolumeLabel)\r\n                    noUnidade.Nodes.Add(\"Formato: \" & unidade.DriveFormat)\r\n                    noUnidade.Nodes.Add(\"Total: \" & FormatarBytes(unidade.TotalSize))\r\n                    noUnidade.Nodes.Add(\"Livre: \" & FormatarBytes(unidade.AvailableFreeSpace))\r\n                    Dim usado As Long = unidade.TotalSize - unidade.AvailableFreeSpace\r\n                    noUnidade.Nodes.Add(\"Usado: \" & FormatarBytes(usado))\r\n                Catch ex As IOException\r\n                    noUnidade.Nodes.Add(\"Não foi possível consultar: \" & ex.Message)\r\n                Catch ex As UnauthorizedAccessException\r\n                    noUnidade.Nodes.Add(\"Acesso negado\")\r\n                End Try\r\n            Else\r\n                noUnidade.Nodes.Add(\"Unidade não está pronta\")\r\n            End If\r\n        Next\r\n    End Sub\r\n\r\n    Private Function FormatarBytes(valor As Long) As String\r\n        Dim unidades As String() = {\"B\", \"KB\", \"MB\", \"GB\", \"TB\"}\r\n        Dim tamanho As Double = CDbl(valor)\r\n        Dim indice As Integer = 0\r\n        While tamanho >= 1024.0 AndAlso indice < unidades.Length - 1\r\n            tamanho /= 1024.0\r\n            indice += 1\r\n        End While\r\n        Return tamanho.ToString(\"0.##\") & \" \" & unidades(indice)\r\n    End Function\r\n\r\n    Private Function FormatarTempoLigado() As String\r\n        Dim tempo As TimeSpan = TimeSpan.FromMilliseconds(Environment.TickCount)\r\n        Return tempo.Days.ToString() & \"d \" & tempo.Hours.ToString(\"00\") & \"h \" & tempo.Minutes.ToString(\"00\") & \"min\"\r\n    End Function\r\n\r\n    Private Sub btnCopiar_Click(sender As Object, e As System.EventArgs) Handles btnCopiar.Click\r\n        Dim texto As New StringBuilder()\r\n        For Each noRaiz As TreeNode In treeInfo.Nodes\r\n            ExportarNo(noRaiz, texto, 0)\r\n        Next\r\n        If texto.Length > 0 Then\r\n            Clipboard.SetText(texto.ToString())\r\n            MessageBox.Show(\"Informações copiadas.\", \"Informações do Sistema\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub ExportarNo(noAtual As TreeNode, texto As StringBuilder, nivel As Integer)\r\n        texto.AppendLine(New String(\" \"c, nivel * 2) & noAtual.Text)\r\n        For Each filho As TreeNode In noAtual.Nodes\r\n            ExportarNo(filho, texto, nivel + 1)\r\n        Next\r\n    End Sub\r\nEnd Class"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Informações do Sistema",
+  "AssemblyDescription": "Exemplo criado no FlowForge",
+  "AssemblyCompany": "Wtec",
+  "AssemblyProduct": "SystemInfo",
+  "AssemblyCopyright": "Copyright © 2026",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.1.0",
+  "FileVersion": "1.0.1.0"
+}

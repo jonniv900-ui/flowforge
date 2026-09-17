@@ -35,22 +35,22 @@ Namespace FlowForgeStudio
             sourceFiles.Add(WriteSource(temp, "AssemblyInfo.vb", GenerateAssemblyInfo(project)))
             If project.Classes IsNot Nothing Then
                 For Each classFile As ClassData In project.Classes
-                    sourceFiles.Add(WriteSource(temp, SafeName(classFile.Name) & ".vb", RewriteDefaultFormReferences(classFile.Code, project)))
+                    sourceFiles.Add(WriteSource(temp, SafeName(classFile.Name) & ".vb", WithFlowForgeImport(RewriteDefaultFormReferences(classFile.Code, project))))
                 Next
             End If
             If project.Modules IsNot Nothing Then
                 For Each moduleFile As ModuleData In project.Modules
-                    sourceFiles.Add(WriteSource(temp, SafeName(moduleFile.Name) & ".vb", RewriteDefaultFormReferences(moduleFile.Code, project)))
+                    sourceFiles.Add(WriteSource(temp, SafeName(moduleFile.Name) & ".vb", WithFlowForgeImport(RewriteDefaultFormReferences(moduleFile.Code, project))))
                 Next
             End If
             If project.UserControls IsNot Nothing Then
                 For Each controlFile As UserControlData In project.UserControls
-                    sourceFiles.Add(WriteSource(temp, SafeName(controlFile.Name) & ".vb", RewriteDefaultFormReferences(PrepareUserControlCode(controlFile), project)))
+                    sourceFiles.Add(WriteSource(temp, SafeName(controlFile.Name) & ".vb", WithFlowForgeImport(RewriteDefaultFormReferences(PrepareUserControlCode(controlFile), project))))
                     sourceFiles.Add(WriteSource(temp, SafeName(controlFile.Name) & ".Designer.vb", GenerateUserControlDesigner(controlFile)))
                 Next
             End If
             For Each form As FormData In project.Forms
-                sourceFiles.Add(WriteSource(temp, SafeName(form.Name) & ".vb", RewriteDefaultFormReferences(form.Code, project)))
+                sourceFiles.Add(WriteSource(temp, SafeName(form.Name) & ".vb", WithFlowForgeImport(RewriteDefaultFormReferences(form.Code, project))))
                 sourceFiles.Add(WriteSource(temp, SafeName(form.Name) & ".Designer.vb", GenerateDesigner(form)))
             Next
             Dim compilerOptions As String = "/target:winexe /optimize+ /optioninfer+ /optionexplicit+"
@@ -352,12 +352,19 @@ Namespace FlowForgeStudio
         End Function
         Private Shared Function GeneratedTypeName(item As ControlData) As String
             If item.TypeName.Equals("SerialConnection", StringComparison.OrdinalIgnoreCase) Then Return "System.IO.Ports.SerialPort"
+            If item.TypeName.Equals("GlyphImageList", StringComparison.OrdinalIgnoreCase) Then Return "FlowForgeStudio.GlyphImageList"
             If IsCustomControl(item.TypeName) Then Return "FlowForgeStudio." & item.TypeName
             Return item.TypeName
         End Function
 
         Private Shared Function IsCustomControl(typeName As String) As Boolean
-            Return {"RoundedButton", "GradientPanel", "LedIndicator", "ToggleSwitch", "DigitalDisplay", "CircularProgress", "LevelMeter", "BadgeLabel", "SeparatorLine", "StarRating", "NumericKnob", "CardPanel", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "NotificationBanner", "ToggleButton", "ColorSwatch", "NavigationButton", "MarqueeLabel", "RichTextEditor", "SyntaxCodeEditor", "Sparkline", "ImageButton", "SearchBox", "PasswordBox", "IPAddressBox", "ModernDatePicker", "SimpleChart", "VirtualJoystick", "LcdDisplay", "LedMatrix", "TrafficLight", "SevenSegmentDigit", "ArduinoPin", "IoTSensor", "TagInput", "TabStripCustom", "JsonTreeViewer"}.Contains(typeName, StringComparer.OrdinalIgnoreCase)
+            Return {"RoundedButton", "GradientPanel", "LedIndicator", "ToggleSwitch", "DigitalDisplay", "CircularProgress", "LevelMeter", "BadgeLabel", "SeparatorLine", "StarRating", "NumericKnob", "CardPanel", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "NotificationBanner", "ToggleButton", "ColorSwatch", "NavigationButton", "MarqueeLabel", "FontPreviewComboBox", "RichTextEditor", "SyntaxCodeEditor", "Sparkline", "ImageButton", "SearchBox", "PasswordBox", "IPAddressBox", "ModernDatePicker", "SimpleChart", "VirtualJoystick", "LcdDisplay", "LedMatrix", "TrafficLight", "SevenSegmentDigit", "ArduinoPin", "IoTSensor", "TagInput", "TabStripCustom", "JsonTreeViewer", "ToastNotification", "Accordion", "ProgressStepper", "TerminalView", "GlyphImageList"}.Contains(typeName, StringComparer.OrdinalIgnoreCase)
+        End Function
+
+        Private Shared Function WithFlowForgeImport(code As String) As String
+            Dim source As String = If(code, String.Empty)
+            If System.Text.RegularExpressions.Regex.IsMatch(source, "(?im)^\s*Imports\s+FlowForgeStudio\s*$") Then Return source
+            Return "Imports FlowForgeStudio" & System.Environment.NewLine & source
         End Function
 
         Private Shared Function CustomControlsSource() As String

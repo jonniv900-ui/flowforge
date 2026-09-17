@@ -1,1 +1,877 @@
-{"Name":"FlowPaint","Version":"1.1.0","Forms":[{"Name":"Form1","IsStartup":true,"Properties":[{"Key":"Name","Value":"Form1"},{"Key":"Text","Value":"FlowPaint"},{"Key":"ClientSize","Value":"1064, 673"},{"Key":"StartPosition","Value":"CenterScreen"},{"Key":"FormBorderStyle","Value":"Sizable"},{"Key":"BackColor","Value":"Control"},{"Key":"Font","Value":"Segoe UI, 9pt"},{"Key":"MinimumSize","Value":"800, 550"},{"Key":"KeyPreview","Value":"True"}],"Controls":[{"TypeName":"MenuStrip","Name":"MenuStrip1","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"MenuStrip1"},{"Key":"Location","Value":"0, 0"},{"Key":"Size","Value":"1064, 24"},{"Key":"Dock","Value":"Top"}],"Items":[{"TypeName":"ToolStripMenuItem","Name":"MenuArquivo","Text":"Arquivo","Properties":[{"Key":"Name","Value":"MenuArquivo"},{"Key":"Text","Value":"Arquivo"}],"DropDownItems":[{"TypeName":"ToolStripMenuItem","Name":"MenuNovo","Text":"Novo","Properties":[{"Key":"Name","Value":"MenuNovo"},{"Key":"Text","Value":"Novo"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuAbrir","Text":"Abrir...","Properties":[{"Key":"Name","Value":"MenuAbrir"},{"Key":"Text","Value":"Abrir..."}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuSalvar","Text":"Salvar","Properties":[{"Key":"Name","Value":"MenuSalvar"},{"Key":"Text","Value":"Salvar"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuSalvarComo","Text":"Salvar como...","Properties":[{"Key":"Name","Value":"MenuSalvarComo"},{"Key":"Text","Value":"Salvar como..."}],"DropDownItems":[]},{"TypeName":"ToolStripSeparator","Name":"SeparadorArquivo1","Text":"-","Properties":[{"Key":"Name","Value":"SeparadorArquivo1"},{"Key":"Text","Value":"-"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuImprimir","Text":"Imprimir...","Properties":[{"Key":"Name","Value":"MenuImprimir"},{"Key":"Text","Value":"Imprimir..."}],"DropDownItems":[]},{"TypeName":"ToolStripSeparator","Name":"SeparadorArquivo2","Text":"-","Properties":[{"Key":"Name","Value":"SeparadorArquivo2"},{"Key":"Text","Value":"-"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuSair","Text":"Sair","Properties":[{"Key":"Name","Value":"MenuSair"},{"Key":"Text","Value":"Sair"}],"DropDownItems":[]}]},{"TypeName":"ToolStripMenuItem","Name":"MenuEditar","Text":"Editar","Properties":[{"Key":"Name","Value":"MenuEditar"},{"Key":"Text","Value":"Editar"}],"DropDownItems":[{"TypeName":"ToolStripMenuItem","Name":"MenuDesfazer","Text":"Desfazer","Properties":[{"Key":"Name","Value":"MenuDesfazer"},{"Key":"Text","Value":"Desfazer"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuRefazer","Text":"Refazer","Properties":[{"Key":"Name","Value":"MenuRefazer"},{"Key":"Text","Value":"Refazer"}],"DropDownItems":[]},{"TypeName":"ToolStripSeparator","Name":"SeparadorEditar","Text":"-","Properties":[{"Key":"Name","Value":"SeparadorEditar"},{"Key":"Text","Value":"-"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuCopiar","Text":"Copiar","Properties":[{"Key":"Name","Value":"MenuCopiar"},{"Key":"Text","Value":"Copiar"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuColar","Text":"Colar","Properties":[{"Key":"Name","Value":"MenuColar"},{"Key":"Text","Value":"Colar"}],"DropDownItems":[]},{"TypeName":"ToolStripMenuItem","Name":"MenuLimpar","Text":"Limpar tela","Properties":[{"Key":"Name","Value":"MenuLimpar"},{"Key":"Text","Value":"Limpar tela"}],"DropDownItems":[]}]},{"TypeName":"ToolStripMenuItem","Name":"MenuAjuda","Text":"Ajuda","Properties":[{"Key":"Name","Value":"MenuAjuda"},{"Key":"Text","Value":"Ajuda"}],"DropDownItems":[{"TypeName":"ToolStripMenuItem","Name":"MenuSobre","Text":"Sobre","Properties":[{"Key":"Name","Value":"MenuSobre"},{"Key":"Text","Value":"Sobre"}],"DropDownItems":[]}]}]},{"TypeName":"ToolStrip","Name":"ToolStrip1","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"ToolStrip1"},{"Key":"Location","Value":"0, 24"},{"Key":"Size","Value":"1064, 25"},{"Key":"Dock","Value":"Top"}],"Items":[{"TypeName":"ToolStripButton","Name":"BtnNovo","Text":"Novo","Properties":[{"Key":"Name","Value":"BtnNovo"},{"Key":"Text","Value":"Novo"},{"Key":"ToolTipText","Value":"Novo"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnAbrir","Text":"Abrir","Properties":[{"Key":"Name","Value":"BtnAbrir"},{"Key":"Text","Value":"Abrir"},{"Key":"ToolTipText","Value":"Abrir"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnSalvar","Text":"Salvar","Properties":[{"Key":"Name","Value":"BtnSalvar"},{"Key":"Text","Value":"Salvar"},{"Key":"ToolTipText","Value":"Salvar"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnDesfazer","Text":"Desfazer","Properties":[{"Key":"Name","Value":"BtnDesfazer"},{"Key":"Text","Value":"Desfazer"},{"Key":"ToolTipText","Value":"Desfazer"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnRefazer","Text":"Refazer","Properties":[{"Key":"Name","Value":"BtnRefazer"},{"Key":"Text","Value":"Refazer"},{"Key":"ToolTipText","Value":"Refazer"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnLapis","Text":"Lápis","Properties":[{"Key":"Name","Value":"BtnLapis"},{"Key":"Text","Value":"Lápis"},{"Key":"ToolTipText","Value":"Lápis"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnPincel","Text":"Pincel","Properties":[{"Key":"Name","Value":"BtnPincel"},{"Key":"Text","Value":"Pincel"},{"Key":"ToolTipText","Value":"Pincel"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnBorracha","Text":"Borracha","Properties":[{"Key":"Name","Value":"BtnBorracha"},{"Key":"Text","Value":"Borracha"},{"Key":"ToolTipText","Value":"Borracha"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnLinha","Text":"Linha","Properties":[{"Key":"Name","Value":"BtnLinha"},{"Key":"Text","Value":"Linha"},{"Key":"ToolTipText","Value":"Linha"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnRetangulo","Text":"Retângulo","Properties":[{"Key":"Name","Value":"BtnRetangulo"},{"Key":"Text","Value":"Retângulo"},{"Key":"ToolTipText","Value":"Retângulo"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnElipse","Text":"Elipse","Properties":[{"Key":"Name","Value":"BtnElipse"},{"Key":"Text","Value":"Elipse"},{"Key":"ToolTipText","Value":"Elipse"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnPreencher","Text":"Preencher","Properties":[{"Key":"Name","Value":"BtnPreencher"},{"Key":"Text","Value":"Preencher"},{"Key":"ToolTipText","Value":"Preencher"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnContaGotas","Text":"Conta-gotas","Properties":[{"Key":"Name","Value":"BtnContaGotas"},{"Key":"Text","Value":"Conta-gotas"},{"Key":"ToolTipText","Value":"Conta-gotas"}],"DropDownItems":[]},{"TypeName":"ToolStripButton","Name":"BtnTexto","Text":"Texto","Properties":[{"Key":"Name","Value":"BtnTexto"},{"Key":"Text","Value":"Texto"},{"Key":"ToolTipText","Value":"Texto"}],"DropDownItems":[]}]},{"TypeName":"ColorComboBox","Name":"ColorComboBox1","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"ColorComboBox1"},{"Key":"Location","Value":"12, 57"},{"Key":"Size","Value":"180, 28"},{"Key":"SelectedColor","Value":"Black"}],"Items":[]},{"TypeName":"NumericUpDown","Name":"NumericUpDown1","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"NumericUpDown1"},{"Key":"Location","Value":"205, 58"},{"Key":"Size","Value":"70, 25"},{"Key":"Minimum","Value":"1"},{"Key":"Maximum","Value":"80"},{"Key":"Value","Value":"4"}],"Items":[]},{"TypeName":"Label","Name":"LabelEspessura","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"LabelEspessura"},{"Key":"Text","Value":"Espessura"},{"Key":"Location","Value":"205, 86"},{"Key":"AutoSize","Value":"True"}],"Items":[]},{"TypeName":"PictureBox","Name":"PictureBoxCanvas","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"PictureBoxCanvas"},{"Key":"Location","Value":"12, 112"},{"Key":"Size","Value":"1028, 515"},{"Key":"BackColor","Value":"White"},{"Key":"BorderStyle","Value":"FixedSingle"},{"Key":"Anchor","Value":"Top, Bottom, Left, Right"},{"Key":"Cursor","Value":"Cross"}],"Items":[]},{"TypeName":"StatusStrip","Name":"StatusStrip1","AssemblyPath":"","IsNonVisual":false,"Properties":[{"Key":"Name","Value":"StatusStrip1"},{"Key":"Location","Value":"0, 651"},{"Key":"Size","Value":"1064, 22"},{"Key":"Dock","Value":"Bottom"}],"Items":[{"TypeName":"ToolStripStatusLabel","Name":"ToolStripStatusLabelEstado","Text":"Pronto","Properties":[{"Key":"Name","Value":"ToolStripStatusLabelEstado"},{"Key":"Text","Value":"Pronto"}],"DropDownItems":[]},{"TypeName":"ToolStripStatusLabel","Name":"ToolStripStatusLabelFerramenta","Text":"Ferramenta: Lapis","Properties":[{"Key":"Name","Value":"ToolStripStatusLabelFerramenta"},{"Key":"Text","Value":"Ferramenta: Lapis"}],"DropDownItems":[]},{"TypeName":"ToolStripStatusLabel","Name":"ToolStripStatusLabelPosicao","Text":"X: 0  Y: 0","Properties":[{"Key":"Name","Value":"ToolStripStatusLabelPosicao"},{"Key":"Text","Value":"X: 0  Y: 0"}],"DropDownItems":[]}]}],"Code":"Imports System\r\nImports System.Drawing\r\nImports System.Drawing.Drawing2D\r\nImports System.Drawing.Printing\r\nImports System.Collections.Generic\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private desenho As Bitmap\r\n    Private inicio As Point\r\n    Private ultimo As Point\r\n    Private desenhando As Boolean\r\n    Private ferramenta As String = \"Lapis\"\r\n    Private corAtual As Color = Color.Black\r\n    Private ReadOnly desfazer As New Stack(Of Bitmap)()\r\n    Private ReadOnly refazer As New Stack(Of Bitmap)()\r\n    Private arquivoAtual As String = \"\"\r\n\r\n    Private Sub Form1_Load() Handles MyBase.Load\r\n        PrepararTela()\r\n        AplicarIcones()\r\n        AtualizarEstado(\"Pronto\")\r\n    End Sub\r\n\r\n    Private Function CriarIcone(simbolo As String, fundo As Color) As Bitmap\r\n        Dim imagem As New Bitmap(24, 24)\r\n        Using g As Graphics = Graphics.FromImage(imagem)\r\n            g.SmoothingMode = SmoothingMode.AntiAlias : g.Clear(Color.Transparent)\r\n            Using b As New SolidBrush(fundo) : g.FillEllipse(b, 1, 1, 22, 22) : End Using\r\n            Using f As New Font(\"Segoe UI Symbol\", 11, FontStyle.Bold), b As New SolidBrush(Color.White)\r\n                Dim formato As New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center}\r\n                g.DrawString(simbolo, f, b, New RectangleF(0, 0, 24, 24), formato)\r\n            End Using\r\n        End Using\r\n        Return imagem\r\n    End Function\r\n\r\n    Private Sub AplicarIcones()\r\n        Dim botoes As ToolStripButton() = {BtnNovo, BtnAbrir, BtnSalvar, BtnDesfazer, BtnRefazer, BtnLapis, BtnPincel, BtnBorracha, BtnLinha, BtnRetangulo, BtnElipse, BtnPreencher, BtnContaGotas, BtnTexto}\r\n        Dim simbolos As String() = {\"N\", \"↗\", \"S\", \"↶\", \"↷\", \"✎\", \"●\", \"E\", \"╱\", \"□\", \"○\", \"▣\", \"◉\", \"T\"}\r\n        Dim cores As Color() = {Color.Teal, Color.SteelBlue, Color.SeaGreen, Color.DimGray, Color.DimGray, Color.RoyalBlue, Color.MediumPurple, Color.IndianRed, Color.SlateGray, Color.DarkOrange, Color.DarkCyan, Color.Goldenrod, Color.MediumVioletRed, Color.DarkSlateBlue}\r\n        For i As Integer = 0 To botoes.Length - 1\r\n            botoes(i).Image = CriarIcone(simbolos(i), cores(i)) : botoes(i).DisplayStyle = ToolStripItemDisplayStyle.Image\r\n        Next\r\n    End Sub\r\n\r\n    Private Sub PrepararTela()\r\n        If desenho Is Nothing Then\r\n            desenho = New Bitmap(Math.Max(1, PictureBoxCanvas.ClientSize.Width), Math.Max(1, PictureBoxCanvas.ClientSize.Height))\r\n            Using g As Graphics = Graphics.FromImage(desenho)\r\n                g.Clear(Color.White)\r\n            End Using\r\n        End If\r\n        PictureBoxCanvas.Image = desenho\r\n        ColorComboBox1.SelectedColor = corAtual\r\n        NumericUpDown1.Minimum = 1\r\n        NumericUpDown1.Maximum = 80\r\n        NumericUpDown1.Value = 4\r\n    End Sub\r\n\r\n    Private Sub SelecionarFerramenta(nome As String)\r\n        ferramenta = nome\r\n        ToolStripStatusLabelFerramenta.Text = \"Ferramenta: \" & nome\r\n    End Sub\r\n\r\n    Private Sub BtnLapis_Click() Handles BtnLapis.Click\r\n        SelecionarFerramenta(\"Lapis\")\r\n    End Sub\r\n    Private Sub BtnPincel_Click() Handles BtnPincel.Click\r\n        SelecionarFerramenta(\"Pincel\")\r\n    End Sub\r\n    Private Sub BtnBorracha_Click() Handles BtnBorracha.Click\r\n        SelecionarFerramenta(\"Borracha\")\r\n    End Sub\r\n    Private Sub BtnLinha_Click() Handles BtnLinha.Click\r\n        SelecionarFerramenta(\"Linha\")\r\n    End Sub\r\n    Private Sub BtnRetangulo_Click() Handles BtnRetangulo.Click\r\n        SelecionarFerramenta(\"Retangulo\")\r\n    End Sub\r\n    Private Sub BtnElipse_Click() Handles BtnElipse.Click\r\n        SelecionarFerramenta(\"Elipse\")\r\n    End Sub\r\n    Private Sub BtnPreencher_Click() Handles BtnPreencher.Click\r\n        SelecionarFerramenta(\"Preencher\")\r\n    End Sub\r\n    Private Sub BtnContaGotas_Click() Handles BtnContaGotas.Click\r\n        SelecionarFerramenta(\"Conta-gotas\")\r\n    End Sub\r\n    Private Sub BtnTexto_Click() Handles BtnTexto.Click\r\n        SelecionarFerramenta(\"Texto\")\r\n    End Sub\r\n\r\n    Private Sub ColorComboBox1_SelectedColorChanged() Handles ColorComboBox1.SelectedColorChanged\r\n        If Not ColorComboBox1.SelectedColor.IsEmpty Then corAtual = ColorComboBox1.SelectedColor\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseDown(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseDown\r\n        If e.Button <> MouseButtons.Left Then Return\r\n        inicio = e.Location : ultimo = e.Location\r\n        If ferramenta = \"Conta-gotas\" Then\r\n            If Dentro(e.Location) Then corAtual = desenho.GetPixel(e.X, e.Y) : ColorComboBox1.SelectedColor = corAtual\r\n            Return\r\n        End If\r\n        SalvarHistorico()\r\n        If ferramenta = \"Preencher\" Then\r\n            PreencherArea(e.Location, corAtual) : PictureBoxCanvas.Invalidate() : Return\r\n        End If\r\n        If ferramenta = \"Texto\" Then\r\n            Dim texto As String = Microsoft.VisualBasic.Interaction.InputBox(\"Digite o texto:\", \"Inserir texto\", \"Texto\")\r\n            If texto <> \"\" Then\r\n                Using g As Graphics = Graphics.FromImage(desenho), fonte As New Font(\"Segoe UI\", CSng(Math.Max(8, NumericUpDown1.Value * 3)))\r\n                    g.DrawString(texto, fonte, New SolidBrush(corAtual), e.Location)\r\n                End Using\r\n                PictureBoxCanvas.Invalidate()\r\n            End If\r\n            Return\r\n        End If\r\n        desenhando = True\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseMove\r\n        ToolStripStatusLabelPosicao.Text = \"X: \" & e.X & \"  Y: \" & e.Y\r\n        If Not desenhando Then Return\r\n        If ferramenta = \"Lapis\" OrElse ferramenta = \"Pincel\" OrElse ferramenta = \"Borracha\" Then\r\n            Dim largura As Single = CSng(NumericUpDown1.Value)\r\n            If ferramenta = \"Lapis\" Then largura = 1\r\n            Dim tinta As Color = If(ferramenta = \"Borracha\", Color.White, corAtual)\r\n            Using g As Graphics = Graphics.FromImage(desenho), p As New Pen(tinta, largura)\r\n                g.SmoothingMode = SmoothingMode.AntiAlias : p.StartCap = LineCap.Round : p.EndCap = LineCap.Round\r\n                g.DrawLine(p, ultimo, e.Location)\r\n            End Using\r\n            ultimo = e.Location : PictureBoxCanvas.Invalidate()\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseUp\r\n        If Not desenhando Then Return\r\n        desenhando = False\r\n        Dim r As Rectangle = RetanguloNormalizado(inicio, e.Location)\r\n        Using g As Graphics = Graphics.FromImage(desenho), p As New Pen(corAtual, CSng(NumericUpDown1.Value))\r\n            g.SmoothingMode = SmoothingMode.AntiAlias\r\n            Select Case ferramenta\r\n                Case \"Linha\" : g.DrawLine(p, inicio, e.Location)\r\n                Case \"Retangulo\" : If r.Width > 0 AndAlso r.Height > 0 Then g.DrawRectangle(p, r)\r\n                Case \"Elipse\" : If r.Width > 0 AndAlso r.Height > 0 Then g.DrawEllipse(p, r)\r\n            End Select\r\n        End Using\r\n        PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Function RetanguloNormalizado(a As Point, b As Point) As Rectangle\r\n        Return Rectangle.FromLTRB(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Max(a.X, b.X), Math.Max(a.Y, b.Y))\r\n    End Function\r\n\r\n    Private Function Dentro(p As Point) As Boolean\r\n        Return p.X >= 0 AndAlso p.Y >= 0 AndAlso p.X < desenho.Width AndAlso p.Y < desenho.Height\r\n    End Function\r\n\r\n    Private Sub PreencherArea(p As Point, novaCor As Color)\r\n        If Not Dentro(p) Then Return\r\n        Dim antiga As Color = desenho.GetPixel(p.X, p.Y)\r\n        If antiga.ToArgb() = novaCor.ToArgb() Then Return\r\n        Dim fila As New Queue(Of Point)() : fila.Enqueue(p)\r\n        While fila.Count > 0\r\n            Dim atual = fila.Dequeue()\r\n            If Not Dentro(atual) OrElse desenho.GetPixel(atual.X, atual.Y).ToArgb() <> antiga.ToArgb() Then Continue While\r\n            desenho.SetPixel(atual.X, atual.Y, novaCor)\r\n            fila.Enqueue(New Point(atual.X + 1, atual.Y)) : fila.Enqueue(New Point(atual.X - 1, atual.Y))\r\n            fila.Enqueue(New Point(atual.X, atual.Y + 1)) : fila.Enqueue(New Point(atual.X, atual.Y - 1))\r\n        End While\r\n    End Sub\r\n\r\n    Private Sub SalvarHistorico()\r\n        desfazer.Push(DirectCast(desenho.Clone(), Bitmap))\r\n        While desfazer.Count > 20\r\n            Dim itens = desfazer.ToArray() : desfazer.Clear()\r\n            For i As Integer = Math.Min(19, itens.Length - 1) To 0 Step -1 : desfazer.Push(itens(i)) : Next\r\n        End While\r\n        refazer.Clear()\r\n    End Sub\r\n\r\n    Private Sub Desfazer_Click() Handles MenuDesfazer.Click, BtnDesfazer.Click\r\n        If desfazer.Count = 0 Then Return\r\n        refazer.Push(DirectCast(desenho.Clone(), Bitmap)) : desenho.Dispose() : desenho = desfazer.Pop()\r\n        PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Refazer_Click() Handles MenuRefazer.Click, BtnRefazer.Click\r\n        If refazer.Count = 0 Then Return\r\n        desfazer.Push(DirectCast(desenho.Clone(), Bitmap)) : desenho.Dispose() : desenho = refazer.Pop()\r\n        PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Novo_Click() Handles MenuNovo.Click, BtnNovo.Click\r\n        SalvarHistorico()\r\n        Using g As Graphics = Graphics.FromImage(desenho) : g.Clear(Color.White) : End Using\r\n        arquivoAtual = \"\" : PictureBoxCanvas.Invalidate() : AtualizarEstado(\"Nova imagem\")\r\n    End Sub\r\n\r\n    Private Sub Abrir_Click() Handles MenuAbrir.Click, BtnAbrir.Click\r\n        Using d As New OpenFileDialog With {.Filter = \"Imagens|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Todos os arquivos|*.*\"}\r\n            If d.ShowDialog() <> DialogResult.OK Then Return\r\n            Using original As Image = Image.FromFile(d.FileName)\r\n                SalvarHistorico() : desenho.Dispose() : desenho = New Bitmap(PictureBoxCanvas.Width, PictureBoxCanvas.Height)\r\n                Using g As Graphics = Graphics.FromImage(desenho) : g.Clear(Color.White) : g.DrawImage(original, 0, 0, original.Width, original.Height) : End Using\r\n            End Using\r\n            arquivoAtual = d.FileName : PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate() : AtualizarEstado(\"Aberto: \" & IO.Path.GetFileName(d.FileName))\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Salvar_Click() Handles MenuSalvar.Click, BtnSalvar.Click\r\n        If arquivoAtual = \"\" Then SalvarComo_Click() Else desenho.Save(arquivoAtual, Imaging.ImageFormat.Png) : AtualizarEstado(\"Imagem salva\")\r\n    End Sub\r\n\r\n    Private Sub SalvarComo_Click() Handles MenuSalvarComo.Click\r\n        Using d As New SaveFileDialog With {.Filter = \"PNG|*.png|JPEG|*.jpg|Bitmap|*.bmp\", .DefaultExt = \"png\"}\r\n            If d.ShowDialog() <> DialogResult.OK Then Return\r\n            arquivoAtual = d.FileName\r\n            Dim ext = IO.Path.GetExtension(arquivoAtual).ToLowerInvariant()\r\n            Dim formato = If(ext = \".jpg\" OrElse ext = \".jpeg\", System.Drawing.Imaging.ImageFormat.Jpeg, If(ext = \".bmp\", System.Drawing.Imaging.ImageFormat.Bmp, System.Drawing.Imaging.ImageFormat.Png))\r\n            desenho.Save(arquivoAtual, formato) : AtualizarEstado(\"Salvo: \" & IO.Path.GetFileName(arquivoAtual))\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Copiar_Click() Handles MenuCopiar.Click\r\n        Clipboard.SetImage(desenho)\r\n    End Sub\r\n\r\n    Private Sub Colar_Click() Handles MenuColar.Click\r\n        If Not Clipboard.ContainsImage() Then Return\r\n        SalvarHistorico()\r\n        Using g As Graphics = Graphics.FromImage(desenho) : g.DrawImage(Clipboard.GetImage(), 0, 0) : End Using\r\n        PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Limpar_Click() Handles MenuLimpar.Click\r\n        Novo_Click()\r\n    End Sub\r\n\r\n    Private Sub Imprimir_Click() Handles MenuImprimir.Click\r\n        Using documento As New PrintDocument()\r\n            AddHandler documento.PrintPage, Sub(s, ev) ev.Graphics.DrawImage(desenho, ev.MarginBounds)\r\n            Using dialogo As New PrintDialog With {.Document = documento}\r\n                If dialogo.ShowDialog() = DialogResult.OK Then documento.Print()\r\n            End Using\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Sair_Click() Handles MenuSair.Click\r\n        Close()\r\n    End Sub\r\n\r\n    Private Sub Sobre_Click() Handles MenuSobre.Click\r\n        MessageBox.Show(\"FlowPaint\" & Environment.NewLine & \"Clone de Paint criado no FlowForge.\", \"Sobre\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n    End Sub\r\n\r\n    Private Sub AtualizarEstado(mensagem As String)\r\n        ToolStripStatusLabelEstado.Text = mensagem\r\n    End Sub\r\nEnd Class"}],"ApplicationIcon":"","AssemblyTitle":"FlowPaint","AssemblyDescription":"Editor de imagens criado no FlowForge","AssemblyCompany":"Wtec","AssemblyProduct":"FlowPaint","AssemblyCopyright":"Copyright © 2026","AssemblyTrademark":"FlowForge","AssemblyVersion":"1.1.0.0","FileVersion":"1.1.0.0"}
+{
+  "Name": "FlowPaint",
+  "Version": "1.1.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "FlowPaint"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "1064, 673"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "FormBorderStyle",
+          "Value": "Sizable"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "Control"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "800, 550"
+        },
+        {
+          "Key": "KeyPreview",
+          "Value": "True"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "MenuStrip",
+          "Name": "MenuStrip1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "MenuStrip1"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 0"
+            },
+            {
+              "Key": "Size",
+              "Value": "1064, 24"
+            },
+            {
+              "Key": "Dock",
+              "Value": "Top"
+            }
+          ],
+          "Items": [
+            {
+              "TypeName": "ToolStripMenuItem",
+              "Name": "MenuArquivo",
+              "Text": "Arquivo",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "MenuArquivo"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Arquivo"
+                }
+              ],
+              "DropDownItems": [
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuNovo",
+                  "Text": "Novo",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuNovo"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Novo"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuAbrir",
+                  "Text": "Abrir...",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuAbrir"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Abrir..."
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuSalvar",
+                  "Text": "Salvar",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuSalvar"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Salvar"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuSalvarComo",
+                  "Text": "Salvar como...",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuSalvarComo"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Salvar como..."
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripSeparator",
+                  "Name": "SeparadorArquivo1",
+                  "Text": "-",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "SeparadorArquivo1"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "-"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuImprimir",
+                  "Text": "Imprimir...",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuImprimir"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Imprimir..."
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripSeparator",
+                  "Name": "SeparadorArquivo2",
+                  "Text": "-",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "SeparadorArquivo2"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "-"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuSair",
+                  "Text": "Sair",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuSair"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Sair"
+                    }
+                  ],
+                  "DropDownItems": []
+                }
+              ]
+            },
+            {
+              "TypeName": "ToolStripMenuItem",
+              "Name": "MenuEditar",
+              "Text": "Editar",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "MenuEditar"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Editar"
+                }
+              ],
+              "DropDownItems": [
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuDesfazer",
+                  "Text": "Desfazer",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuDesfazer"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Desfazer"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuRefazer",
+                  "Text": "Refazer",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuRefazer"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Refazer"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripSeparator",
+                  "Name": "SeparadorEditar",
+                  "Text": "-",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "SeparadorEditar"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "-"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuCopiar",
+                  "Text": "Copiar",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuCopiar"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Copiar"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuColar",
+                  "Text": "Colar",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuColar"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Colar"
+                    }
+                  ],
+                  "DropDownItems": []
+                },
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuLimpar",
+                  "Text": "Limpar tela",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuLimpar"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Limpar tela"
+                    }
+                  ],
+                  "DropDownItems": []
+                }
+              ]
+            },
+            {
+              "TypeName": "ToolStripMenuItem",
+              "Name": "MenuAjuda",
+              "Text": "Ajuda",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "MenuAjuda"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Ajuda"
+                }
+              ],
+              "DropDownItems": [
+                {
+                  "TypeName": "ToolStripMenuItem",
+                  "Name": "MenuSobre",
+                  "Text": "Sobre",
+                  "Properties": [
+                    {
+                      "Key": "Name",
+                      "Value": "MenuSobre"
+                    },
+                    {
+                      "Key": "Text",
+                      "Value": "Sobre"
+                    }
+                  ],
+                  "DropDownItems": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "TypeName": "ToolStrip",
+          "Name": "ToolStrip1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ToolStrip1"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 24"
+            },
+            {
+              "Key": "Size",
+              "Value": "1064, 25"
+            },
+            {
+              "Key": "Dock",
+              "Value": "Top"
+            }
+          ],
+          "Items": [
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnNovo",
+              "Text": "Novo",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnNovo"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Novo"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Novo"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnAbrir",
+              "Text": "Abrir",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnAbrir"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Abrir"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Abrir"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnSalvar",
+              "Text": "Salvar",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnSalvar"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Salvar"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Salvar"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnDesfazer",
+              "Text": "Desfazer",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnDesfazer"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Desfazer"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Desfazer"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnRefazer",
+              "Text": "Refazer",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnRefazer"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Refazer"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Refazer"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnLapis",
+              "Text": "Lápis",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnLapis"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Lápis"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Lápis"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnPincel",
+              "Text": "Pincel",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnPincel"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Pincel"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Pincel"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnBorracha",
+              "Text": "Borracha",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnBorracha"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Borracha"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Borracha"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnLinha",
+              "Text": "Linha",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnLinha"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Linha"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Linha"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnRetangulo",
+              "Text": "Retângulo",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnRetangulo"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Retângulo"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Retângulo"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnElipse",
+              "Text": "Elipse",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnElipse"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Elipse"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Elipse"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnPreencher",
+              "Text": "Preencher",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnPreencher"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Preencher"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Preencher"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnContaGotas",
+              "Text": "Conta-gotas",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnContaGotas"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Conta-gotas"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Conta-gotas"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripButton",
+              "Name": "BtnTexto",
+              "Text": "Texto",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "BtnTexto"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Texto"
+                },
+                {
+                  "Key": "ToolTipText",
+                  "Value": "Texto"
+                }
+              ],
+              "DropDownItems": []
+            }
+          ]
+        },
+        {
+          "TypeName": "ColorComboBox",
+          "Name": "ColorComboBox1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ColorComboBox1"
+            },
+            {
+              "Key": "Location",
+              "Value": "12, 57"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 28"
+            },
+            {
+              "Key": "SelectedColor",
+              "Value": "Black"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NumericUpDown",
+          "Name": "NumericUpDown1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NumericUpDown1"
+            },
+            {
+              "Key": "Location",
+              "Value": "205, 58"
+            },
+            {
+              "Key": "Size",
+              "Value": "70, 25"
+            },
+            {
+              "Key": "Minimum",
+              "Value": "1"
+            },
+            {
+              "Key": "Maximum",
+              "Value": "80"
+            },
+            {
+              "Key": "Value",
+              "Value": "4"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "LabelEspessura",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LabelEspessura"
+            },
+            {
+              "Key": "Text",
+              "Value": "Espessura"
+            },
+            {
+              "Key": "Location",
+              "Value": "205, 86"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "True"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "PictureBox",
+          "Name": "PictureBoxCanvas",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "PictureBoxCanvas"
+            },
+            {
+              "Key": "Location",
+              "Value": "12, 112"
+            },
+            {
+              "Key": "Size",
+              "Value": "1028, 515"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "White"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "FixedSingle"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Bottom, Left, Right"
+            },
+            {
+              "Key": "Cursor",
+              "Value": "Cross"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "StatusStrip",
+          "Name": "StatusStrip1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StatusStrip1"
+            },
+            {
+              "Key": "Location",
+              "Value": "0, 651"
+            },
+            {
+              "Key": "Size",
+              "Value": "1064, 22"
+            },
+            {
+              "Key": "Dock",
+              "Value": "Bottom"
+            }
+          ],
+          "Items": [
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "ToolStripStatusLabelEstado",
+              "Text": "Pronto",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "ToolStripStatusLabelEstado"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Pronto"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "ToolStripStatusLabelFerramenta",
+              "Text": "Ferramenta: Lapis",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "ToolStripStatusLabelFerramenta"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "Ferramenta: Lapis"
+                }
+              ],
+              "DropDownItems": []
+            },
+            {
+              "TypeName": "ToolStripStatusLabel",
+              "Name": "ToolStripStatusLabelPosicao",
+              "Text": "X: 0  Y: 0",
+              "Properties": [
+                {
+                  "Key": "Name",
+                  "Value": "ToolStripStatusLabelPosicao"
+                },
+                {
+                  "Key": "Text",
+                  "Value": "X: 0  Y: 0"
+                }
+              ],
+              "DropDownItems": []
+            }
+          ]
+        }
+      ],
+      "Code": "Imports System\r\nImports System.Drawing\r\nImports System.Drawing.Drawing2D\r\nImports System.Drawing.Printing\r\nImports System.Collections.Generic\r\nImports System.Windows.Forms\r\n\r\nPartial Public Class Form1\r\n    Private desenho As Bitmap\r\n    Private inicio As Point\r\n    Private ultimo As Point\r\n    Private desenhando As Boolean\r\n    Private ferramenta As String = \"Lapis\"\r\n    Private corAtual As Color = Color.Black\r\n    Private ReadOnly desfazer As New Stack(Of Bitmap)()\r\n    Private ReadOnly refazer As New Stack(Of Bitmap)()\r\n    Private arquivoAtual As String = \"\"\r\n\r\n    Private Sub Form1_Load() Handles MyBase.Load\r\n        PrepararTela()\r\n        AplicarIcones()\r\n        AtualizarEstado(\"Pronto\")\r\n    End Sub\r\n\r\n    Private Function CriarIcone(simbolo As String, fundo As Color) As Bitmap\r\n        Dim imagem As New Bitmap(24, 24)\r\n        Using g As Graphics = Graphics.FromImage(imagem)\r\n            g.SmoothingMode = SmoothingMode.AntiAlias : g.Clear(Color.Transparent)\r\n            Using b As New SolidBrush(fundo) : g.FillEllipse(b, 1, 1, 22, 22) : End Using\r\n            Using f As New Font(\"Segoe UI Symbol\", 11, FontStyle.Bold), b As New SolidBrush(Color.White)\r\n                Dim formato As New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center}\r\n                g.DrawString(simbolo, f, b, New RectangleF(0, 0, 24, 24), formato)\r\n            End Using\r\n        End Using\r\n        Return imagem\r\n    End Function\r\n\r\n    Private Sub AplicarIcones()\r\n        Dim botoes As ToolStripButton() = {BtnNovo, BtnAbrir, BtnSalvar, BtnDesfazer, BtnRefazer, BtnLapis, BtnPincel, BtnBorracha, BtnLinha, BtnRetangulo, BtnElipse, BtnPreencher, BtnContaGotas, BtnTexto}\r\n        Dim simbolos As String() = {\"N\", \"↗\", \"S\", \"↶\", \"↷\", \"✎\", \"●\", \"E\", \"╱\", \"□\", \"○\", \"▣\", \"◉\", \"T\"}\r\n        Dim cores As Color() = {Color.Teal, Color.SteelBlue, Color.SeaGreen, Color.DimGray, Color.DimGray, Color.RoyalBlue, Color.MediumPurple, Color.IndianRed, Color.SlateGray, Color.DarkOrange, Color.DarkCyan, Color.Goldenrod, Color.MediumVioletRed, Color.DarkSlateBlue}\r\n        For i As Integer = 0 To botoes.Length - 1\r\n            botoes(i).Image = CriarIcone(simbolos(i), cores(i)) : botoes(i).DisplayStyle = ToolStripItemDisplayStyle.Image\r\n        Next\r\n    End Sub\r\n\r\n    Private Sub PrepararTela()\r\n        If desenho Is Nothing Then\r\n            desenho = New Bitmap(Math.Max(1, PictureBoxCanvas.ClientSize.Width), Math.Max(1, PictureBoxCanvas.ClientSize.Height))\r\n            Using g As Graphics = Graphics.FromImage(desenho)\r\n                g.Clear(Color.White)\r\n            End Using\r\n        End If\r\n        PictureBoxCanvas.Image = desenho\r\n        ColorComboBox1.SelectedColor = corAtual\r\n        NumericUpDown1.Minimum = 1\r\n        NumericUpDown1.Maximum = 80\r\n        NumericUpDown1.Value = 4\r\n    End Sub\r\n\r\n    Private Sub SelecionarFerramenta(nome As String)\r\n        ferramenta = nome\r\n        ToolStripStatusLabelFerramenta.Text = \"Ferramenta: \" & nome\r\n    End Sub\r\n\r\n    Private Sub BtnLapis_Click() Handles BtnLapis.Click\r\n        SelecionarFerramenta(\"Lapis\")\r\n    End Sub\r\n    Private Sub BtnPincel_Click() Handles BtnPincel.Click\r\n        SelecionarFerramenta(\"Pincel\")\r\n    End Sub\r\n    Private Sub BtnBorracha_Click() Handles BtnBorracha.Click\r\n        SelecionarFerramenta(\"Borracha\")\r\n    End Sub\r\n    Private Sub BtnLinha_Click() Handles BtnLinha.Click\r\n        SelecionarFerramenta(\"Linha\")\r\n    End Sub\r\n    Private Sub BtnRetangulo_Click() Handles BtnRetangulo.Click\r\n        SelecionarFerramenta(\"Retangulo\")\r\n    End Sub\r\n    Private Sub BtnElipse_Click() Handles BtnElipse.Click\r\n        SelecionarFerramenta(\"Elipse\")\r\n    End Sub\r\n    Private Sub BtnPreencher_Click() Handles BtnPreencher.Click\r\n        SelecionarFerramenta(\"Preencher\")\r\n    End Sub\r\n    Private Sub BtnContaGotas_Click() Handles BtnContaGotas.Click\r\n        SelecionarFerramenta(\"Conta-gotas\")\r\n    End Sub\r\n    Private Sub BtnTexto_Click() Handles BtnTexto.Click\r\n        SelecionarFerramenta(\"Texto\")\r\n    End Sub\r\n\r\n    Private Sub ColorComboBox1_SelectedColorChanged() Handles ColorComboBox1.SelectedColorChanged\r\n        If Not ColorComboBox1.SelectedColor.IsEmpty Then corAtual = ColorComboBox1.SelectedColor\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseDown(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseDown\r\n        If e.Button <> MouseButtons.Left Then Return\r\n        inicio = e.Location : ultimo = e.Location\r\n        If ferramenta = \"Conta-gotas\" Then\r\n            If Dentro(e.Location) Then corAtual = desenho.GetPixel(e.X, e.Y) : ColorComboBox1.SelectedColor = corAtual\r\n            Return\r\n        End If\r\n        SalvarHistorico()\r\n        If ferramenta = \"Preencher\" Then\r\n            PreencherArea(e.Location, corAtual) : PictureBoxCanvas.Invalidate() : Return\r\n        End If\r\n        If ferramenta = \"Texto\" Then\r\n            Dim texto As String = Microsoft.VisualBasic.Interaction.InputBox(\"Digite o texto:\", \"Inserir texto\", \"Texto\")\r\n            If texto <> \"\" Then\r\n                Using g As Graphics = Graphics.FromImage(desenho), fonte As New Font(\"Segoe UI\", CSng(Math.Max(8, NumericUpDown1.Value * 3)))\r\n                    g.DrawString(texto, fonte, New SolidBrush(corAtual), e.Location)\r\n                End Using\r\n                PictureBoxCanvas.Invalidate()\r\n            End If\r\n            Return\r\n        End If\r\n        desenhando = True\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseMove\r\n        ToolStripStatusLabelPosicao.Text = \"X: \" & e.X & \"  Y: \" & e.Y\r\n        If Not desenhando Then Return\r\n        If ferramenta = \"Lapis\" OrElse ferramenta = \"Pincel\" OrElse ferramenta = \"Borracha\" Then\r\n            Dim largura As Single = CSng(NumericUpDown1.Value)\r\n            If ferramenta = \"Lapis\" Then largura = 1\r\n            Dim tinta As Color = If(ferramenta = \"Borracha\", Color.White, corAtual)\r\n            Using g As Graphics = Graphics.FromImage(desenho), p As New Pen(tinta, largura)\r\n                g.SmoothingMode = SmoothingMode.AntiAlias : p.StartCap = LineCap.Round : p.EndCap = LineCap.Round\r\n                g.DrawLine(p, ultimo, e.Location)\r\n            End Using\r\n            ultimo = e.Location : PictureBoxCanvas.Invalidate()\r\n        End If\r\n    End Sub\r\n\r\n    Private Sub PictureBoxCanvas_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBoxCanvas.MouseUp\r\n        If Not desenhando Then Return\r\n        desenhando = False\r\n        Dim r As Rectangle = RetanguloNormalizado(inicio, e.Location)\r\n        Using g As Graphics = Graphics.FromImage(desenho), p As New Pen(corAtual, CSng(NumericUpDown1.Value))\r\n            g.SmoothingMode = SmoothingMode.AntiAlias\r\n            Select Case ferramenta\r\n                Case \"Linha\" : g.DrawLine(p, inicio, e.Location)\r\n                Case \"Retangulo\" : If r.Width > 0 AndAlso r.Height > 0 Then g.DrawRectangle(p, r)\r\n                Case \"Elipse\" : If r.Width > 0 AndAlso r.Height > 0 Then g.DrawEllipse(p, r)\r\n            End Select\r\n        End Using\r\n        PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Function RetanguloNormalizado(a As Point, b As Point) As Rectangle\r\n        Return Rectangle.FromLTRB(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Max(a.X, b.X), Math.Max(a.Y, b.Y))\r\n    End Function\r\n\r\n    Private Function Dentro(p As Point) As Boolean\r\n        Return p.X >= 0 AndAlso p.Y >= 0 AndAlso p.X < desenho.Width AndAlso p.Y < desenho.Height\r\n    End Function\r\n\r\n    Private Sub PreencherArea(p As Point, novaCor As Color)\r\n        If Not Dentro(p) Then Return\r\n        Dim antiga As Color = desenho.GetPixel(p.X, p.Y)\r\n        If antiga.ToArgb() = novaCor.ToArgb() Then Return\r\n        Dim fila As New System.Collections.Generic.Queue(Of Point)() : fila.Enqueue(p)\r\n        While fila.Count > 0\r\n            Dim atual = fila.Dequeue()\r\n            If Not Dentro(atual) OrElse desenho.GetPixel(atual.X, atual.Y).ToArgb() <> antiga.ToArgb() Then Continue While\r\n            desenho.SetPixel(atual.X, atual.Y, novaCor)\r\n            fila.Enqueue(New Point(atual.X + 1, atual.Y)) : fila.Enqueue(New Point(atual.X - 1, atual.Y))\r\n            fila.Enqueue(New Point(atual.X, atual.Y + 1)) : fila.Enqueue(New Point(atual.X, atual.Y - 1))\r\n        End While\r\n    End Sub\r\n\r\n    Private Sub SalvarHistorico()\r\n        desfazer.Push(DirectCast(desenho.Clone(), Bitmap))\r\n        While desfazer.Count > 20\r\n            Dim itens = desfazer.ToArray() : desfazer.Clear()\r\n            For i As Integer = Math.Min(19, itens.Length - 1) To 0 Step -1 : desfazer.Push(itens(i)) : Next\r\n        End While\r\n        refazer.Clear()\r\n    End Sub\r\n\r\n    Private Sub Desfazer_Click() Handles MenuDesfazer.Click, BtnDesfazer.Click\r\n        If desfazer.Count = 0 Then Return\r\n        refazer.Push(DirectCast(desenho.Clone(), Bitmap)) : desenho.Dispose() : desenho = desfazer.Pop()\r\n        PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Refazer_Click() Handles MenuRefazer.Click, BtnRefazer.Click\r\n        If refazer.Count = 0 Then Return\r\n        desfazer.Push(DirectCast(desenho.Clone(), Bitmap)) : desenho.Dispose() : desenho = refazer.Pop()\r\n        PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Novo_Click() Handles MenuNovo.Click, BtnNovo.Click\r\n        SalvarHistorico()\r\n        Using g As Graphics = Graphics.FromImage(desenho) : g.Clear(Color.White) : End Using\r\n        arquivoAtual = \"\" : PictureBoxCanvas.Invalidate() : AtualizarEstado(\"Nova imagem\")\r\n    End Sub\r\n\r\n    Private Sub Abrir_Click() Handles MenuAbrir.Click, BtnAbrir.Click\r\n        Using d As New OpenFileDialog With {.Filter = \"Imagens|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Todos os arquivos|*.*\"}\r\n            If d.ShowDialog() <> DialogResult.OK Then Return\r\n            Using original As Image = Image.FromFile(d.FileName)\r\n                SalvarHistorico() : desenho.Dispose() : desenho = New Bitmap(PictureBoxCanvas.Width, PictureBoxCanvas.Height)\r\n                Using g As Graphics = Graphics.FromImage(desenho) : g.Clear(Color.White) : g.DrawImage(original, 0, 0, original.Width, original.Height) : End Using\r\n            End Using\r\n            arquivoAtual = d.FileName : PictureBoxCanvas.Image = desenho : PictureBoxCanvas.Invalidate() : AtualizarEstado(\"Aberto: \" & IO.Path.GetFileName(d.FileName))\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Salvar_Click() Handles MenuSalvar.Click, BtnSalvar.Click\r\n        If arquivoAtual = \"\" Then SalvarComo_Click() Else desenho.Save(arquivoAtual, Imaging.ImageFormat.Png) : AtualizarEstado(\"Imagem salva\")\r\n    End Sub\r\n\r\n    Private Sub SalvarComo_Click() Handles MenuSalvarComo.Click\r\n        Using d As New SaveFileDialog With {.Filter = \"PNG|*.png|JPEG|*.jpg|Bitmap|*.bmp\", .DefaultExt = \"png\"}\r\n            If d.ShowDialog() <> DialogResult.OK Then Return\r\n            arquivoAtual = d.FileName\r\n            Dim ext = IO.Path.GetExtension(arquivoAtual).ToLowerInvariant()\r\n            Dim formato = If(ext = \".jpg\" OrElse ext = \".jpeg\", System.Drawing.Imaging.ImageFormat.Jpeg, If(ext = \".bmp\", System.Drawing.Imaging.ImageFormat.Bmp, System.Drawing.Imaging.ImageFormat.Png))\r\n            desenho.Save(arquivoAtual, formato) : AtualizarEstado(\"Salvo: \" & IO.Path.GetFileName(arquivoAtual))\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Copiar_Click() Handles MenuCopiar.Click\r\n        Clipboard.SetImage(desenho)\r\n    End Sub\r\n\r\n    Private Sub Colar_Click() Handles MenuColar.Click\r\n        If Not Clipboard.ContainsImage() Then Return\r\n        SalvarHistorico()\r\n        Using g As Graphics = Graphics.FromImage(desenho) : g.DrawImage(Clipboard.GetImage(), 0, 0) : End Using\r\n        PictureBoxCanvas.Invalidate()\r\n    End Sub\r\n\r\n    Private Sub Limpar_Click() Handles MenuLimpar.Click\r\n        Novo_Click()\r\n    End Sub\r\n\r\n    Private Sub Imprimir_Click() Handles MenuImprimir.Click\r\n        Using documento As New PrintDocument()\r\n            AddHandler documento.PrintPage, Sub(s, ev) ev.Graphics.DrawImage(desenho, ev.MarginBounds)\r\n            Using dialogo As New PrintDialog With {.Document = documento}\r\n                If dialogo.ShowDialog() = DialogResult.OK Then documento.Print()\r\n            End Using\r\n        End Using\r\n    End Sub\r\n\r\n    Private Sub Sair_Click() Handles MenuSair.Click\r\n        Close()\r\n    End Sub\r\n\r\n    Private Sub Sobre_Click() Handles MenuSobre.Click\r\n        MessageBox.Show(\"FlowPaint\" & Environment.NewLine & \"Clone de Paint criado no FlowForge.\", \"Sobre\", MessageBoxButtons.OK, MessageBoxIcon.Information)\r\n    End Sub\r\n\r\n    Private Sub AtualizarEstado(mensagem As String)\r\n        ToolStripStatusLabelEstado.Text = mensagem\r\n    End Sub\r\nEnd Class"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "FlowPaint",
+  "AssemblyDescription": "Editor de imagens criado no FlowForge",
+  "AssemblyCompany": "Wtec",
+  "AssemblyProduct": "FlowPaint",
+  "AssemblyCopyright": "Copyright © 2026",
+  "AssemblyTrademark": "FlowForge",
+  "AssemblyVersion": "1.1.0.0",
+  "FileVersion": "1.1.0.0"
+}

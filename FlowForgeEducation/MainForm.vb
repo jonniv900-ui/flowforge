@@ -12,6 +12,92 @@ Imports Microsoft.VisualBasic
 Namespace FlowForgeStudio
     Public Class MainForm
         Inherits Form
+
+        Private _darkTheme As Boolean = True
+        Private _rcMainTools As ToolStrip
+        Private _themeLightItem As ToolStripMenuItem
+        Private _themeDarkItem As ToolStripMenuItem
+
+
+        Private Sub ApplyIdeTheme(dark As Boolean)
+            _darkTheme = dark
+
+            Dim back As Color
+            Dim panelBack As Color
+            Dim fore As Color
+            Dim stripBack As Color
+
+            If dark Then
+                back = Color.FromArgb(30, 33, 40)
+                panelBack = Color.FromArgb(36, 39, 47)
+                stripBack = Color.FromArgb(32, 35, 43)
+                fore = Color.White
+            Else
+                back = SystemColors.Control
+                panelBack = Color.White
+                stripBack = SystemColors.Control
+                fore = SystemColors.ControlText
+            End If
+
+            Me.BackColor = back
+            Me.ForeColor = fore
+
+            ' Aplica o tema somente à interface da IDE.
+            ' A superfície do Designer contém o Form/UserControl do projeto e deve
+            ' preservar integralmente BackColor/ForeColor definidos pelo usuário.
+            ApplyThemeRecursive(Me, dark, back, panelBack, fore)
+
+            For Each ts As ToolStrip In New ToolStrip() {fileTools, designerTools, buildTools, projectTools, _rcMainTools}
+                If ts IsNot Nothing Then
+                    ts.BackColor = stripBack
+                    ts.ForeColor = fore
+                    For Each it As ToolStripItem In ts.Items
+                        it.BackColor = stripBack
+                        it.ForeColor = fore
+                    Next
+                End If
+            Next
+            If _themeDarkItem IsNot Nothing Then _themeDarkItem.Checked = dark
+            If _themeLightItem IsNot Nothing Then _themeLightItem.Checked = Not dark
+            Me.Invalidate(True)
+        End Sub
+
+        Private Shared Sub ApplyThemeRecursive(parent As Control, dark As Boolean, back As Color, panelBack As Color, fore As Color)
+            For Each child As Control In parent.Controls
+                ' Nunca tematizar a superfície de design nem o controle raiz que ela hospeda.
+                ' O tema é da IDE, não do aplicativo criado pelo usuário.
+                If TypeOf child Is DesignerSurface Then
+                    Continue For
+                End If
+                If TypeOf child Is Form Then
+                    Continue For
+                End If
+                If TypeOf child Is UserControl AndAlso child.Parent IsNot Nothing AndAlso TypeOf child.Parent Is DesignerSurface Then
+                    Continue For
+                End If
+                If TypeOf child Is TextBoxBase OrElse TypeOf child Is ListBox OrElse TypeOf child Is ListView OrElse TypeOf child Is TreeView Then
+                    child.BackColor = If(dark, Color.FromArgb(28, 31, 38), Color.White)
+                    child.ForeColor = fore
+                ElseIf TypeOf child Is PropertyGrid Then
+                    child.BackColor = If(dark, Color.FromArgb(30, 33, 40), SystemColors.Control)
+                    child.ForeColor = fore
+                ElseIf TypeOf child Is Panel OrElse TypeOf child Is SplitContainer OrElse TypeOf child Is TabControl Then
+                    child.BackColor = If(dark, panelBack, SystemColors.Control)
+                    child.ForeColor = fore
+                End If
+                ApplyThemeRecursive(child, dark, back, panelBack, fore)
+            Next
+        End Sub
+
+        Private Shared Sub MoveToolStripItems(source As ToolStrip, target As ToolStrip)
+            If source Is Nothing OrElse target Is Nothing Then Return
+            While source.Items.Count > 0
+                Dim item As ToolStripItem = source.Items(0)
+                source.Items.RemoveAt(0)
+                target.Items.Add(item)
+            End While
+        End Sub
+
         Private project As FlowProject
         Private currentFile As String
         Private activeIndex As Integer
@@ -340,6 +426,8 @@ Namespace FlowForgeStudio
                 Item("Adivinhe o número", Sub() OpenExample("AdivinheNumero.flowapp"), "help"))
             Dim productivityExamples As ToolStripMenuItem = Menu("⭐⭐ Intermediário", _
                 Item("Lista de tarefas", Sub() OpenExample("ListaTarefas.flowapp"), "code"), _
+                Item("Editor de Texto — FlowWriter", Sub() OpenExample("EditorDeTexto.flowapp"), "code"), _
+                Item("Paint", Sub() OpenExample("Paint.flowapp"), "form"), _
                 Item("FlowPaint — editor de imagens", Sub() OpenExample("FlowPaint.flowapp"), "form"), _
                 Item("Mini Editor de Texto", Sub() OpenExample("MiniEditor.flowapp"), "code"), _
                 Item("FlowExplorer — explorador de arquivos", Sub() OpenExample("FlowExplorer.flowapp"), "open"), _
@@ -365,6 +453,8 @@ Namespace FlowForgeStudio
             Dim gameExamples As ToolStripMenuItem = Menu("⭐⭐ Jogos", _
                 Item("Clicker Game", Sub() OpenExample("ClickerGame.flowapp"), "run"), _
                 Item("Flappy Bird", Sub() OpenExample("FlappyBird.flowapp"), "run"), _
+                Item("Aventura do Encanador", Sub() OpenExample("AventuraDoEncanador.flowapp"), "run"), _
+                Item("Xadrez — FlowBoardGames", Sub() OpenExample("Xadrez.flowapp"), "run"), _
                 Item("Jogo da Forca", Sub() OpenExample("JogoDaForca.flowapp"), "run"), _
                 Item("Jogo da Velha — 2 jogadores", Sub() OpenExample("JogoDaVelha2jogadores.flowapp"), "run"), _
                 Item("Jogo da Velha — IA", Sub() OpenExample("JogoDaVelhaIA.flowapp"), "run"))
@@ -432,7 +522,8 @@ Namespace FlowForgeStudio
             MainMenuStrip = menuStrip
             ' As ferramentas principais ficam em barras independentes, como em uma IDE tradicional.
             ' Isso evita uma única barra excessivamente longa e permite reorganizá-las no ToolStripContainer.
-            fileTools = New ToolStrip With {.Name = "FileTools", .GripStyle = ToolStripGripStyle.Visible, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            fileTools = New ToolStrip With {.Name = "FileTools", .GripStyle = ToolStripGripStyle.Hidden, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            fileTools.AllowItemReorder = False
             fileTools.Items.Add(New ToolStripLabel("Arquivo"))
             fileTools.Items.Add(New ToolStripSeparator())
             fileTools.Items.Add(Button("Novo", Sub() NewProject(), "new"))
@@ -440,7 +531,8 @@ Namespace FlowForgeStudio
             fileTools.Items.Add(Button("Salvar", AddressOf SaveProject, "save"))
             fileTools.Items.Add(Button("Salvar tudo", AddressOf SaveAll, "save"))
 
-            projectTools = New ToolStrip With {.Name = "ProjectTools", .GripStyle = ToolStripGripStyle.Visible, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            projectTools = New ToolStrip With {.Name = "ProjectTools", .GripStyle = ToolStripGripStyle.Hidden, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            projectTools.AllowItemReorder = False
             projectTools.Items.Add(New ToolStripLabel("Projeto"))
             projectTools.Items.Add(New ToolStripSeparator())
             formsBox.DropDownStyle = ComboBoxStyle.DropDownList
@@ -455,7 +547,8 @@ Namespace FlowForgeStudio
             projectTools.Items.Add(Button("Inicial", AddressOf SetStartup, "run"))
             projectTools.Items.Add(Button("Excluir", AddressOf DeleteForm, "delete"))
 
-            designerTools = New ToolStrip With {.Name = "DesignerTools", .GripStyle = ToolStripGripStyle.Visible, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            designerTools = New ToolStrip With {.Name = "DesignerTools", .GripStyle = ToolStripGripStyle.Hidden, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            designerTools.AllowItemReorder = False
             designerTools.Items.Add(New ToolStripLabel("Designer"))
             designerTools.Items.Add(New ToolStripSeparator())
             designerTools.Items.Add(Button("Designer", Sub() ShowWorkspaceTab(0), "form"))
@@ -468,13 +561,15 @@ Namespace FlowForgeStudio
             designerTools.Items.Add(Button("Frente", Sub() DesignerCommand("front"), "redo"))
             designerTools.Items.Add(Button("Trás", Sub() DesignerCommand("back"), "undo"))
 
-            buildTools = New ToolStrip With {.Name = "BuildTools", .GripStyle = ToolStripGripStyle.Visible, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            buildTools = New ToolStrip With {.Name = "BuildTools", .GripStyle = ToolStripGripStyle.Hidden, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            buildTools.AllowItemReorder = False
             buildTools.Items.Add(New ToolStripLabel("Execução"))
             buildTools.Items.Add(New ToolStripSeparator())
             buildTools.Items.Add(Button("Gerar EXE", AddressOf BuildProject, "build"))
             buildTools.Items.Add(Button("Executar", AddressOf RunProject, "run"))
 
-            educationTools = New ToolStrip With {.Name = "EducationTools", .GripStyle = ToolStripGripStyle.Visible, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            educationTools = New ToolStrip With {.Name = "EducationTools", .GripStyle = ToolStripGripStyle.Hidden, .BackColor = Color.FromArgb(37, 40, 48), .ForeColor = Color.White, .ImageScalingSize = New Size(18, 18), .Padding = New Padding(2)}
+            educationTools.AllowItemReorder = False
             educationTools.Items.Add(New ToolStripLabel("Aprender"))
             educationTools.Items.Add(New ToolStripSeparator())
             educationTools.Items.Add(Button("Aprender", AddressOf ShowEducationCenter, "help"))
@@ -582,25 +677,68 @@ Namespace FlowForgeStudio
             AddHandler propertyTabs.SelectedIndexChanged, AddressOf PropertyTabChanged
             rightSplit.Panel2.Controls.Add(Group("PROPRIEDADES / EVENTOS", propertyTabs)) : outerSplit.Panel2.Controls.Add(rightSplit)
 
+            ' Tema da IDE: Escuro (padrão) / Claro.
+            Dim themeParentMenu As ToolStripMenuItem = Nothing
+            For Each topItem As ToolStripItem In menuStrip.Items
+                Dim candidate As ToolStripMenuItem = TryCast(topItem, ToolStripMenuItem)
+                If candidate IsNot Nothing AndAlso candidate.Text.Replace("&", "").Trim().Equals("Exibir", StringComparison.OrdinalIgnoreCase) Then
+                    themeParentMenu = candidate
+                    Exit For
+                End If
+            Next
+            If themeParentMenu IsNot Nothing Then
+                Dim themeMenu As New ToolStripMenuItem("Tema")
+                _themeDarkItem = New ToolStripMenuItem("Escuro") With {.Checked = True, .CheckOnClick = False}
+                _themeLightItem = New ToolStripMenuItem("Claro") With {.CheckOnClick = False}
+                AddHandler _themeDarkItem.Click, Sub(sender As Object, e As EventArgs) ApplyIdeTheme(True)
+                AddHandler _themeLightItem.Click, Sub(sender As Object, e As EventArgs) ApplyIdeTheme(False)
+                themeMenu.DropDownItems.Add(_themeDarkItem)
+                themeMenu.DropDownItems.Add(_themeLightItem)
+                themeParentMenu.DropDownItems.Add(New ToolStripSeparator())
+                themeParentMenu.DropDownItems.Add(themeMenu)
+            End If
+
             Dim shell As New ToolStripContainer With {.Dock = DockStyle.Fill}
+
             shell.TopToolStripPanel.Join(menuStrip, New Point(0, 0))
 
-            ' Primeira linha de ferramentas: arquivos e gerenciamento do projeto.
-            Dim toolbarRow1Y As Integer = menuStrip.Height
-            shell.TopToolStripPanel.Join(fileTools, New Point(0, toolbarRow1Y))
-            shell.TopToolStripPanel.Join(projectTools, New Point(fileTools.PreferredSize.Width + 8, toolbarRow1Y))
+            ' RC: um único ToolStrip físico na primeira linha.
+            Dim rcMainTools As New ToolStrip()
+            rcMainTools.Name = "RcMainTools"
+            _rcMainTools = rcMainTools
+            rcMainTools.GripStyle = ToolStripGripStyle.Hidden
+            rcMainTools.AllowItemReorder = False
+            rcMainTools.AutoSize = True
+            rcMainTools.Stretch = False
+            rcMainTools.RenderMode = fileTools.RenderMode
+            rcMainTools.Renderer = fileTools.Renderer
+            rcMainTools.BackColor = fileTools.BackColor
+            rcMainTools.ForeColor = fileTools.ForeColor
 
-            ' Segunda linha: designer, compilação e recursos didáticos.
-            Dim toolbarRow2Y As Integer = toolbarRow1Y + Math.Max(fileTools.PreferredSize.Height, projectTools.PreferredSize.Height)
-            shell.TopToolStripPanel.Join(designerTools, New Point(0, toolbarRow2Y))
-            shell.TopToolStripPanel.Join(buildTools, New Point(designerTools.PreferredSize.Width + 8, toolbarRow2Y))
-            shell.TopToolStripPanel.Join(educationTools, New Point(designerTools.PreferredSize.Width + buildTools.PreferredSize.Width + 16, toolbarRow2Y))
+            MoveToolStripItems(fileTools, rcMainTools)
+            MoveToolStripItems(designerTools, rcMainTools)
+            MoveToolStripItems(buildTools, rcMainTools)
+            MoveToolStripItems(educationTools, rcMainTools)
+
+            Dim toolbarRow1Y As Integer = menuStrip.PreferredSize.Height
+            shell.TopToolStripPanel.Join(rcMainTools, New Point(0, toolbarRow1Y))
+
+            ' Segunda e última linha física.
+            Dim toolbarRow2Y As Integer = toolbarRow1Y + rcMainTools.PreferredSize.Height
+            shell.TopToolStripPanel.Join(projectTools, New Point(0, toolbarRow2Y))
 
             shell.BottomToolStripPanel.Join(statusBar)
+            ApplyIdeTheme(True)
 
-            ' Restaura a posição salva somente depois que todas as barras já fazem parte do ToolStripContainer.
-            RestoreToolStripLayout(shell)
-            AddHandler Me.FormClosing, AddressOf MainForm_SaveToolStripLayout
+            ' RC: bloqueio REAL das barras. GripStyle.Hidden apenas esconde a alça;
+            ' ToolStripPanel.Locked impede que ToolStrips sejam arrastados/reorganizados.
+            shell.TopToolStripPanel.Locked = True
+            shell.LeftToolStripPanel.Locked = True
+            shell.RightToolStripPanel.Locked = True
+            shell.BottomToolStripPanel.Locked = True
+
+            ' RC: barras principais ficam bloqueadas no layout padrão.
+            ' Não restauramos posições antigas nem salvamos movimentação do usuário.
             shell.ContentPanel.Controls.Add(outerSplit)
             Controls.Add(shell)
             AddHandler designer.SelectionChanged, AddressOf DesignerSelectionChanged
@@ -1391,6 +1529,12 @@ Namespace FlowForgeStudio
                 If item.TypeName.Equals("ColorSwatch", StringComparison.OrdinalIgnoreCase) Then Return GetType(ColorSwatch)
                 If item.TypeName.Equals("NavigationButton", StringComparison.OrdinalIgnoreCase) Then Return GetType(NavigationButton)
                 If item.TypeName.Equals("MarqueeLabel", StringComparison.OrdinalIgnoreCase) Then Return GetType(MarqueeLabel)
+                If item.TypeName.Equals("FontPreviewComboBox", StringComparison.OrdinalIgnoreCase) Then Return GetType(FontPreviewComboBox)
+                If item.TypeName.Equals("GlyphImageList", StringComparison.OrdinalIgnoreCase) Then Return GetType(GlyphImageList)
+                If item.TypeName.Equals("ToastNotification", StringComparison.OrdinalIgnoreCase) Then Return GetType(ToastNotification)
+                If item.TypeName.Equals("Accordion", StringComparison.OrdinalIgnoreCase) Then Return GetType(Accordion)
+                If item.TypeName.Equals("ProgressStepper", StringComparison.OrdinalIgnoreCase) Then Return GetType(ProgressStepper)
+                If item.TypeName.Equals("TerminalView", StringComparison.OrdinalIgnoreCase) Then Return GetType(TerminalView)
                 If item.TypeName.Equals("RichTextEditor", StringComparison.OrdinalIgnoreCase) Then Return GetType(RichTextEditor)
                 If item.TypeName.Equals("SyntaxCodeEditor", StringComparison.OrdinalIgnoreCase) Then Return GetType(SyntaxCodeEditor)
                 If item.TypeName.Equals("Sparkline", StringComparison.OrdinalIgnoreCase) Then Return GetType(Sparkline)
@@ -2075,8 +2219,9 @@ Namespace FlowForgeStudio
                 Tool("Dados", "BindingNavigator", "Navegador de dados", "BN", "ItemClicked"),
                 Tool("Contêiner", "Splitter", "Divisor / Splitter", "SPL", "SplitterMoved")
             }).ToArray()
-            entries = entries.Concat(New ToolboxEntry() {Tool("FlowForge", "RoundedButton", "Botão arredondado", "RB", "Click"), Tool("FlowForge", "GradientPanel", "Painel gradiente", "GP", "Click"), Tool("FlowForge", "LedIndicator", "LED indicador", "LED", "StateChanged"), Tool("FlowForge", "ToggleSwitch", "Chave liga/desliga", "SW", "CheckedChanged"), Tool("FlowForge", "DigitalDisplay", "Display 7 segmentos / matriz", "88", "ValueChanged"), Tool("FlowForge", "CircularProgress", "Progresso circular", "%", "ValueChanged"), Tool("FlowForge", "LevelMeter", "Medidor de nível", "LV", "ValueChanged"), Tool("FlowForge", "BadgeLabel", "Etiqueta / Badge", "BG", "Click"), Tool("FlowForge", "SeparatorLine", "Linha separadora", "—", "Click"), Tool("FlowForge", "StarRating", "Avaliação por estrelas", "★", "RatingChanged"), Tool("FlowForge", "NumericKnob", "Botão giratório", "KN", "ValueChanged"), Tool("FlowForge", "CardPanel", "Painel cartão", "CD", "Click"), Tool("Instrumentos", "BatteryIndicator", "Indicador de bateria", "BAT", "ValueChanged"), Tool("Instrumentos", "SignalStrength", "Intensidade de sinal", "SIG", "ValueChanged"), Tool("Instrumentos", "ThermometerGauge", "Termômetro", "°C", "ValueChanged"), Tool("Instrumentos", "AnalogGauge", "Medidor analógico", "GA", "ValueChanged"), Tool("Interface", "LoadingSpinner", "Indicador de carregamento", "SP", "ActiveChanged"), Tool("Interface", "NotificationBanner", "Faixa de notificação", "!", "Click"), Tool("Interface", "ToggleButton", "Botão alternável", "TB", "CheckedChanged"), Tool("Interface", "ColorSwatch", "Seletor de cor", "CLR", "SelectedColorChanged"), Tool("Navegação", "NavigationButton", "Botão de navegação", "→", "Click"), Tool("Interface", "MarqueeLabel", "Texto em movimento", "TXT", "TextChanged"), Tool("Interface", "ImageButton", "Botão com imagem", "IMG", "Click"), Tool("Entrada", "SearchBox", "Caixa de pesquisa", "SRCH", "Search"), Tool("Entrada", "PasswordBox", "Campo de senha", "PWD", "TextChanged"), Tool("Entrada", "IPAddressBox", "Endereço IP", "IP", "TextChanged"), Tool("Entrada", "ModernDatePicker", "Seletor de data moderno", "DATE", "ValueChanged"), Tool("Gráficos", "SimpleChart", "Gráfico linha / barras", "CH", "DataChanged"), Tool("Controles", "VirtualJoystick", "Joystick virtual", "JOY", "PositionChanged"), Tool("Displays", "LcdDisplay", "Display LCD", "LCD", "ValueChanged"), Tool("Displays", "LedMatrix", "Matriz de LEDs", "8x8", "CellChanged"), Tool("Instrumentos", "TrafficLight", "Semáforo", "TL", "StateChanged"), Tool("Displays", "SevenSegmentDigit", "Dígito 7 segmentos", "7S", "ValueChanged"), Tool("Arduino / IoT", "ArduinoPin", "Pino Arduino / GPIO", "PIN", "ValueChanged"), Tool("Arduino / IoT", "IoTSensor", "Sensor IoT", "IOT", "ValueChanged"), ComponentTool("Lógica", "Timer", "Timer / Relógio", "⏱", "Tick"), ComponentTool("Comunicação", "SerialConnection", "Porta Serial / Arduino", "COM", "DataReceived")}).ToArray()
-            entries = entries.Concat(New ToolboxEntry() {Tool("Editores", "RichTextEditor", "Editor de texto rico", "RTF", "ContentChanged"), Tool("Editores", "SyntaxCodeEditor", "Editor de código com linhas", "</>", "CodeChanged")}).ToArray()
+            entries = entries.Concat(New ToolboxEntry() {Tool("FlowForge", "RoundedButton", "Botão arredondado", "RB", "Click"), Tool("FlowForge", "GradientPanel", "Painel gradiente", "GP", "Click"), Tool("FlowForge", "LedIndicator", "LED indicador", "LED", "StateChanged"), Tool("FlowForge", "ToggleSwitch", "Chave liga/desliga", "SW", "CheckedChanged"), Tool("FlowForge", "DigitalDisplay", "Display 7 segmentos / matriz", "88", "ValueChanged"), Tool("FlowForge", "CircularProgress", "Progresso circular", "%", "ValueChanged"), Tool("FlowForge", "LevelMeter", "Medidor de nível", "LV", "ValueChanged"), Tool("FlowForge", "BadgeLabel", "Etiqueta / Badge", "BG", "Click"), Tool("FlowForge", "SeparatorLine", "Linha separadora", "—", "Click"), Tool("FlowForge", "StarRating", "Avaliação por estrelas", "★", "RatingChanged"), Tool("FlowForge", "NumericKnob", "Botão giratório", "KN", "ValueChanged"), Tool("FlowForge", "CardPanel", "Painel cartão", "CD", "Click"), Tool("Instrumentos", "BatteryIndicator", "Indicador de bateria", "BAT", "ValueChanged"), Tool("Instrumentos", "SignalStrength", "Intensidade de sinal", "SIG", "ValueChanged"), Tool("Instrumentos", "ThermometerGauge", "Termômetro", "°C", "ValueChanged"), Tool("Instrumentos", "AnalogGauge", "Medidor analógico", "GA", "ValueChanged"), Tool("Interface", "LoadingSpinner", "Indicador de carregamento", "SP", "ActiveChanged"), Tool("Interface", "NotificationBanner", "Faixa de notificação", "!", "Click"), Tool("Interface", "ToggleButton", "Botão alternável", "TB", "CheckedChanged"), Tool("Interface", "ColorSwatch", "Seletor de cor", "CLR", "SelectedColorChanged"), Tool("Navegação", "NavigationButton", "Botão de navegação", "→", "Click"), Tool("Interface", "MarqueeLabel", "Texto em movimento", "TXT", "TextChanged"), Tool("Interface", "ImageButton", "Botão com imagem", "IMG", "Click"), Tool("Entrada", "SearchBox", "Caixa de pesquisa", "SRCH", "Search"), Tool("Entrada", "PasswordBox", "Campo de senha", "PWD", "TextChanged"), Tool("Entrada", "IPAddressBox", "Endereço IP", "IP", "TextChanged"), Tool("Entrada", "ModernDatePicker", "Seletor de data moderno", "DATE", "ValueChanged"), Tool("Gráficos", "SimpleChart", "Gráfico linha / barras", "CH", "DataChanged"), Tool("Controles", "VirtualJoystick", "Joystick virtual", "JOY", "PositionChanged"), Tool("Displays", "LcdDisplay", "Display LCD", "LCD", "ValueChanged"), Tool("Displays", "LedMatrix", "Matriz de LEDs", "8x8", "CellChanged"), Tool("Instrumentos", "TrafficLight", "Semáforo", "TL", "StateChanged"), Tool("Displays", "SevenSegmentDigit", "Dígito 7 segmentos", "7S", "ValueChanged"), Tool("Arduino / IoT", "ArduinoPin", "Pino Arduino / GPIO", "PIN", "ValueChanged"), Tool("Arduino / IoT", "IoTSensor", "Sensor IoT", "IOT", "ValueChanged"), ComponentTool("Lógica", "Timer", "Timer / Relógio", "⏱", "Tick"), ComponentTool("Comunicação", "SerialConnection", "Porta Serial / Arduino", "COM", "DataReceived"), ComponentTool("Imagens", "GlyphImageList", "Banco de 480 glyphs dinâmicos", "GLY", "RecreateHandle")}).ToArray()
+            entries = entries.Concat(New ToolboxEntry() {Tool("Editores", "FontPreviewComboBox", "Seletor de fontes com pré-visualização", "Aa", "SelectedIndexChanged"), Tool("Editores", "RichTextEditor", "Editor de texto rico", "RTF", "ContentChanged"), Tool("Editores", "SyntaxCodeEditor", "Editor de código com linhas", "</>", "CodeChanged")}).ToArray()
+            entries = entries.Concat(New ToolboxEntry() {Tool("Feedback", "ToastNotification", "Aviso temporário", "TST", "Dismissed"), Tool("Layout", "Accordion", "Painéis expansíveis", "ACC", "SectionToggled"), Tool("Feedback", "ProgressStepper", "Progresso em etapas", "STP", "StepChanged"), Tool("Editores", "TerminalView", "Console/terminal com histórico", ">_", "CommandEntered")}).ToArray()
             entries = entries.Concat(New ToolboxEntry() {Tool("Dados", "Sparkline", "Mini gráfico com título, legenda e indicadores", "SPK", "DataChanged")}).ToArray()
             entries = entries.Concat(New ToolboxEntry() {Tool("Entrada", "TagInput", "Campo de tags", "TAG", "TagsChanged"), Tool("Navegação", "TabStripCustom", "Abas estilizadas", "TAB", "SelectedIndexChanged"), Tool("Dados", "JsonTreeViewer", "Visualizador de JSON em árvore", "JSN", "JsonParsed")}).ToArray()
             If project IsNot Nothing AndAlso project.UserControls IsNot Nothing Then
@@ -2090,7 +2235,7 @@ Namespace FlowForgeStudio
         End Sub
         Private Sub FilterToolbox(sender As Object, e As EventArgs)
             Dim term As String = toolboxSearch.Text.Trim()
-            Dim beginnerTypes As String() = {"Button", "RoundedButton", "NavigationButton", "ToggleButton", "Label", "BadgeLabel", "MarqueeLabel", "NotificationBanner", "TextBox", "RichTextBox", "RichTextEditor", "SyntaxCodeEditor", "CheckBox", "ToggleSwitch", "RadioButton", "ComboBox", "ColorSwatch", "ListBox", "PictureBox", "ProgressBar", "CircularProgress", "LevelMeter", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "LedIndicator", "DigitalDisplay", "StarRating", "NumericKnob", "SeparatorLine", "Panel", "GradientPanel", "CardPanel", "GroupBox", "OpenFileDialog", "SaveFileDialog", "ColorDialog", "Timer"}
+            Dim beginnerTypes As String() = {"Button", "RoundedButton", "NavigationButton", "ToggleButton", "Label", "BadgeLabel", "MarqueeLabel", "NotificationBanner", "TextBox", "RichTextBox", "RichTextEditor", "SyntaxCodeEditor", "CheckBox", "ToggleSwitch", "RadioButton", "ComboBox", "FontPreviewComboBox", "ColorSwatch", "ListBox", "PictureBox", "ProgressBar", "CircularProgress", "LevelMeter", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "LedIndicator", "DigitalDisplay", "StarRating", "NumericKnob", "SeparatorLine", "Panel", "GradientPanel", "CardPanel", "GroupBox", "OpenFileDialog", "SaveFileDialog", "ColorDialog", "Timer"}
             Dim filtered = allTools.Where(Function(x) (Not beginnerMode OrElse beginnerTypes.Contains(x.TypeName, StringComparer.OrdinalIgnoreCase)) AndAlso (term = "" OrElse x.DisplayName.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0 OrElse x.TypeName.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0 OrElse x.Category.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)).OrderBy(Function(x) x.Category).ThenBy(Function(x) x.DisplayName).Cast(Of Object).ToArray()
             toolbox.BeginUpdate() : toolbox.Items.Clear() : toolbox.Items.AddRange(filtered) : toolbox.EndUpdate()
             If toolbox.Items.Count > 0 Then toolbox.SelectedIndex = 0
@@ -2150,7 +2295,21 @@ Namespace FlowForgeStudio
             Dim method As String = componentName & "_" & eventName
             If Not Regex.IsMatch(sourceCode, "(?i)Sub\s+" & Regex.Escape(method) & "\s*\(") Then
                 Dim target As String = If(TypeOf component Is Form, "MyBase", componentName)
-                Dim handler As String = "    Private Sub " & method & "() Handles " & target & "." & eventName & vbCrLf & "        ' Escreva seu código aqui" & vbCrLf & "    End Sub" & vbCrLf & vbCrLf
+                Dim body As String = "        ' Escreva seu código aqui" & vbCrLf
+                ' SerialConnection é compilado, no app final, como o SerialPort puro do .NET,
+                ' cujos eventos (DataReceived/ErrorReceived/PinChanged) disparam em uma thread
+                ' de segundo plano própria. Sem essa proteção, qualquer código do aluno que
+                ' tente atualizar um controle aqui dentro lançaria "cross-thread operation not
+                ' valid". O guard abaixo reencaminha a execução pra thread de UI automaticamente,
+                ' então o código que o aluno escrever a seguir já roda seguro.
+                If TypeOf component Is SerialConnection Then
+                    body = "        If InvokeRequired Then" & vbCrLf &
+                           "            BeginInvoke(New System.Windows.Forms.MethodInvoker(AddressOf " & method & "))" & vbCrLf &
+                           "            Return" & vbCrLf &
+                           "        End If" & vbCrLf &
+                           body
+                End If
+                Dim handler As String = "    Private Sub " & method & "() Handles " & target & "." & eventName & vbCrLf & body & "    End Sub" & vbCrLf & vbCrLf
                 Dim at As Integer = sourceCode.LastIndexOf("End Class", StringComparison.OrdinalIgnoreCase)
                 sourceCode = If(at >= 0, sourceCode.Insert(at, handler), sourceCode & vbCrLf & handler)
                 If isUserControl Then project.UserControls(activeUserControlIndex).Code = sourceCode Else CurrentDocument.Code = sourceCode

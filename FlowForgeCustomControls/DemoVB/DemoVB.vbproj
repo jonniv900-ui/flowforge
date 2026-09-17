@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Import Project="$(MSBuildToolsPath)\Microsoft.Common.props" Condition="Exists('$(MSBuildToolsPath)\Microsoft.Common.props')" />
+<PropertyGroup><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProjectGuid>{1391CC6C-5A3A-4A29-BF71-DA55F2B67E1A}</ProjectGuid><OutputType>WinExe</OutputType><StartupObject>Demo.Program</StartupObject><RootNamespace></RootNamespace><AssemblyName>FlowForgeControlsDemo</AssemblyName><TargetFrameworkVersion>v4.8</TargetFrameworkVersion><MyType>WindowsFormsWithCustomSubMain</MyType><OptionStrict>On</OptionStrict><OptionExplicit>On</OptionExplicit></PropertyGroup>
+<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "><OutputPath>bin\Debug\</OutputPath></PropertyGroup><PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "><OutputPath>bin\Release\</OutputPath><Optimize>true</Optimize></PropertyGroup>
+<ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Drawing"/><Reference Include="System.Windows.Forms"/><Reference Include="Microsoft.VisualBasic"/></ItemGroup>
+<ItemGroup><ProjectReference Include="..\FlowForge.CustomControls.vbproj"><Project>{7B2BEBE2-DF95-49D5-A118-81A7B6534A01}</Project><Name>FlowForge.CustomControls</Name></ProjectReference></ItemGroup>
+<ItemGroup><Compile Include="Program.vb"/><Compile Include="DemoForm.vb"/></ItemGroup><Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" /></Project>

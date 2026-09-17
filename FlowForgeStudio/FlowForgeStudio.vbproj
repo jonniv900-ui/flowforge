@@ -28,5 +28,6 @@
     <Content Include="Examples\JsonExplorer.flowapp"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
   </ItemGroup>
   <ItemGroup><Content Include="FlowForgeStudio.ico"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content><Content Include="FlowForgeProject.ico"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content></ItemGroup>
+  <ItemGroup><Content Include="Examples\NovosComponentes_v5.flowapp"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content><Content Include="Examples\GlyphImageListGallery.flowapp"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

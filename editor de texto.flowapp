@@ -1,0 +1,553 @@
+{
+  "FormatVersion": 2,
+  "Name": "FlowWriter",
+  "Version": "1.7.2",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "FlowWriter"
+        },
+        {
+          "Key": "Width",
+          "Value": "1050"
+        },
+        {
+          "Key": "Height",
+          "Value": "720"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "1050,700"
+        },
+        {
+          "Key": "MinimumSize",
+          "Value": "800,520"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "RichTextBox",
+          "Name": "editor",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Properties": [
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Location",
+              "Value": "0,54"
+            },
+            {
+              "Key": "Size",
+              "Value": "1050,624"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 11pt"
+            },
+            {
+              "Key": "BackColor",
+              "Value": "White"
+            },
+            {
+              "Key": "BorderStyle",
+              "Value": "None"
+            },
+            {
+              "Key": "DetectUrls",
+              "Value": "True"
+            },
+            {
+              "Key": "WordWrap",
+              "Value": "True"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Top, Bottom, Left, Right"
+            }
+          ]
+        },
+        {
+          "TypeName": "StatusStrip",
+          "Name": "status",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [
+            {
+              "Type": "ToolStripStatusLabel",
+              "Name": "statusFile",
+              "Text": "Sem título",
+              "Spring": true,
+              "TextAlign": "MiddleLeft"
+            },
+            {
+              "Type": "ToolStripStatusLabel",
+              "Name": "statusWords",
+              "Text": "0 palavras | 0 caracteres"
+            },
+            {
+              "Type": "ToolStripStatusLabel",
+              "Name": "statusPos",
+              "Text": "Ln 1, Col 1"
+            }
+          ],
+          "Properties": [
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Location",
+              "Value": "0,678"
+            },
+            {
+              "Key": "Size",
+              "Value": "1050,22"
+            },
+            {
+              "Key": "__FF_ITEMS",
+              "Value": "[{\"Type\":\"ToolStripStatusLabel\",\"Name\":\"statusFile\",\"Text\":\"Sem título\",\"Spring\":true,\"TextAlign\":\"MiddleLeft\"},{\"Type\":\"ToolStripStatusLabel\",\"Name\":\"statusWords\",\"Text\":\"0 palavras | 0 caracteres\"},{\"Type\":\"ToolStripStatusLabel\",\"Name\":\"statusPos\",\"Text\":\"Ln 1, Col 1\"}]"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            },
+            {
+              "Key": "Anchor",
+              "Value": "Bottom, Left, Right"
+            }
+          ]
+        },
+        {
+          "TypeName": "ToolStrip",
+          "Name": "tools",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb1",
+              "Text": "Novo",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Novo"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb2",
+              "Text": "Abrir",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Abrir"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb3",
+              "Text": "Salvar",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Salvar"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb4",
+              "Text": "Recortar",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Recortar"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb5",
+              "Text": "Copiar",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Copiar"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb6",
+              "Text": "Colar",
+              "DisplayStyle": "Image",
+              "ToolTipText": "Colar"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb7",
+              "Text": "B",
+              "DisplayStyle": "Image",
+              "ToolTipText": "B"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb8",
+              "Text": "I",
+              "DisplayStyle": "Image",
+              "ToolTipText": "I"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb9",
+              "Text": "U",
+              "DisplayStyle": "Image",
+              "ToolTipText": "U"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb10",
+              "Text": "A-",
+              "DisplayStyle": "Image",
+              "ToolTipText": "A-"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb11",
+              "Text": "A+",
+              "DisplayStyle": "Image",
+              "ToolTipText": "A+"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb12",
+              "Text": "E",
+              "DisplayStyle": "Image",
+              "ToolTipText": "E"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb13",
+              "Text": "C",
+              "DisplayStyle": "Image",
+              "ToolTipText": "C"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb14",
+              "Text": "D",
+              "DisplayStyle": "Image",
+              "ToolTipText": "D"
+            },
+            {
+              "Type": "ToolStripButton",
+              "Name": "tb15",
+              "Text": "• Lista",
+              "DisplayStyle": "Image",
+              "ToolTipText": "• Lista"
+            }
+          ],
+          "Properties": [
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Location",
+              "Value": "0,24"
+            },
+            {
+              "Key": "Size",
+              "Value": "1050,30"
+            },
+            {
+              "Key": "__FF_ITEMS",
+              "Value": "[{\"Type\":\"ToolStripButton\",\"Name\":\"tb1\",\"Text\":\"Novo\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Novo\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb2\",\"Text\":\"Abrir\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Abrir\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb3\",\"Text\":\"Salvar\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Salvar\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb4\",\"Text\":\"Recortar\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Recortar\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb5\",\"Text\":\"Copiar\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Copiar\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb6\",\"Text\":\"Colar\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"Colar\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb7\",\"Text\":\"B\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"B\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb8\",\"Text\":\"I\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"I\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb9\",\"Text\":\"U\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"U\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb10\",\"Text\":\"A-\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"A-\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb11\",\"Text\":\"A+\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"A+\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb12\",\"Text\":\"E\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"E\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb13\",\"Text\":\"C\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"C\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb14\",\"Text\":\"D\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"D\"},{\"Type\":\"ToolStripButton\",\"Name\":\"tb15\",\"Text\":\"• Lista\",\"DisplayStyle\":\"Image\",\"ToolTipText\":\"• Lista\"}]"
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            }
+          ]
+        },
+        {
+          "TypeName": "FontPreviewComboBox",
+          "Name": "fontBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Properties": [
+            {
+              "Key": "Location",
+              "Value": "330,27"
+            },
+            {
+              "Key": "Size",
+              "Value": "190,24"
+            },
+            {
+              "Key": "Text",
+              "Value": "Segoe UI"
+            },
+            {
+              "Key": "PreviewFontSize",
+              "Value": "11"
+            }
+          ]
+        },
+        {
+          "TypeName": "ComboBox",
+          "Name": "sizeBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Properties": [
+            {
+              "Key": "Location",
+              "Value": "525,27"
+            },
+            {
+              "Key": "Size",
+              "Value": "58,24"
+            },
+            {
+              "Key": "Text",
+              "Value": "11"
+            }
+          ]
+        },
+        {
+          "TypeName": "ComboBox",
+          "Name": "zoomBox",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Properties": [
+            {
+              "Key": "Location",
+              "Value": "895,27"
+            },
+            {
+              "Key": "Size",
+              "Value": "74,24"
+            },
+            {
+              "Key": "Text",
+              "Value": "100%"
+            }
+          ]
+        },
+        {
+          "TypeName": "MenuStrip",
+          "Name": "menu",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Items": [],
+          "Properties": [
+            {
+              "Key": "Dock",
+              "Value": "None"
+            },
+            {
+              "Key": "Location",
+              "Value": "0,0"
+            },
+            {
+              "Key": "Size",
+              "Value": "1050,24"
+            },
+            {
+              "Key": "__FF_ITEMS",
+              "Value": ""
+            },
+            {
+              "Key": "AutoSize",
+              "Value": "False"
+            }
+          ]
+        }
+      ],
+      "Code": "Imports System\nImports System.IO\nImports System.Drawing\nImports System.Drawing.Printing\nImports System.Windows.Forms\nImports System.Text\nImports System.Text.RegularExpressions\nImports System.Collections.Generic\nImports System.Diagnostics\n\nImports System.Xml\nImports System.Web.Script.Serialization\nPublic Partial Class Form1\nPrivate currentFile As String = String.Empty\n    Private documentChanged As Boolean\n    Private findForm As FindReplaceForm\n    Private printDocument As PrintDocument\n    Private printCharIndex As Integer\n\n    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load\n        ' A interface principal já existe no Designer do FlowForge.\n        Me.MainMenuStrip = menu\n\n        ' Ordem fixa: MenuStrip em cima e ToolStrip logo abaixo.\n        menu.Location = New Point(0, 0)\n        menu.Size = New Size(Me.ClientSize.Width, 24)\n        tools.Location = New Point(0, 24)\n        tools.Size = New Size(Me.ClientSize.Width, 30)\n        editor.Location = New Point(0, 54)\n        editor.Size = New Size(Me.ClientSize.Width, Math.Max(100, Me.ClientSize.Height - 76))\n        status.Location = New Point(0, Me.ClientSize.Height - 22)\n        status.Size = New Size(Me.ClientSize.Width, 22)\n\n        BuildMenus()\n        ConfigureVisualControls()\n\n        printDocument = New PrintDocument()\n        AddHandler printDocument.PrintPage, AddressOf PrintDocument_PrintPage\n\n        UpdateStatus()\n        editor.Focus()\n    End Sub\n\n    Private Sub BuildInterface()\n        ' Mantido apenas por compatibilidade com versões anteriores.\n        ' Nenhum controle é criado aqui: todos estão persistidos no Designer.\n        ConfigureVisualControls()\n    End Sub\n\n    Private Sub ConfigureVisualControls()\n        ' Reaplica a ordem visual depois que o Designer terminou o layout.\n\n        editor.AcceptsTab = True\n        editor.EnableAutoDragDrop = True\n        editor.HideSelection = False\n        editor.DetectUrls = True\n        editor.WordWrap = True\n\n        AddHandler editor.TextChanged, AddressOf Editor_TextChanged\n        AddHandler editor.SelectionChanged, AddressOf Editor_SelectionChanged\n        AddHandler editor.LinkClicked, AddressOf Editor_LinkClicked\n\n        ' O seletor de fontes visual é hospedado na própria ToolStrip.\n        If fontBox.Parent IsNot Nothing Then fontBox.Parent.Controls.Remove(fontBox)\n        fontBox.Width = 190\n        Dim fontHost As New ToolStripControlHost(fontBox)\n        fontHost.Name = \"fontHost\"\n        fontHost.AutoSize = False\n        fontHost.Width = 190\n        fontHost.Height = 24\n        tools.Items.Insert(Math.Min(9, tools.Items.Count), fontHost)\n\n        fontBox.Items.Clear()\n        For Each family As FontFamily In FontFamily.Families\n            fontBox.Items.Add(family.Name)\n        Next\n        fontBox.Text = \"Segoe UI\"\n        AddHandler fontBox.SelectedIndexChanged, AddressOf FontChanged\n        AddHandler fontBox.DrawItem, AddressOf FontBox_DrawItem\n\n        If sizeBox.Parent IsNot Nothing Then sizeBox.Parent.Controls.Remove(sizeBox)\n        sizeBox.Width = 55\n        Dim sizeHost As New ToolStripControlHost(sizeBox)\n        sizeHost.AutoSize = False\n        sizeHost.Width = 58\n        sizeHost.Height = 24\n        tools.Items.Insert(Math.Min(10, tools.Items.Count), sizeHost)\n\n        sizeBox.Items.Clear()\n        For Each s As String In New String() {\"8\", \"9\", \"10\", \"11\", \"12\", \"14\", \"16\", \"18\", \"20\", \"24\", \"28\", \"32\", \"36\", \"48\", \"72\"}\n            sizeBox.Items.Add(s)\n        Next\n        sizeBox.Text = \"11\"\n        AddHandler sizeBox.KeyDown, AddressOf SizeBox_KeyDown\n        AddHandler sizeBox.SelectedIndexChanged, AddressOf SizeChanged\n\n        If zoomBox.Parent IsNot Nothing Then zoomBox.Parent.Controls.Remove(zoomBox)\n        zoomBox.Width = 70\n        Dim zoomHost As New ToolStripControlHost(zoomBox)\n        zoomHost.AutoSize = False\n        zoomHost.Width = 74\n        zoomHost.Height = 24\n        tools.Items.Add(New ToolStripSeparator())\n        tools.Items.Add(New ToolStripLabel(\"Zoom\"))\n        tools.Items.Add(zoomHost)\n\n        zoomBox.Items.Clear()\n        For Each z As String In New String() {\"50%\", \"75%\", \"100%\", \"125%\", \"150%\", \"200%\", \"300%\"}\n            zoomBox.Items.Add(z)\n        Next\n        zoomBox.Text = \"100%\"\n        AddHandler zoomBox.SelectedIndexChanged, AddressOf ZoomChanged\n\n        ' Os botões já são itens visuais do ToolStrip.\n        BindVisualToolButton(\"Novo\", AddressOf NewDocument)\n        BindVisualToolButton(\"Abrir\", AddressOf OpenDocument)\n        BindVisualToolButton(\"Salvar\", AddressOf SaveDocument)\n        BindVisualToolButton(\"Recortar\", Sub(s, e) editor.Cut())\n        BindVisualToolButton(\"Copiar\", Sub(s, e) editor.Copy())\n        BindVisualToolButton(\"Colar\", Sub(s, e) editor.Paste())\n        BindVisualToolButton(\"B\", AddressOf ToggleBold)\n        BindVisualToolButton(\"I\", AddressOf ToggleItalic)\n        BindVisualToolButton(\"U\", AddressOf ToggleUnderline)\n        BindVisualToolButton(\"A-\", Sub(s, e) ChangeFontSize(-1.0F))\n        BindVisualToolButton(\"A+\", Sub(s, e) ChangeFontSize(1.0F))\n        BindVisualToolButton(\"E\", Sub(s, e) SetAlignment(HorizontalAlignment.Left))\n        BindVisualToolButton(\"C\", Sub(s, e) SetAlignment(HorizontalAlignment.Center))\n        BindVisualToolButton(\"D\", Sub(s, e) SetAlignment(HorizontalAlignment.Right))\n        BindVisualToolButton(\"• Lista\", AddressOf ToggleBullets)\n    End Sub\n\n    Private Sub BindVisualToolButton(caption As String, handler As EventHandler)\n        For Each item As ToolStripItem In tools.Items\n            Dim button As ToolStripButton = TryCast(item, ToolStripButton)\n            If button IsNot Nothing AndAlso button.Text = caption Then\n                button.Image = CreateOffice2003Glyph(caption)\n                button.ImageScaling = ToolStripItemImageScaling.None\n                button.DisplayStyle = ToolStripItemDisplayStyle.Image\n                button.ToolTipText = caption\n                AddHandler button.Click, handler\n                Exit For\n            End If\n        Next\n    End Sub\n\n    Private Sub BuildMenus()\n        ' O MenuStrip é visual, mas os itens de nível superior são normalizados\n        ' aqui como ToolStripMenuItem. Isso evita depender do tipo que o editor\n        ' de coleções do FlowForge tenha restaurado para os itens persistidos.\n        menu.Items.Clear()\n\n        Dim arquivo As ToolStripMenuItem = AddTopMenu(\"&Arquivo\")\n        Dim editar As ToolStripMenuItem = AddTopMenu(\"&Editar\")\n        Dim formatar As ToolStripMenuItem = AddTopMenu(\"F&ormatar\")\n        Dim inserir As ToolStripMenuItem = AddTopMenu(\"&Inserir\")\n        Dim ferramentas As ToolStripMenuItem = AddTopMenu(\"Ferra&mentas\")\n        Dim exibir As ToolStripMenuItem = AddTopMenu(\"E&xibir\")\n        Dim ajuda As ToolStripMenuItem = AddTopMenu(\"A&juda\")\n\n        arquivo.DropDownItems.Add(MakeItem(\"&Novo\", Keys.Control Or Keys.N, AddressOf NewDocument))\n        arquivo.DropDownItems.Add(MakeItem(\"&Abrir...\", Keys.Control Or Keys.O, AddressOf OpenDocument))\n        arquivo.DropDownItems.Add(New ToolStripSeparator())\n        arquivo.DropDownItems.Add(MakeItem(\"&Salvar\", Keys.Control Or Keys.S, AddressOf SaveDocument))\n        arquivo.DropDownItems.Add(MakeItem(\"Salvar &como...\", Keys.Control Or Keys.Shift Or Keys.S, AddressOf SaveAsDocument))\n        arquivo.DropDownItems.Add(New ToolStripSeparator())\n        arquivo.DropDownItems.Add(MakeItem(\"Configurar página...\", Keys.None, AddressOf PageSetup))\n        arquivo.DropDownItems.Add(MakeItem(\"Visualizar impressão...\", Keys.None, AddressOf PrintPreview))\n        arquivo.DropDownItems.Add(MakeItem(\"&Imprimir...\", Keys.Control Or Keys.P, AddressOf PrintFile))\n        arquivo.DropDownItems.Add(New ToolStripSeparator())\n        arquivo.DropDownItems.Add(MakeItem(\"Sai&r\", Keys.Alt Or Keys.F4, Sub(s, e) Me.Close()))\n\n        editar.DropDownItems.Add(MakeItem(\"&Desfazer\", Keys.Control Or Keys.Z, AddressOf UndoDocument))\n        editar.DropDownItems.Add(MakeItem(\"&Refazer\", Keys.Control Or Keys.Y, AddressOf RedoDocument))\n        editar.DropDownItems.Add(New ToolStripSeparator())\n        editar.DropDownItems.Add(MakeItem(\"Recor&tar\", Keys.Control Or Keys.X, Sub(s, e) editor.Cut()))\n        editar.DropDownItems.Add(MakeItem(\"&Copiar\", Keys.Control Or Keys.C, Sub(s, e) editor.Copy()))\n        editar.DropDownItems.Add(MakeItem(\"Co&lar\", Keys.Control Or Keys.V, Sub(s, e) editor.Paste()))\n        editar.DropDownItems.Add(MakeItem(\"&Excluir\", Keys.Delete, Sub(s, e) editor.SelectedText = String.Empty))\n        editar.DropDownItems.Add(New ToolStripSeparator())\n        editar.DropDownItems.Add(MakeItem(\"Selecionar &tudo\", Keys.Control Or Keys.A, Sub(s, e) editor.SelectAll()))\n        editar.DropDownItems.Add(MakeItem(\"&Localizar...\", Keys.Control Or Keys.F, AddressOf ShowFind))\n        editar.DropDownItems.Add(MakeItem(\"Substituir...\", Keys.Control Or Keys.H, AddressOf ShowReplace))\n        editar.DropDownItems.Add(MakeItem(\"Ir para linha...\", Keys.Control Or Keys.G, AddressOf GoToLine))\n        editar.DropDownItems.Add(New ToolStripSeparator())\n        editar.DropDownItems.Add(MakeItem(\"Data e hora\", Keys.F5, AddressOf InsertDateTime))\n\n        formatar.DropDownItems.Add(MakeItem(\"&Fonte...\", Keys.None, AddressOf ChooseFont))\n        formatar.DropDownItems.Add(MakeItem(\"Cor do &texto...\", Keys.None, AddressOf ChooseTextColor))\n        formatar.DropDownItems.Add(MakeItem(\"Cor de &realce...\", Keys.None, AddressOf ChooseBackColor))\n        formatar.DropDownItems.Add(New ToolStripSeparator())\n        formatar.DropDownItems.Add(MakeItem(\"&Negrito\", Keys.Control Or Keys.B, AddressOf ToggleBold))\n        formatar.DropDownItems.Add(MakeItem(\"&Itálico\", Keys.Control Or Keys.I, AddressOf ToggleItalic))\n        formatar.DropDownItems.Add(MakeItem(\"S&ublinhado\", Keys.Control Or Keys.U, AddressOf ToggleUnderline))\n        formatar.DropDownItems.Add(MakeItem(\"Tachado\", Keys.None, AddressOf ToggleStrikeout))\n        formatar.DropDownItems.Add(New ToolStripSeparator())\n        formatar.DropDownItems.Add(MakeItem(\"Alinhar à esquerda\", Keys.Control Or Keys.L, Sub(s, e) SetAlignment(HorizontalAlignment.Left)))\n        formatar.DropDownItems.Add(MakeItem(\"Centralizar\", Keys.Control Or Keys.E, Sub(s, e) SetAlignment(HorizontalAlignment.Center)))\n        formatar.DropDownItems.Add(MakeItem(\"Alinhar à direita\", Keys.Control Or Keys.R, Sub(s, e) SetAlignment(HorizontalAlignment.Right)))\n        formatar.DropDownItems.Add(MakeItem(\"Marcadores\", Keys.None, AddressOf ToggleBullets))\n        formatar.DropDownItems.Add(New ToolStripSeparator())\n        formatar.DropDownItems.Add(MakeItem(\"Quebra automática de linha\", Keys.None, AddressOf ToggleWordWrap))\n\n        inserir.DropDownItems.Add(MakeItem(\"Símbolo...\", Keys.None, AddressOf ShowSymbols))\n        inserir.DropDownItems.Add(MakeItem(\"Arquivo de texto...\", Keys.None, AddressOf InsertFile))\n        inserir.DropDownItems.Add(MakeItem(\"Linha horizontal\", Keys.None, AddressOf InsertLine))\n\n        ferramentas.DropDownItems.Add(MakeItem(\"Estatísticas do documento\", Keys.None, AddressOf ShowStatistics))\n        ferramentas.DropDownItems.Add(MakeItem(\"Converter para MAIÚSCULAS\", Keys.None, AddressOf UpperCase))\n        ferramentas.DropDownItems.Add(MakeItem(\"Converter para minúsculas\", Keys.None, AddressOf LowerCase))\n        ferramentas.DropDownItems.Add(MakeItem(\"Inverter maiúsculas/minúsculas\", Keys.None, AddressOf ToggleCase))\n\n        exibir.DropDownItems.Add(MakeItem(\"Tela cheia\", Keys.F11, AddressOf ToggleFullScreen))\n        exibir.DropDownItems.Add(MakeItem(\"Zoom 100%\", Keys.Control Or Keys.D0, Sub(s, e) SetZoom(100)))\n\n        ajuda.DropDownItems.Add(MakeItem(\"Ajuda do FlowWriter\", Keys.F1, AddressOf ShowHelpWindow))\n        ajuda.DropDownItems.Add(MakeItem(\"Sobre...\", Keys.None, AddressOf ShowAbout))\n    End Sub\n\n    Private Function AddTopMenu(caption As String) As ToolStripMenuItem\n        Dim item As New ToolStripMenuItem(caption)\n        menu.Items.Add(item)\n        Return item\n    End Function\n\n    Private Function MakeItem(text As String, shortcut As Keys, handler As EventHandler) As ToolStripMenuItem\n        Dim item As New ToolStripMenuItem(text)\n        If shortcut <> Keys.None Then item.ShortcutKeys = shortcut\n        item.Image = CreateOffice2003Glyph(text)\n        item.ImageScaling = ToolStripItemImageScaling.None\n        AddHandler item.Click, handler\n        Return item\n    End Function\n\n    ' Cria glyphs pequenos e coloridos inspirados nos menus do Office 2003.\n    ' Tudo é vetorial/desenhado em runtime, sem arquivos de imagem externos.\n    Private Function CreateOffice2003Glyph(caption As String) As Image\n        Dim bmp As New Bitmap(16, 16)\n        Dim key As String = caption.Replace(\"&\", String.Empty).ToLowerInvariant()\n\n        Using g As Graphics = Graphics.FromImage(bmp)\n            g.Clear(Color.Transparent)\n            Dim blue As Color = Color.FromArgb(49, 106, 197)\n            Dim darkBlue As Color = Color.FromArgb(25, 70, 145)\n            Dim yellow As Color = Color.FromArgb(255, 203, 73)\n            Dim orange As Color = Color.FromArgb(238, 142, 39)\n\n            If key.StartsWith(\"novo\") Then\n                g.FillRectangle(Brushes.White, 3, 1, 9, 13)\n                g.DrawRectangle(Pens.Navy, 3, 1, 9, 13)\n                g.DrawLine(Pens.RoyalBlue, 5, 5, 10, 5)\n                g.DrawLine(Pens.RoyalBlue, 5, 8, 10, 8)\n                Using b As New SolidBrush(yellow)\n                    g.FillRectangle(b, 9, 10, 6, 5)\n                End Using\n            ElseIf key.StartsWith(\"abrir\") OrElse key.StartsWith(\"inserir arquivo\") Then\n                Using b As New SolidBrush(yellow)\n                    g.FillRectangle(b, 1, 5, 13, 8)\n                End Using\n                Using b As New SolidBrush(orange)\n                    g.FillPolygon(b, New Point() {New Point(2, 7), New Point(15, 7), New Point(12, 14), New Point(1, 14)})\n                End Using\n                g.DrawRectangle(Pens.SaddleBrown, 1, 5, 12, 8)\n            ElseIf key.StartsWith(\"salvar\") Then\n                Using b As New SolidBrush(blue)\n                    g.FillRectangle(b, 2, 1, 12, 14)\n                End Using\n                g.DrawRectangle(Pens.Navy, 2, 1, 12, 14)\n                g.FillRectangle(Brushes.White, 5, 2, 6, 4)\n                g.FillRectangle(Brushes.White, 4, 9, 8, 5)\n            ElseIf key.Contains(\"imprimir\") OrElse key.Contains(\"página\") Then\n                g.FillRectangle(Brushes.White, 4, 1, 8, 5)\n                g.DrawRectangle(Pens.Gray, 4, 1, 8, 5)\n                Using b As New SolidBrush(Color.FromArgb(180, 190, 205))\n                    g.FillRectangle(b, 2, 5, 12, 7)\n                End Using\n                g.DrawRectangle(Pens.DimGray, 2, 5, 12, 7)\n                g.FillRectangle(Brushes.White, 4, 9, 8, 6)\n                g.DrawRectangle(Pens.Gray, 4, 9, 8, 6)\n            ElseIf key.StartsWith(\"recortar\") Then\n                Using p As New Pen(darkBlue, 1.5F)\n                    g.DrawLine(p, 4, 2, 11, 13)\n                    g.DrawLine(p, 11, 2, 4, 13)\n                    g.DrawEllipse(p, 1, 10, 5, 4)\n                    g.DrawEllipse(p, 10, 10, 5, 4)\n                End Using\n            ElseIf key.StartsWith(\"copiar\") Then\n                g.FillRectangle(Brushes.White, 5, 2, 8, 10)\n                g.DrawRectangle(Pens.DimGray, 5, 2, 8, 10)\n                Using b As New SolidBrush(Color.FromArgb(220, 235, 255))\n                    g.FillRectangle(b, 2, 5, 8, 9)\n                End Using\n                g.DrawRectangle(Pens.RoyalBlue, 2, 5, 8, 9)\n            ElseIf key.StartsWith(\"colar\") Then\n                Using b As New SolidBrush(yellow)\n                    g.FillRectangle(b, 3, 3, 10, 12)\n                End Using\n                g.DrawRectangle(Pens.SaddleBrown, 3, 3, 10, 12)\n                Using b As New SolidBrush(blue)\n                    g.FillRectangle(b, 5, 1, 6, 4)\n                End Using\n            ElseIf key.StartsWith(\"desfazer\") OrElse key.StartsWith(\"refazer\") Then\n                Using p As New Pen(blue, 2.0F)\n                    If key.StartsWith(\"desfazer\") Then\n                        g.DrawArc(p, 4, 4, 9, 8, 205, 245)\n                        g.FillPolygon(New SolidBrush(blue), New Point() {New Point(2, 5), New Point(7, 2), New Point(7, 8)})\n                    Else\n                        g.DrawArc(p, 3, 4, 9, 8, 90, 245)\n                        g.FillPolygon(New SolidBrush(blue), New Point() {New Point(14, 5), New Point(9, 2), New Point(9, 8)})\n                    End If\n                End Using\n            ElseIf key.StartsWith(\"localizar\") OrElse key.StartsWith(\"substituir\") Then\n                Using p As New Pen(darkBlue, 2.0F)\n                    g.DrawEllipse(p, 2, 2, 8, 8)\n                    g.DrawLine(p, 9, 9, 14, 14)\n                End Using\n            ElseIf key.StartsWith(\"fonte\") OrElse key.Contains(\"maiúsc\") OrElse key.Contains(\"minúsc\") Then\n                Using f As New Font(\"Times New Roman\", 11.0F, FontStyle.Bold)\n                    g.DrawString(\"A\", f, Brushes.Navy, -1, -1)\n                End Using\n            ElseIf key.Contains(\"cor do texto\") OrElse key.Contains(\"realce\") Then\n                g.FillRectangle(Brushes.Red, 2, 11, 12, 3)\n                Using f As New Font(\"Arial\", 9.0F, FontStyle.Bold)\n                    g.DrawString(\"A\", f, Brushes.Navy, 3, 0)\n                End Using\n            ElseIf key.StartsWith(\"símbolo\") Then\n                Using f As New Font(\"Times New Roman\", 11.0F, FontStyle.Bold)\n                    g.DrawString(\"Ω\", f, Brushes.RoyalBlue, 0, -1)\n                End Using\n            ElseIf key.StartsWith(\"estatísticas\") Then\n                Using b As New SolidBrush(blue)\n                    g.FillRectangle(b, 2, 8, 3, 6)\n                    g.FillRectangle(b, 7, 4, 3, 10)\n                    g.FillRectangle(b, 12, 1, 3, 13)\n                End Using\n            ElseIf key.StartsWith(\"tela cheia\") Then\n                Using p As New Pen(blue, 2.0F)\n                    g.DrawLine(p, 2, 6, 2, 2) : g.DrawLine(p, 2, 2, 6, 2)\n                    g.DrawLine(p, 10, 2, 14, 2) : g.DrawLine(p, 14, 2, 14, 6)\n                    g.DrawLine(p, 2, 10, 2, 14) : g.DrawLine(p, 2, 14, 6, 14)\n                    g.DrawLine(p, 10, 14, 14, 14) : g.DrawLine(p, 14, 14, 14, 10)\n                End Using\n            ElseIf key.StartsWith(\"ajuda\") OrElse key.StartsWith(\"sobre\") Then\n                Using b As New SolidBrush(blue)\n                    g.FillEllipse(b, 1, 1, 14, 14)\n                End Using\n                Using f As New Font(\"Arial\", 9.0F, FontStyle.Bold)\n                    g.DrawString(If(key.StartsWith(\"ajuda\"), \"?\", \"i\"), f, Brushes.White, 4, 1)\n                End Using\n            ElseIf key = \"a-\" Then\n                ' Diminuir fonte: A com sinal de menos.\n                Using ff As New Font(\"Arial\", 9.0F, FontStyle.Bold)\n                    g.DrawString(\"A\", ff, Brushes.Navy, 0, 1)\n                End Using\n                Using p As New Pen(Color.FromArgb(49, 106, 197), 2.0F)\n                    g.DrawLine(p, 10, 11, 15, 11)\n                End Using\n            ElseIf key = \"a+\" Then\n                ' Aumentar fonte: A com sinal de mais.\n                Using ff As New Font(\"Arial\", 9.0F, FontStyle.Bold)\n                    g.DrawString(\"A\", ff, Brushes.Navy, 0, 1)\n                End Using\n                Using p As New Pen(Color.FromArgb(49, 106, 197), 2.0F)\n                    g.DrawLine(p, 10, 11, 15, 11)\n                    g.DrawLine(p, 12, 8, 12, 14)\n                End Using\n            ElseIf key = \"b\" Then\n                Using ff As New Font(\"Arial\", 10.0F, FontStyle.Bold)\n                    g.DrawString(\"B\", ff, Brushes.Navy, 1, 0)\n                End Using\n            ElseIf key = \"i\" Then\n                Using ff As New Font(\"Times New Roman\", 11.0F, FontStyle.Italic Or FontStyle.Bold)\n                    g.DrawString(\"I\", ff, Brushes.Navy, 4, 0)\n                End Using\n            ElseIf key = \"u\" Then\n                Using ff As New Font(\"Arial\", 9.0F, FontStyle.Underline)\n                    g.DrawString(\"U\", ff, Brushes.Navy, 2, 1)\n                End Using\n            ElseIf key = \"e\" OrElse key = \"c\" OrElse key = \"d\" Then\n                For yy As Integer = 3 To 12 Step 3\n                    Dim ww As Integer = If(((yy - 3) \\ 3) Mod 2 = 0, 10, 12)\n                    Dim xx As Integer = If(key = \"e\", 2, If(key = \"d\", 14 - ww, CInt((16 - ww) / 2)))\n                    g.DrawLine(Pens.Navy, xx, yy, xx + ww, yy)\n                Next\n            ElseIf key.Contains(\"lista\") OrElse key.Contains(\"marcadores\") Then\n                For yy As Integer = 3 To 11 Step 4\n                    g.FillEllipse(Brushes.Navy, 1, yy, 2, 2)\n                    g.DrawLine(Pens.Navy, 5, yy + 1, 14, yy + 1)\n                Next\n            ElseIf key.StartsWith(\"data e hora\") Then\n                g.DrawEllipse(Pens.RoyalBlue, 2, 2, 12, 12)\n                g.DrawLine(Pens.Navy, 8, 8, 8, 4)\n                g.DrawLine(Pens.Navy, 8, 8, 11, 9)\n            Else\n                bmp.Dispose()\n                Return Nothing\n            End If\n        End Using\n        Return bmp\n    End Function\n\n    Private Sub AddToolButton(text As String, handler As EventHandler)\n        Dim b As New ToolStripButton(text)\n        b.DisplayStyle = ToolStripItemDisplayStyle.Text\n        AddHandler b.Click, handler\n        tools.Items.Add(b)\n    End Sub\n\n    Private Function ConfirmSave() As Boolean\n        If Not documentChanged Then Return True\n\n        Dim r As DialogResult = MessageBox.Show(\n            \"Deseja salvar as alterações do documento?\",\n            \"FlowWriter\",\n            MessageBoxButtons.YesNoCancel,\n            MessageBoxIcon.Question)\n\n        If r = DialogResult.Cancel Then Return False\n        If r = DialogResult.Yes Then Return SaveCurrent()\n        Return True\n    End Function\n\n    Private Sub NewDocument(sender As Object, e As EventArgs)\n        If Not ConfirmSave() Then Return\n        editor.Clear()\n        currentFile = String.Empty\n        documentChanged = False\n        UpdateTitle()\n        UpdateStatus()\n    End Sub\n\n    Private Sub OpenDocument(sender As Object, e As EventArgs)\n        If Not ConfirmSave() Then Return\n\n        Using dlg As New OpenFileDialog()\n            dlg.Filter = \"Documentos suportados (*.rtf;*.txt;*.xml;*.json;*.odt)|*.rtf;*.txt;*.xml;*.json;*.odt|Rich Text Format (*.rtf)|*.rtf|Texto (*.txt)|*.txt|XML (*.xml)|*.xml|JSON (*.json)|*.json|OpenDocument Text (*.odt)|*.odt|Todos os arquivos (*.*)|*.*\"\n            If dlg.ShowDialog() <> DialogResult.OK Then Return\n\n            Try\n                If String.Equals(Path.GetExtension(dlg.FileName), \".rtf\", StringComparison.OrdinalIgnoreCase) Then\n                    LoadByExtension(dlg.FileName)\n                Else\n                    editor.Text = File.ReadAllText(dlg.FileName, Encoding.UTF8)\n                End If\n\n                currentFile = dlg.FileName\n                documentChanged = False\n                UpdateTitle()\n                UpdateStatus()\n            Catch ex As Exception\n                MessageBox.Show(\"Não foi possível abrir o arquivo.\" & Environment.NewLine & ex.Message, \"FlowWriter\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n            End Try\n        End Using\n    End Sub\n\n    Private Sub SaveDocument(sender As Object, e As EventArgs)\n        SaveCurrent()\n    End Sub\n\n    Private Sub SaveAsDocument(sender As Object, e As EventArgs)\n        SaveAs()\n    End Sub\n\n    Private Function SaveCurrent() As Boolean\n        If String.IsNullOrEmpty(currentFile) Then Return SaveAs()\n        Return SaveTo(currentFile)\n    End Function\n\n    Private Function SaveAs() As Boolean\n        Using dlg As New SaveFileDialog()\n            dlg.Filter = \"Documentos suportados (*.rtf;*.txt;*.xml;*.json;*.odt)|*.rtf;*.txt;*.xml;*.json;*.odt|Rich Text Format (*.rtf)|*.rtf|Texto (*.txt)|*.txt|XML (*.xml)|*.xml|JSON (*.json)|*.json|OpenDocument Text (*.odt)|*.odt|Todos os arquivos (*.*)|*.*\"\n            dlg.DefaultExt = \"rtf\"\n            dlg.AddExtension = True\n            If dlg.ShowDialog() <> DialogResult.OK Then Return False\n            currentFile = dlg.FileName\n            Return SaveTo(currentFile)\n        End Using\n    End Function\n\n    Private Function SaveTo(fileName As String) As Boolean\n        Try\n            If String.Equals(Path.GetExtension(fileName), \".rtf\", StringComparison.OrdinalIgnoreCase) Then\n                SaveByExtension(fileName)\n            Else\n                File.WriteAllText(fileName, editor.Text, Encoding.UTF8)\n            End If\n            documentChanged = False\n            UpdateTitle()\n            UpdateStatus()\n            Return True\n        Catch ex As Exception\n            MessageBox.Show(\"Não foi possível salvar.\" & Environment.NewLine & ex.Message, \"FlowWriter\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n            Return False\n        End Try\n    End Function\n\n    Private Sub Editor_TextChanged(sender As Object, e As EventArgs)\n        documentChanged = True\n        UpdateTitle()\n        UpdateStatus()\n    End Sub\n\n    Private Sub Editor_SelectionChanged(sender As Object, e As EventArgs)\n        UpdateStatus()\n        SyncFormattingControls()\n    End Sub\n\n    Private Sub SaveByExtension(path As String)\n        Select Case System.IO.Path.GetExtension(path).ToLowerInvariant()\n            Case \".rtf\"\n                editor.SaveFile(path, RichTextBoxStreamType.RichText)\n            Case \".xml\"\n                Dim xd As New XmlDocument()\n                Dim root As XmlElement = xd.CreateElement(\"FlowWriterDocument\")\n                xd.AppendChild(root)\n                Dim tn As XmlElement = xd.CreateElement(\"Text\") : tn.InnerText = editor.Text : root.AppendChild(tn)\n                Dim rn As XmlElement = xd.CreateElement(\"Rtf\") : rn.AppendChild(xd.CreateCDataSection(editor.Rtf)) : root.AppendChild(rn)\n                xd.Save(path)\n            Case \".json\"\n                Dim o As New Dictionary(Of String, Object)()\n                o(\"format\") = \"FlowWriter\" : o(\"text\") = editor.Text : o(\"rtf\") = editor.Rtf\n                File.WriteAllText(path, (New JavaScriptSerializer()).Serialize(o), New UTF8Encoding(False))\n            Case \".odt\"\n                SaveOdt(path)\n            Case Else\n                File.WriteAllText(path, editor.Text, Encoding.UTF8)\n        End Select\n    End Sub\n\n    Private Sub LoadByExtension(path As String)\n        Select Case System.IO.Path.GetExtension(path).ToLowerInvariant()\n            Case \".rtf\"\n                editor.LoadFile(path, RichTextBoxStreamType.RichText)\n            Case \".xml\"\n                Dim xd As New XmlDocument() : xd.Load(path)\n                Dim rn As XmlNode = xd.SelectSingleNode(\"/FlowWriterDocument/Rtf\")\n                Dim tn As XmlNode = xd.SelectSingleNode(\"/FlowWriterDocument/Text\")\n                If rn IsNot Nothing Then\n                    editor.Rtf = rn.InnerText\n                ElseIf tn IsNot Nothing Then\n                    editor.Text = tn.InnerText\n                Else\n                    editor.Clear()\n                End If\n            Case \".json\"\n                Dim o = (New JavaScriptSerializer()).Deserialize(Of Dictionary(Of String, Object))(File.ReadAllText(path, Encoding.UTF8))\n                If o.ContainsKey(\"rtf\") Then\n                    editor.Rtf = o(\"rtf\").ToString()\n                ElseIf o.ContainsKey(\"text\") Then\n                    editor.Text = o(\"text\").ToString()\n                Else\n                    editor.Clear()\n                End If\n            Case \".odt\"\n                LoadOdt(path)\n            Case Else\n                editor.Text = File.ReadAllText(path, Encoding.UTF8)\n        End Select\n    End Sub\n\n    Private Sub SaveOdt(path As String)\n        Dim tmp As String = System.IO.Path.Combine(System.IO.Path.GetTempPath(), \"FW\" & Guid.NewGuid().ToString(\"N\"))\n        Directory.CreateDirectory(tmp)\n        Directory.CreateDirectory(System.IO.Path.Combine(tmp, \"META-INF\"))\n        Try\n            File.WriteAllText(System.IO.Path.Combine(tmp, \"mimetype\"), \"application/vnd.oasis.opendocument.text\", New UTF8Encoding(False))\n\n            Dim body As New StringBuilder()\n            body.Append(\"<?xml version=\"\"1.0\"\" encoding=\"\"UTF-8\"\"?><office:document-content xmlns:office=\"\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\"\" xmlns:text=\"\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\"\" office:version=\"\"1.2\"\"><office:body><office:text>\")\n            For Each line As String In editor.Lines\n                body.Append(\"<text:p>\").Append(Security.SecurityElement.Escape(line)).Append(\"</text:p>\")\n            Next\n            body.Append(\"</office:text></office:body></office:document-content>\")\n            File.WriteAllText(System.IO.Path.Combine(tmp, \"content.xml\"), body.ToString(), New UTF8Encoding(False))\n\n            Dim mf As String = \"<?xml version=\"\"1.0\"\" encoding=\"\"UTF-8\"\"?><manifest:manifest xmlns:manifest=\"\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\"\" manifest:version=\"\"1.2\"\"><manifest:file-entry manifest:full-path=\"\"/\"\" manifest:media-type=\"\"application/vnd.oasis.opendocument.text\"\"/><manifest:file-entry manifest:full-path=\"\"content.xml\"\" manifest:media-type=\"\"text/xml\"\"/></manifest:manifest>\"\n            File.WriteAllText(System.IO.Path.Combine(tmp, \"META-INF\", \"manifest.xml\"), mf, New UTF8Encoding(False))\n\n            CreateZipWithWindowsShell(tmp, path)\n        Finally\n            If Directory.Exists(tmp) Then Directory.Delete(tmp, True)\n        End Try\n    End Sub\n\n    Private Sub LoadOdt(path As String)\n        Dim tmp As String = System.IO.Path.Combine(System.IO.Path.GetTempPath(), \"FW\" & Guid.NewGuid().ToString(\"N\"))\n        Directory.CreateDirectory(tmp)\n        Try\n            ExtractZipWithWindowsShell(path, tmp)\n            Dim contentPath As String = System.IO.Path.Combine(tmp, \"content.xml\")\n            If Not File.Exists(contentPath) Then Throw New InvalidDataException(\"ODT inválido: content.xml não encontrado.\")\n\n            Dim xd As New XmlDocument()\n            xd.Load(contentPath)\n            Dim ns As New XmlNamespaceManager(xd.NameTable)\n            ns.AddNamespace(\"text\", \"urn:oasis:names:tc:opendocument:xmlns:text:1.0\")\n            Dim sb As New StringBuilder()\n            For Each n As XmlNode In xd.SelectNodes(\"//text:p\", ns)\n                If sb.Length > 0 Then sb.Append(Environment.NewLine)\n                sb.Append(n.InnerText)\n            Next\n            editor.Text = sb.ToString()\n        Finally\n            If Directory.Exists(tmp) Then Directory.Delete(tmp, True)\n        End Try\n    End Sub\n\n    ' Usa o suporte ZIP nativo do Explorer. Não exige System.IO.Compression.FileSystem.dll.\n    Private Sub CreateZipWithWindowsShell(sourceFolder As String, zipPath As String)\n        If File.Exists(zipPath) Then File.Delete(zipPath)\n\n        ' Cabeçalho mínimo de um ZIP vazio.\n        Dim emptyZip() As Byte = New Byte() {80, 75, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}\n        File.WriteAllBytes(zipPath, emptyZip)\n\n        Dim shellType As Type = Type.GetTypeFromProgID(\"Shell.Application\")\n        If shellType Is Nothing Then Throw New InvalidOperationException(\"Compactação ZIP do Windows indisponível.\")\n        Dim shell As Object = Activator.CreateInstance(shellType)\n        Dim zipFolder As Object = shell.NameSpace(zipPath)\n        Dim srcFolder As Object = shell.NameSpace(sourceFolder)\n        If zipFolder Is Nothing OrElse srcFolder Is Nothing Then Throw New IOException(\"Não foi possível criar o pacote ODT.\")\n\n        zipFolder.CopyHere(srcFolder.Items(), 20)\n        WaitForShellCopy(zipPath, 5000)\n    End Sub\n\n    Private Sub ExtractZipWithWindowsShell(zipPath As String, destination As String)\n        Dim shellType As Type = Type.GetTypeFromProgID(\"Shell.Application\")\n        If shellType Is Nothing Then Throw New InvalidOperationException(\"Descompactação ZIP do Windows indisponível.\")\n        Dim shell As Object = Activator.CreateInstance(shellType)\n        Dim zipFolder As Object = shell.NameSpace(zipPath)\n        Dim dstFolder As Object = shell.NameSpace(destination)\n        If zipFolder Is Nothing OrElse dstFolder Is Nothing Then Throw New InvalidDataException(\"Não foi possível abrir o pacote ODT.\")\n\n        dstFolder.CopyHere(zipFolder.Items(), 20)\n        Dim limit As DateTime = DateTime.Now.AddSeconds(5)\n        While Not File.Exists(System.IO.Path.Combine(destination, \"content.xml\")) AndAlso DateTime.Now < limit\n            Application.DoEvents()\n            Threading.Thread.Sleep(50)\n        End While\n    End Sub\n\n    Private Sub WaitForShellCopy(zipPath As String, timeoutMs As Integer)\n        Dim startTime As DateTime = DateTime.Now\n        Dim lastLength As Long = -1\n        Dim stableCount As Integer = 0\n        While (DateTime.Now - startTime).TotalMilliseconds < timeoutMs\n            Application.DoEvents()\n            Threading.Thread.Sleep(100)\n            If File.Exists(zipPath) Then\n                Dim length As Long = New FileInfo(zipPath).Length\n                If length = lastLength AndAlso length > 22 Then\n                    stableCount += 1\n                    If stableCount >= 5 Then Exit While\n                Else\n                    stableCount = 0\n                    lastLength = length\n                End If\n            End If\n        End While\n    End Sub\n\n    Private Sub UpdateTitle()\n        Dim name As String = If(String.IsNullOrEmpty(currentFile), \"Sem título\", Path.GetFileName(currentFile))\n        Me.Text = \"FlowWriter - \" & name & If(documentChanged, \" *\", String.Empty)\n    End Sub\n\n    Private Sub UpdateStatus()\n        If editor Is Nothing OrElse statusFile Is Nothing Then Return\n        statusFile.Text = If(String.IsNullOrEmpty(currentFile), \"Sem título\", currentFile)\n\n        Dim index As Integer = editor.SelectionStart\n        Dim line As Integer = editor.GetLineFromCharIndex(index)\n        Dim first As Integer = editor.GetFirstCharIndexFromLine(line)\n        Dim column As Integer = If(first >= 0, index - first, 0)\n        statusPos.Text = \"Ln \" & (line + 1).ToString() & \", Col \" & (column + 1).ToString()\n\n        Dim count As Integer = Regex.Matches(editor.Text, \"\\b[\\p{L}\\p{N}]+\\b\").Count\n        statusWords.Text = count.ToString() & \" palavras | \" & editor.TextLength.ToString() & \" caracteres\"\n    End Sub\n\n    Private Function CurrentSelectionFont() As Font\n        If editor.SelectionFont IsNot Nothing Then Return editor.SelectionFont\n        Return editor.Font\n    End Function\n\n    Private Sub ApplyFontStyle(style As FontStyle)\n        Dim f As Font = CurrentSelectionFont()\n        Dim newStyle As FontStyle = f.Style Xor style\n        editor.SelectionFont = New Font(f.FontFamily, f.Size, newStyle)\n    End Sub\n\n    Private Sub UndoDocument(sender As Object, e As EventArgs)\n        If editor.CanUndo Then editor.Undo()\n    End Sub\n\n    Private Sub RedoDocument(sender As Object, e As EventArgs)\n        If editor.CanRedo Then editor.Redo()\n    End Sub\n\n    Private Sub ToggleBold(sender As Object, e As EventArgs)\n        ApplyFontStyle(FontStyle.Bold)\n    End Sub\n\n    Private Sub ToggleItalic(sender As Object, e As EventArgs)\n        ApplyFontStyle(FontStyle.Italic)\n    End Sub\n\n    Private Sub ToggleUnderline(sender As Object, e As EventArgs)\n        ApplyFontStyle(FontStyle.Underline)\n    End Sub\n\n    Private Sub ToggleStrikeout(sender As Object, e As EventArgs)\n        ApplyFontStyle(FontStyle.Strikeout)\n    End Sub\n\n    Private Sub ChooseFont(sender As Object, e As EventArgs)\n        Using dlg As New FontDialog()\n            dlg.Font = CurrentSelectionFont()\n            dlg.ShowColor = True\n            dlg.Color = editor.SelectionColor\n            If dlg.ShowDialog() = DialogResult.OK Then\n                editor.SelectionFont = dlg.Font\n                editor.SelectionColor = dlg.Color\n            End If\n        End Using\n    End Sub\n\n    Private Sub ChooseTextColor(sender As Object, e As EventArgs)\n        Using dlg As New ColorDialog()\n            dlg.Color = editor.SelectionColor\n            If dlg.ShowDialog() = DialogResult.OK Then editor.SelectionColor = dlg.Color\n        End Using\n    End Sub\n\n    Private Sub ChooseBackColor(sender As Object, e As EventArgs)\n        Using dlg As New ColorDialog()\n            dlg.Color = editor.SelectionBackColor\n            If dlg.ShowDialog() = DialogResult.OK Then editor.SelectionBackColor = dlg.Color\n        End Using\n    End Sub\n\n    Private Sub SetAlignment(value As HorizontalAlignment)\n        editor.SelectionAlignment = value\n    End Sub\n\n    Private Sub ToggleBullets(sender As Object, e As EventArgs)\n        editor.SelectionBullet = Not editor.SelectionBullet\n    End Sub\n\n    Private Sub ToggleWordWrap(sender As Object, e As EventArgs)\n        editor.WordWrap = Not editor.WordWrap\n    End Sub\n\n    Private Sub ChangeFontSize(delta As Single)\n        Dim f As Font = CurrentSelectionFont()\n        Dim newSize As Single = Math.Max(6.0F, Math.Min(96.0F, f.Size + delta))\n        editor.SelectionFont = New Font(f.FontFamily, newSize, f.Style)\n    End Sub\n\n    ' Mostra cada fonte usando uma amostra da própria família.\n    ' O nome continua visível mesmo se uma fonte específica falhar.\n    Private Sub FontBox_DrawItem(sender As Object, e As DrawItemEventArgs)\n        e.DrawBackground()\n\n        If e.Index < 0 OrElse e.Index >= fontBox.Items.Count Then\n            e.DrawFocusRectangle()\n            Return\n        End If\n\n        Dim fontName As String = fontBox.Items(e.Index).ToString()\n        Dim sampleFont As Font = Nothing\n\n        Try\n            sampleFont = New Font(fontName, 11.0F, FontStyle.Regular)\n        Catch\n            sampleFont = New Font(\"Segoe UI\", 11.0F, FontStyle.Regular)\n        End Try\n\n        Try\n            Dim textColor As Color =\n                If((e.State And DrawItemState.Selected) = DrawItemState.Selected,\n                   SystemColors.HighlightText,\n                   SystemColors.ControlText)\n\n            Using textBrush As New SolidBrush(textColor)\n                e.Graphics.DrawString(\n                    fontName,\n                    sampleFont,\n                    textBrush,\n                    CSng(e.Bounds.Left + 4),\n                    CSng(e.Bounds.Top + 2))\n            End Using\n        Finally\n            sampleFont.Dispose()\n        End Try\n\n        e.DrawFocusRectangle()\n    End Sub\n\n    Private Sub FontChanged(sender As Object, e As EventArgs)\n        If fontBox.SelectedItem Is Nothing Then Return\n        Try\n            Dim f As Font = CurrentSelectionFont()\n            editor.SelectionFont = New Font(fontBox.SelectedItem.ToString(), f.Size, f.Style)\n        Catch\n        End Try\n    End Sub\n\n    Private Sub SizeChanged(sender As Object, e As EventArgs)\n        ApplySizeFromBox()\n    End Sub\n\n    Private Sub SizeBox_KeyDown(sender As Object, e As KeyEventArgs)\n        If e.KeyCode = Keys.Enter Then\n            ApplySizeFromBox()\n            e.SuppressKeyPress = True\n        End If\n    End Sub\n\n    Private Sub ApplySizeFromBox()\n        Dim value As Single\n        If Not Single.TryParse(sizeBox.Text, value) Then Return\n        If value < 6 OrElse value > 96 Then Return\n        Dim f As Font = CurrentSelectionFont()\n        editor.SelectionFont = New Font(f.FontFamily, value, f.Style)\n    End Sub\n\n    Private Sub SyncFormattingControls()\n        If fontBox Is Nothing Then Return\n        Dim f As Font = CurrentSelectionFont()\n        fontBox.Text = f.FontFamily.Name\n        sizeBox.Text = CInt(f.Size).ToString()\n    End Sub\n\n    Private Sub ZoomChanged(sender As Object, e As EventArgs)\n        Dim txt As String = zoomBox.Text.Replace(\"%\", \"\")\n        Dim value As Integer\n        If Integer.TryParse(txt, value) Then SetZoom(value)\n    End Sub\n\n    Private Sub SetZoom(percent As Integer)\n        percent = Math.Max(20, Math.Min(500, percent))\n        editor.ZoomFactor = CSng(percent) / 100.0F\n        zoomBox.Text = percent.ToString() & \"%\"\n    End Sub\n\n    Private Sub ShowFind(sender As Object, e As EventArgs)\n        OpenFindForm(False)\n    End Sub\n\n    Private Sub ShowReplace(sender As Object, e As EventArgs)\n        OpenFindForm(True)\n    End Sub\n\n    Private Sub OpenFindForm(replaceMode As Boolean)\n        If findForm Is Nothing OrElse findForm.IsDisposed Then\n            findForm = New FindReplaceForm()\n            findForm.SetEditor(editor)\n        End If\n        findForm.SetReplaceMode(replaceMode)\n        findForm.Show(Me)\n        findForm.BringToFront()\n    End Sub\n\n    Private Sub GoToLine(sender As Object, e As EventArgs)\n        Using dlg As New GoToLineForm()\n            dlg.MaximumLine = Math.Max(1, editor.Lines.Length)\n            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return\n            Dim line As Integer = dlg.SelectedLine - 1\n            Dim charIndex As Integer = editor.GetFirstCharIndexFromLine(line)\n            If charIndex >= 0 Then\n                editor.SelectionStart = charIndex\n                editor.SelectionLength = 0\n                editor.ScrollToCaret()\n                editor.Focus()\n            End If\n        End Using\n    End Sub\n\n    Private Sub ShowStatistics(sender As Object, e As EventArgs)\n        Using dlg As New StatisticsForm()\n            dlg.LoadStatistics(editor.Text)\n            dlg.ShowDialog(Me)\n        End Using\n    End Sub\n\n    Private Sub ShowSymbols(sender As Object, e As EventArgs)\n        Using dlg As New SymbolsForm()\n            If dlg.ShowDialog(Me) = DialogResult.OK Then\n                editor.SelectedText = dlg.SelectedSymbol\n            End If\n        End Using\n    End Sub\n\n    Private Sub ShowHelpWindow(sender As Object, e As EventArgs)\n        Using dlg As New HelpForm()\n            dlg.ShowDialog(Me)\n        End Using\n    End Sub\n\n    Private Sub ShowAbout(sender As Object, e As EventArgs)\n        Using dlg As New AboutForm()\n            dlg.ShowDialog(Me)\n        End Using\n    End Sub\n\n    Private Sub InsertDateTime(sender As Object, e As EventArgs)\n        editor.SelectedText = DateTime.Now.ToString(\"dd/MM/yyyy HH:mm\")\n    End Sub\n\n    Private Sub InsertLine(sender As Object, e As EventArgs)\n        editor.SelectedText = Environment.NewLine & New String(\"─\"c, 40) & Environment.NewLine\n    End Sub\n\n    Private Sub InsertFile(sender As Object, e As EventArgs)\n        Using dlg As New OpenFileDialog()\n            dlg.Filter = \"Documentos suportados (*.rtf;*.txt;*.xml;*.json;*.odt)|*.rtf;*.txt;*.xml;*.json;*.odt|Rich Text Format (*.rtf)|*.rtf|Texto (*.txt)|*.txt|XML (*.xml)|*.xml|JSON (*.json)|*.json|OpenDocument Text (*.odt)|*.odt|Todos os arquivos (*.*)|*.*\"\n            If dlg.ShowDialog() = DialogResult.OK Then\n                Try\n                    editor.SelectedText = File.ReadAllText(dlg.FileName)\n                Catch ex As Exception\n                    MessageBox.Show(ex.Message, \"Inserir arquivo\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n                End Try\n            End If\n        End Using\n    End Sub\n\n    Private Sub UpperCase(sender As Object, e As EventArgs)\n        If editor.SelectionLength > 0 Then editor.SelectedText = editor.SelectedText.ToUpper()\n    End Sub\n\n    Private Sub LowerCase(sender As Object, e As EventArgs)\n        If editor.SelectionLength > 0 Then editor.SelectedText = editor.SelectedText.ToLower()\n    End Sub\n\n    Private Sub ToggleCase(sender As Object, e As EventArgs)\n        If editor.SelectionLength = 0 Then Return\n        Dim sb As New StringBuilder()\n        For Each ch As Char In editor.SelectedText\n            If Char.IsUpper(ch) Then\n                sb.Append(Char.ToLower(ch))\n            ElseIf Char.IsLower(ch) Then\n                sb.Append(Char.ToUpper(ch))\n            Else\n                sb.Append(ch)\n            End If\n        Next\n        editor.SelectedText = sb.ToString()\n    End Sub\n\n    Private Sub Editor_LinkClicked(sender As Object, e As LinkClickedEventArgs)\n        Try\n            Process.Start(e.LinkText)\n        Catch\n        End Try\n    End Sub\n\n    Private fullScreen As Boolean\n    Private savedBorder As FormBorderStyle\n    Private savedState As FormWindowState\n\n    Private Sub ToggleFullScreen(sender As Object, e As EventArgs)\n        If Not fullScreen Then\n            savedBorder = Me.FormBorderStyle\n            savedState = Me.WindowState\n            Me.FormBorderStyle = FormBorderStyle.None\n            Me.WindowState = FormWindowState.Maximized\n            menu.Visible = False\n            tools.Visible = False\n            status.Visible = False\n            fullScreen = True\n        Else\n            Me.FormBorderStyle = savedBorder\n            Me.WindowState = savedState\n            menu.Visible = True\n            tools.Visible = True\n            status.Visible = True\n            fullScreen = False\n        End If\n    End Sub\n\n    Private Sub PageSetup(sender As Object, e As EventArgs)\n        Using dlg As New PageSetupDialog()\n            dlg.Document = printDocument\n            dlg.ShowDialog(Me)\n        End Using\n    End Sub\n\n    Private Sub PrintPreview(sender As Object, e As EventArgs)\n        printCharIndex = 0\n        Using dlg As New PrintPreviewDialog()\n            dlg.Document = printDocument\n            dlg.Width = 900\n            dlg.Height = 700\n            dlg.ShowDialog(Me)\n        End Using\n    End Sub\n\n    Private Sub PrintFile(sender As Object, e As EventArgs)\n        printCharIndex = 0\n        Using dlg As New PrintDialog()\n            dlg.Document = printDocument\n            If dlg.ShowDialog(Me) = DialogResult.OK Then printDocument.Print()\n        End Using\n    End Sub\n\n    Private Sub PrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs)\n        ' Impressão paginada simples e compatível com .NET Framework 4.8.\n        Dim source As String = editor.Text\n        If printCharIndex >= source.Length Then\n            e.HasMorePages = False\n            Return\n        End If\n\n        Using f As New Font(editor.Font.FontFamily, editor.Font.Size)\n            Dim lineHeight As Single = f.GetHeight(e.Graphics)\n            Dim maxLines As Integer = Math.Max(1, CInt(Math.Floor(e.MarginBounds.Height / lineHeight)))\n            Dim y As Single = e.MarginBounds.Top\n            Dim linesPrinted As Integer = 0\n\n            While printCharIndex < source.Length AndAlso linesPrinted < maxLines\n                Dim nextBreak As Integer = source.IndexOf(System.Convert.ToChar(10), printCharIndex)\n                Dim lineText As String\n\n                If nextBreak < 0 Then\n                    lineText = source.Substring(printCharIndex).TrimEnd(System.Convert.ToChar(13))\n                    printCharIndex = source.Length\n                Else\n                    lineText = source.Substring(printCharIndex, nextBreak - printCharIndex).TrimEnd(System.Convert.ToChar(13))\n                    printCharIndex = nextBreak + 1\n                End If\n\n                e.Graphics.DrawString(lineText, f, Brushes.Black, e.MarginBounds.Left, y)\n                y += lineHeight\n                linesPrinted += 1\n            End While\n\n            e.HasMorePages = printCharIndex < source.Length\n        End Using\n    End Sub\n\n    Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)\n        If Not ConfirmSave() Then\n            e.Cancel = True\n            Return\n        End If\n        MyBase.OnFormClosing(e)\n    End Sub\nEnd Class"
+    },
+    {
+      "Name": "FindReplaceForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Localizar e substituir"
+        },
+        {
+          "Key": "Width",
+          "Value": "470"
+        },
+        {
+          "Key": "Height",
+          "Value": "230"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPublic Class FindReplaceForm\n    Inherits Form\n\n    Private target As RichTextBox\n    Private findText As TextBox\n    Private replaceText As TextBox\n    Private replaceLabel As Label\n    Private replaceButton As Button\n    Private replaceAllButton As Button\n    Private caseBox As CheckBox\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Localizar e substituir\"\n        Me.FormBorderStyle = FormBorderStyle.FixedToolWindow\n        Me.Width = 470\n        Me.Height = 230\n        Me.StartPosition = FormStartPosition.CenterParent\n\n        Dim l1 As New Label()\n        l1.Text = \"Localizar:\"\n        l1.Location = New Point(12, 18)\n        l1.AutoSize = True\n        Me.Controls.Add(l1)\n\n        findText = New TextBox()\n        findText.Location = New Point(100, 15)\n        findText.Width = 335\n        Me.Controls.Add(findText)\n\n        replaceLabel = New Label()\n        replaceLabel.Text = \"Substituir:\"\n        replaceLabel.Location = New Point(12, 55)\n        replaceLabel.AutoSize = True\n        Me.Controls.Add(replaceLabel)\n\n        replaceText = New TextBox()\n        replaceText.Location = New Point(100, 52)\n        replaceText.Width = 335\n        Me.Controls.Add(replaceText)\n\n        caseBox = New CheckBox()\n        caseBox.Text = \"Diferenciar maiúsculas/minúsculas\"\n        caseBox.Location = New Point(100, 85)\n        caseBox.Width = 260\n        Me.Controls.Add(caseBox)\n\n        Dim nextButton As New Button()\n        nextButton.Text = \"Localizar próxima\"\n        nextButton.Location = New Point(100, 122)\n        nextButton.Width = 120\n        AddHandler nextButton.Click, AddressOf FindNext\n        Me.Controls.Add(nextButton)\n\n        replaceButton = New Button()\n        replaceButton.Text = \"Substituir\"\n        replaceButton.Location = New Point(225, 122)\n        replaceButton.Width = 100\n        AddHandler replaceButton.Click, AddressOf ReplaceOne\n        Me.Controls.Add(replaceButton)\n\n        replaceAllButton = New Button()\n        replaceAllButton.Text = \"Substituir tudo\"\n        replaceAllButton.Location = New Point(330, 122)\n        replaceAllButton.Width = 105\n        AddHandler replaceAllButton.Click, AddressOf ReplaceAll\n        Me.Controls.Add(replaceAllButton)\n    End Sub\n\n    Public Sub SetEditor(value As RichTextBox)\n        target = value\n    End Sub\n\n    Public Sub SetReplaceMode(value As Boolean)\n        replaceLabel.Visible = value\n        replaceText.Visible = value\n        replaceButton.Visible = value\n        replaceAllButton.Visible = value\n        Me.Text = If(value, \"Substituir\", \"Localizar\")\n    End Sub\n\n    Private Function Comparison() As StringComparison\n        Return If(caseBox.Checked, StringComparison.CurrentCulture, StringComparison.CurrentCultureIgnoreCase)\n    End Function\n\n    Private Sub FindNext(sender As Object, e As EventArgs)\n        If target Is Nothing OrElse findText.Text.Length = 0 Then Return\n        Dim start As Integer = target.SelectionStart + target.SelectionLength\n        Dim index As Integer = target.Text.IndexOf(findText.Text, start, Comparison())\n        If index < 0 AndAlso start > 0 Then index = target.Text.IndexOf(findText.Text, 0, Comparison())\n        If index >= 0 Then\n            target.Select(index, findText.Text.Length)\n            target.ScrollToCaret()\n            target.Focus()\n        Else\n            MessageBox.Show(\"Texto não encontrado.\", \"Localizar\", MessageBoxButtons.OK, MessageBoxIcon.Information)\n        End If\n    End Sub\n\n    Private Sub ReplaceOne(sender As Object, e As EventArgs)\n        If target Is Nothing Then Return\n        If String.Equals(target.SelectedText, findText.Text, Comparison()) Then\n            target.SelectedText = replaceText.Text\n        End If\n        FindNext(sender, e)\n    End Sub\n\n    Private Sub ReplaceAll(sender As Object, e As EventArgs)\n        If target Is Nothing OrElse findText.Text.Length = 0 Then Return\n        Dim source As String = target.Text\n        Dim count As Integer = 0\n        Dim pos As Integer = 0\n        Dim result As New System.Text.StringBuilder()\n\n        While pos < source.Length\n            Dim found As Integer = source.IndexOf(findText.Text, pos, Comparison())\n            If found < 0 Then\n                result.Append(source.Substring(pos))\n                Exit While\n            End If\n            result.Append(source.Substring(pos, found - pos))\n            result.Append(replaceText.Text)\n            pos = found + findText.Text.Length\n            count += 1\n        End While\n\n        If pos = source.Length Then\n            ' Nada adicional precisa ser copiado.\n        End If\n\n        target.Text = result.ToString()\n        MessageBox.Show(count.ToString() & \" ocorrência(s) substituída(s).\", \"Substituir\")\n    End Sub\nEnd Class\n"
+    },
+    {
+      "Name": "GoToLineForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Ir para linha"
+        },
+        {
+          "Key": "Width",
+          "Value": "300"
+        },
+        {
+          "Key": "Height",
+          "Value": "150"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPublic Class GoToLineForm\n    Inherits Form\n\n    Private number As NumericUpDown\n    Public Property MaximumLine As Integer\n        Get\n            Return CInt(number.Maximum)\n        End Get\n        Set(value As Integer)\n            number.Maximum = Math.Max(1, value)\n        End Set\n    End Property\n\n    Public ReadOnly Property SelectedLine As Integer\n        Get\n            Return CInt(number.Value)\n        End Get\n    End Property\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Ir para linha\"\n        Me.FormBorderStyle = FormBorderStyle.FixedDialog\n        Me.Width = 300\n        Me.Height = 150\n        Me.StartPosition = FormStartPosition.CenterParent\n        Me.MaximizeBox = False\n        Me.MinimizeBox = False\n\n        Dim label As New Label()\n        label.Text = \"Número da linha:\"\n        label.Location = New Point(15, 18)\n        label.AutoSize = True\n        Me.Controls.Add(label)\n\n        number = New NumericUpDown()\n        number.Location = New Point(18, 45)\n        number.Width = 250\n        number.Minimum = 1\n        number.Maximum = 1\n        Me.Controls.Add(number)\n\n        Dim ok As New Button()\n        ok.Text = \"OK\"\n        ok.DialogResult = DialogResult.OK\n        ok.Location = New Point(112, 78)\n        Me.Controls.Add(ok)\n\n        Dim cancelBtn As New Button()\n        cancelBtn.Text = \"Cancelar\"\n        cancelBtn.DialogResult = DialogResult.Cancel\n        cancelBtn.Location = New Point(193, 78)\n        Me.Controls.Add(cancelBtn)\n\n        Me.AcceptButton = ok\n        Me.CancelButton = cancelBtn\n    End Sub\nEnd Class\n"
+    },
+    {
+      "Name": "StatisticsForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Estatísticas"
+        },
+        {
+          "Key": "Width",
+          "Value": "420"
+        },
+        {
+          "Key": "Height",
+          "Value": "330"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Text.RegularExpressions\nImports System.Windows.Forms\n\nPublic Class StatisticsForm\n    Inherits Form\n\n    Private info As Label\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Estatísticas do documento\"\n        Me.Width = 420\n        Me.Height = 330\n        Me.FormBorderStyle = FormBorderStyle.FixedDialog\n        Me.StartPosition = FormStartPosition.CenterParent\n        Me.MaximizeBox = False\n        Me.MinimizeBox = False\n\n        info = New Label()\n        info.Location = New Point(24, 22)\n        info.Size = New Size(350, 220)\n        info.Font = New Font(\"Segoe UI\", 11.0F)\n        Me.Controls.Add(info)\n\n        Dim closeBtn As New Button()\n        closeBtn.Text = \"Fechar\"\n        closeBtn.DialogResult = DialogResult.OK\n        closeBtn.Location = New Point(292, 250)\n        Me.Controls.Add(closeBtn)\n    End Sub\n\n    Public Sub LoadStatistics(text As String)\n        Dim words As Integer = Regex.Matches(text, \"\\b[\\p{L}\\p{N}]+\\b\").Count\n        Dim lines As Integer = If(text.Length = 0, 0, text.Split(New String() {Environment.NewLine}, StringSplitOptions.None).Length)\n        Dim paragraphs As Integer = Regex.Matches(text.Trim(), \"(\\r?\\n\\s*){2,}\").Count + If(text.Trim().Length > 0, 1, 0)\n        Dim charsNoSpaces As Integer = Regex.Replace(text, \"\\s\", \"\").Length\n        Dim readingMinutes As Double = words / 200.0\n\n        info.Text =\n            \"Palavras: \" & words.ToString() & Environment.NewLine &\n            \"Caracteres: \" & text.Length.ToString() & Environment.NewLine &\n            \"Caracteres sem espaços: \" & charsNoSpaces.ToString() & Environment.NewLine &\n            \"Linhas: \" & lines.ToString() & Environment.NewLine &\n            \"Parágrafos: \" & paragraphs.ToString() & Environment.NewLine &\n            \"Tempo estimado de leitura: \" & readingMinutes.ToString(\"0.0\") & \" min\"\n    End Sub\nEnd Class\n"
+    },
+    {
+      "Name": "SymbolsForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Inserir símbolo"
+        },
+        {
+          "Key": "Width",
+          "Value": "500"
+        },
+        {
+          "Key": "Height",
+          "Value": "350"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPublic Class SymbolsForm\n    Inherits Form\n\n    Public Property SelectedSymbol As String = String.Empty\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Inserir símbolo\"\n        Me.Width = 500\n        Me.Height = 350\n        Me.StartPosition = FormStartPosition.CenterParent\n\n        Dim list As New ListBox()\n        list.Dock = DockStyle.Fill\n        list.Font = New Font(\"Segoe UI Symbol\", 18.0F)\n        list.MultiColumn = True\n        list.ColumnWidth = 70\n\n        Dim symbols As String() = {\n            \"©\", \"®\", \"™\", \"€\", \"£\", \"¥\", \"¢\", \"§\", \"¶\", \"°\",\n            \"±\", \"×\", \"÷\", \"≈\", \"≠\", \"≤\", \"≥\", \"∞\", \"√\", \"π\",\n            \"α\", \"β\", \"γ\", \"δ\", \"Ω\", \"µ\", \"→\", \"←\", \"↑\", \"↓\",\n            \"✓\", \"✗\", \"★\", \"☆\", \"♥\", \"♦\", \"♣\", \"♠\", \"♪\", \"♫\",\n            \"¼\", \"½\", \"¾\", \"²\", \"³\", \"…\", \"–\", \"—\", \"«\", \"»\"\n        }\n\n        For Each s As String In symbols\n            list.Items.Add(s)\n        Next\n\n        AddHandler list.DoubleClick,\n            Sub(sender As Object, e As EventArgs)\n                If list.SelectedItem Is Nothing Then Return\n                SelectedSymbol = list.SelectedItem.ToString()\n                Me.DialogResult = DialogResult.OK\n                Me.Close()\n            End Sub\n\n        Me.Controls.Add(list)\n\n        Dim bottom As New Panel()\n        bottom.Dock = DockStyle.Bottom\n        bottom.Height = 45\n\n        Dim insertBtn As New Button()\n        insertBtn.Text = \"Inserir\"\n        insertBtn.Location = New Point(315, 8)\n        AddHandler insertBtn.Click,\n            Sub(sender As Object, e As EventArgs)\n                If list.SelectedItem Is Nothing Then Return\n                SelectedSymbol = list.SelectedItem.ToString()\n                Me.DialogResult = DialogResult.OK\n            End Sub\n        bottom.Controls.Add(insertBtn)\n\n        Dim cancelBtn As New Button()\n        cancelBtn.Text = \"Cancelar\"\n        cancelBtn.DialogResult = DialogResult.Cancel\n        cancelBtn.Location = New Point(395, 8)\n        bottom.Controls.Add(cancelBtn)\n\n        Me.Controls.Add(bottom)\n        bottom.BringToFront()\n    End Sub\nEnd Class\n"
+    },
+    {
+      "Name": "HelpForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Ajuda"
+        },
+        {
+          "Key": "Width",
+          "Value": "700"
+        },
+        {
+          "Key": "Height",
+          "Value": "540"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPublic Class HelpForm\n    Inherits Form\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Ajuda - FlowWriter\"\n        Me.Width = 700\n        Me.Height = 540\n        Me.StartPosition = FormStartPosition.CenterParent\n\n        Dim tabs As New TabControl()\n        tabs.Dock = DockStyle.Fill\n\n        tabs.TabPages.Add(MakePage(\"Primeiros passos\",\n            \"NOVO, ABRIR E SALVAR\" & Environment.NewLine & Environment.NewLine &\n            \"Use Ctrl+N para iniciar um documento, Ctrl+O para abrir e Ctrl+S para salvar.\" &\n            Environment.NewLine & Environment.NewLine &\n            \"RTF preserva fontes, estilos, cores e alinhamento. TXT salva somente o texto.\"))\n\n        tabs.TabPages.Add(MakePage(\"Formatação\",\n            \"Selecione o texto e use a barra de ferramentas ou o menu Formatar.\" &\n            Environment.NewLine & Environment.NewLine &\n            \"Há fonte, tamanho, negrito, itálico, sublinhado, tachado, cores, realce, alinhamento e marcadores.\"))\n\n        tabs.TabPages.Add(MakePage(\"Pesquisa\",\n            \"Ctrl+F abre Localizar. Ctrl+H abre Localizar e Substituir.\" &\n            Environment.NewLine & Environment.NewLine &\n            \"Ctrl+G permite ir diretamente a uma linha do documento.\"))\n\n        tabs.TabPages.Add(MakePage(\"Impressão\",\n            \"Arquivo > Configurar página define margens e papel.\" &\n            Environment.NewLine & Environment.NewLine &\n            \"Use Visualizar impressão antes de imprimir o documento.\"))\n\n        tabs.TabPages.Add(MakePage(\"Atalhos\",\n            \"Ctrl+N  Novo\" & Environment.NewLine &\n            \"Ctrl+O  Abrir\" & Environment.NewLine &\n            \"Ctrl+S  Salvar\" & Environment.NewLine &\n            \"Ctrl+P  Imprimir\" & Environment.NewLine &\n            \"Ctrl+F  Localizar\" & Environment.NewLine &\n            \"Ctrl+H  Substituir\" & Environment.NewLine &\n            \"Ctrl+G  Ir para linha\" & Environment.NewLine &\n            \"Ctrl+B/I/U  Estilos\" & Environment.NewLine &\n            \"F5  Data e hora\" & Environment.NewLine &\n            \"F11  Tela cheia\"))\n\n        Me.Controls.Add(tabs)\n    End Sub\n\n    Private Function MakePage(title As String, content As String) As TabPage\n        Dim page As New TabPage(title)\n        Dim box As New TextBox()\n        box.Multiline = True\n        box.ReadOnly = True\n        box.BorderStyle = BorderStyle.None\n        box.Dock = DockStyle.Fill\n        box.ScrollBars = ScrollBars.Vertical\n        box.Font = New Font(\"Segoe UI\", 11.0F)\n        box.BackColor = Color.White\n        box.Text = content\n        page.Padding = New Padding(18)\n        page.Controls.Add(box)\n        Return page\n    End Function\nEnd Class\n"
+    },
+    {
+      "Name": "AboutForm",
+      "IsStartup": false,
+      "Properties": [
+        {
+          "Key": "Text",
+          "Value": "Sobre"
+        },
+        {
+          "Key": "Width",
+          "Value": "480"
+        },
+        {
+          "Key": "Height",
+          "Value": "330"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "White"
+        }
+      ],
+      "Controls": [],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPublic Class AboutForm\n    Inherits Form\n\n    Private Sub BuildRuntimeInterface() Handles MyBase.Load\n        Me.Text = \"Sobre o FlowWriter\"\n        Me.Width = 480\n        Me.Height = 330\n        Me.FormBorderStyle = FormBorderStyle.FixedDialog\n        Me.StartPosition = FormStartPosition.CenterParent\n        Me.MaximizeBox = False\n        Me.MinimizeBox = False\n\n        Dim title As New Label()\n        title.Text = \"FlowWriter\"\n        title.Font = New Font(\"Segoe UI\", 25.0F, FontStyle.Bold)\n        title.Location = New Point(30, 25)\n        title.Size = New Size(400, 50)\n        Me.Controls.Add(title)\n\n        Dim text As New Label()\n        text.Text =\n            \"Editor de texto completo criado no FlowForge.\" & Environment.NewLine &\n            \"Versão 1.0.0\" & Environment.NewLine & Environment.NewLine &\n            \"Suporte a RTF e TXT, formatação, pesquisa, substituição,\" & Environment.NewLine &\n            \"estatísticas, símbolos, impressão e múltiplos formulários.\" & Environment.NewLine & Environment.NewLine &\n            \"2026 Wtec\"\n        text.Font = New Font(\"Segoe UI\", 10.5F)\n        text.Location = New Point(34, 90)\n        text.Size = New Size(400, 145)\n        Me.Controls.Add(text)\n\n        Dim ok As New Button()\n        ok.Text = \"OK\"\n        ok.DialogResult = DialogResult.OK\n        ok.Location = New Point(350, 245)\n        Me.Controls.Add(ok)\n        Me.AcceptButton = ok\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "FlowWriter",
+  "AssemblyDescription": "FlowWriter RTF/TXT/XML/JSON/ODT; ODT sem dependência de ZipFile",
+  "AssemblyCompany": "Wtec",
+  "AssemblyProduct": "FlowWriter",
+  "AssemblyCopyright": "2026 Wtec",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.7.2.0",
+  "FileVersion": "1.7.2.0",
+  "Libraries": []
+}
