@@ -1,0 +1,310 @@
+{
+  "Name": "PainelTelemetria",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Painel de Telemetria"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "820, 470"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 10pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "MarqueeLabel",
+          "Name": "MarqueeLabel1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "MarqueeLabel1"
+            },
+            {
+              "Key": "Location",
+              "Value": "25, 20"
+            },
+            {
+              "Key": "Size",
+              "Value": "760, 35"
+            },
+            {
+              "Key": "Text",
+              "Value": "FLOWFORGE — PAINEL DE TELEMETRIA ARDUINO"
+            },
+            {
+              "Key": "Speed",
+              "Value": "35"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "BatteryIndicator",
+          "Name": "BatteryIndicator1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "BatteryIndicator1"
+            },
+            {
+              "Key": "Location",
+              "Value": "35, 90"
+            },
+            {
+              "Key": "Size",
+              "Value": "150, 55"
+            },
+            {
+              "Key": "Value",
+              "Value": "75"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SignalStrength",
+          "Name": "SignalStrength1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SignalStrength1"
+            },
+            {
+              "Key": "Location",
+              "Value": "230, 85"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 65"
+            },
+            {
+              "Key": "Value",
+              "Value": "60"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ThermometerGauge",
+          "Name": "ThermometerGauge1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ThermometerGauge1"
+            },
+            {
+              "Key": "Location",
+              "Value": "370, 75"
+            },
+            {
+              "Key": "Size",
+              "Value": "80, 210"
+            },
+            {
+              "Key": "Value",
+              "Value": "25"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "AnalogGauge",
+          "Name": "AnalogGauge1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "AnalogGauge1"
+            },
+            {
+              "Key": "Location",
+              "Value": "500, 80"
+            },
+            {
+              "Key": "Size",
+              "Value": "250, 150"
+            },
+            {
+              "Key": "Value",
+              "Value": "50"
+            },
+            {
+              "Key": "Caption",
+              "Value": "SENSOR"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NumericKnob",
+          "Name": "NumericKnob1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NumericKnob1"
+            },
+            {
+              "Key": "Location",
+              "Value": "35, 190"
+            },
+            {
+              "Key": "Size",
+              "Value": "125, 125"
+            },
+            {
+              "Key": "Value",
+              "Value": "50"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ToggleButton",
+          "Name": "ChargeButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ChargeButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "200, 205"
+            },
+            {
+              "Key": "Size",
+              "Value": "135, 45"
+            },
+            {
+              "Key": "Text",
+              "Value": "CARREGANDO"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LoadingSpinner",
+          "Name": "LoadingSpinner1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LoadingSpinner1"
+            },
+            {
+              "Key": "Location",
+              "Value": "235, 270"
+            },
+            {
+              "Key": "Size",
+              "Value": "60, 60"
+            },
+            {
+              "Key": "Active",
+              "Value": "False"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "NotificationBanner",
+          "Name": "NotificationBanner1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "NotificationBanner1"
+            },
+            {
+              "Key": "Location",
+              "Value": "35, 365"
+            },
+            {
+              "Key": "Size",
+              "Value": "620, 55"
+            },
+            {
+              "Key": "Text",
+              "Value": "Sistema pronto para receber dados"
+            },
+            {
+              "Key": "BannerStyle",
+              "Value": "Information"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ColorSwatch",
+          "Name": "ColorSwatch1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ColorSwatch1"
+            },
+            {
+              "Key": "Location",
+              "Value": "690, 365"
+            },
+            {
+              "Key": "Size",
+              "Value": "75, 55"
+            },
+            {
+              "Key": "SelectedColor",
+              "Value": "RoyalBlue"
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Drawing\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private Sub NumericKnob1_ValueChanged() Handles NumericKnob1.ValueChanged\n        BatteryIndicator1.Value = NumericKnob1.Value\n        SignalStrength1.Value = NumericKnob1.Value\n        AnalogGauge1.Value = NumericKnob1.Value\n        ThermometerGauge1.Value = NumericKnob1.Value\n        NotificationBanner1.Text = \"Leitura atual: \" & NumericKnob1.Value.ToString()\n    End Sub\n\n    Private Sub ChargeButton_CheckedChanged() Handles ChargeButton.CheckedChanged\n        BatteryIndicator1.Charging = ChargeButton.Checked\n        LoadingSpinner1.Active = ChargeButton.Checked\n        NotificationBanner1.BannerStyle = If(ChargeButton.Checked, FlowForgeStudio.NotificationBannerStyle.Success, FlowForgeStudio.NotificationBannerStyle.Information)\n    End Sub\n\n    Private Sub ColorSwatch1_SelectedColorChanged() Handles ColorSwatch1.SelectedColorChanged\n        AnalogGauge1.ForeColor = ColorSwatch1.SelectedColor\n        NotificationBanner1.ForeColor = ColorSwatch1.SelectedColor\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Painel de Telemetria",
+  "AssemblyDescription": "Demonstração dos instrumentos FlowForge",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "Painel de Telemetria",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0"
+}

@@ -1,0 +1,419 @@
+{
+  "FormatVersion": 2,
+  "Name": "LaboratorioIoT",
+  "Version": "1.0.0",
+  "Forms": [
+    {
+      "Name": "Form1",
+      "IsStartup": true,
+      "Properties": [
+        {
+          "Key": "Name",
+          "Value": "Form1"
+        },
+        {
+          "Key": "Text",
+          "Value": "Laboratório Arduino / IoT"
+        },
+        {
+          "Key": "ClientSize",
+          "Value": "900, 560"
+        },
+        {
+          "Key": "StartPosition",
+          "Value": "CenterScreen"
+        },
+        {
+          "Key": "BackColor",
+          "Value": "WhiteSmoke"
+        },
+        {
+          "Key": "Font",
+          "Value": "Segoe UI, 9pt"
+        }
+      ],
+      "Controls": [
+        {
+          "TypeName": "Label",
+          "Name": "TitleLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TitleLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "20, 15"
+            },
+            {
+              "Key": "Size",
+              "Value": "400, 30"
+            },
+            {
+              "Key": "Text",
+              "Value": "LABORATÓRIO ARDUINO / IoT"
+            },
+            {
+              "Key": "Font",
+              "Value": "Segoe UI, 11pt, style=Bold"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "VirtualJoystick",
+          "Name": "VirtualJoystick1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "VirtualJoystick1"
+            },
+            {
+              "Key": "Location",
+              "Value": "25, 65"
+            },
+            {
+              "Key": "Size",
+              "Value": "190, 190"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ArduinoPin",
+          "Name": "ArduinoPin1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ArduinoPin1"
+            },
+            {
+              "Key": "Location",
+              "Value": "255, 70"
+            },
+            {
+              "Key": "Size",
+              "Value": "150, 70"
+            },
+            {
+              "Key": "PinNumber",
+              "Value": "13"
+            },
+            {
+              "Key": "Analog",
+              "Value": "False"
+            },
+            {
+              "Key": "Value",
+              "Value": "0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "ArduinoPin",
+          "Name": "ArduinoPin2",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "ArduinoPin2"
+            },
+            {
+              "Key": "Location",
+              "Value": "255, 155"
+            },
+            {
+              "Key": "Size",
+              "Value": "150, 70"
+            },
+            {
+              "Key": "PinNumber",
+              "Value": "0"
+            },
+            {
+              "Key": "Analog",
+              "Value": "True"
+            },
+            {
+              "Key": "Value",
+              "Value": "512"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "IoTSensor",
+          "Name": "IoTSensorTemp",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "IoTSensorTemp"
+            },
+            {
+              "Key": "Location",
+              "Value": "440, 70"
+            },
+            {
+              "Key": "Size",
+              "Value": "210, 85"
+            },
+            {
+              "Key": "SensorName",
+              "Value": "Temperatura"
+            },
+            {
+              "Key": "Unit",
+              "Value": "°C"
+            },
+            {
+              "Key": "Value",
+              "Value": "24.5"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "IoTSensor",
+          "Name": "IoTSensorHum",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "IoTSensorHum"
+            },
+            {
+              "Key": "Location",
+              "Value": "440, 170"
+            },
+            {
+              "Key": "Size",
+              "Value": "210, 85"
+            },
+            {
+              "Key": "SensorName",
+              "Value": "Umidade"
+            },
+            {
+              "Key": "Unit",
+              "Value": "%"
+            },
+            {
+              "Key": "Value",
+              "Value": "58"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LedMatrix",
+          "Name": "LedMatrix1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LedMatrix1"
+            },
+            {
+              "Key": "Location",
+              "Value": "690, 55"
+            },
+            {
+              "Key": "Size",
+              "Value": "160, 160"
+            },
+            {
+              "Key": "Rows",
+              "Value": "8"
+            },
+            {
+              "Key": "Columns",
+              "Value": "8"
+            },
+            {
+              "Key": "Pattern",
+              "Value": "00111100,01000010,10100101,10000001,10100101,10011001,01000010,00111100"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "TrafficLight",
+          "Name": "TrafficLight1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "TrafficLight1"
+            },
+            {
+              "Key": "Location",
+              "Value": "40, 300"
+            },
+            {
+              "Key": "Size",
+              "Value": "90, 220"
+            },
+            {
+              "Key": "State",
+              "Value": "Green"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "LcdDisplay",
+          "Name": "LcdDisplay1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "LcdDisplay1"
+            },
+            {
+              "Key": "Location",
+              "Value": "170, 315"
+            },
+            {
+              "Key": "Size",
+              "Value": "280, 58"
+            },
+            {
+              "Key": "Value",
+              "Value": "JOYSTICK 0,0"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "SevenSegmentDigit",
+          "Name": "SevenSegmentDigit1",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "SevenSegmentDigit1"
+            },
+            {
+              "Key": "Location",
+              "Value": "485, 300"
+            },
+            {
+              "Key": "Size",
+              "Value": "100, 110"
+            },
+            {
+              "Key": "Value",
+              "Value": "3"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "CycleButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "CycleButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "620, 315"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 40"
+            },
+            {
+              "Key": "Text",
+              "Value": "Trocar semáforo"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Button",
+          "Name": "MatrixButton",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "MatrixButton"
+            },
+            {
+              "Key": "Location",
+              "Value": "620, 375"
+            },
+            {
+              "Key": "Size",
+              "Value": "180, 40"
+            },
+            {
+              "Key": "Text",
+              "Value": "Trocar matriz"
+            }
+          ],
+          "Items": []
+        },
+        {
+          "TypeName": "Label",
+          "Name": "StatusLabel",
+          "AssemblyPath": "",
+          "IsNonVisual": false,
+          "Properties": [
+            {
+              "Key": "Name",
+              "Value": "StatusLabel"
+            },
+            {
+              "Key": "Location",
+              "Value": "170, 450"
+            },
+            {
+              "Key": "Size",
+              "Value": "650, 40"
+            },
+            {
+              "Key": "Text",
+              "Value": "Mova o joystick para atualizar os valores."
+            }
+          ],
+          "Items": []
+        }
+      ],
+      "Code": "Imports System\nImports System.Windows.Forms\n\nPartial Public Class Form1\n    Private matrixOn As Boolean\n\n    Private Sub VirtualJoystick1_PositionChanged() Handles VirtualJoystick1.PositionChanged\n        LcdDisplay1.Value = \"X=\" & VirtualJoystick1.XValue.ToString() & \" Y=\" & VirtualJoystick1.YValue.ToString()\n        ArduinoPin2.Value = Math.Max(0, Math.Min(1023, 512 + VirtualJoystick1.XValue * 5))\n        IoTSensorTemp.Value = 25 + (VirtualJoystick1.YValue / 20.0)\n        SevenSegmentDigit1.Value = Math.Abs(VirtualJoystick1.XValue) Mod 10\n    End Sub\n\n    Private Sub ArduinoPin1_ValueChanged() Handles ArduinoPin1.ValueChanged\n        If StatusLabel Is Nothing Then Return\n        StatusLabel.Text = \"GPIO 13 = \" & ArduinoPin1.Value.ToString()\n    End Sub\n\n    Private Sub CycleButton_Click() Handles CycleButton.Click\n        Select Case TrafficLight1.State\n            Case FlowForgeStudio.TrafficLightState.Red\n                TrafficLight1.State = FlowForgeStudio.TrafficLightState.Green\n            Case FlowForgeStudio.TrafficLightState.Green\n                TrafficLight1.State = FlowForgeStudio.TrafficLightState.Yellow\n            Case Else\n                TrafficLight1.State = FlowForgeStudio.TrafficLightState.Red\n        End Select\n    End Sub\n\n    Private Sub MatrixButton_Click() Handles MatrixButton.Click\n        matrixOn = Not matrixOn\n        If matrixOn Then\n            LedMatrix1.Pattern = \"10000001,01000010,00100100,00011000,00011000,00100100,01000010,10000001\"\n        Else\n            LedMatrix1.Pattern = \"00111100,01000010,10100101,10000001,10100101,10011001,01000010,00111100\"\n        End If\n    End Sub\nEnd Class\n"
+    }
+  ],
+  "Classes": [],
+  "Modules": [],
+  "UserControls": [],
+  "Folders": [],
+  "ApplicationIcon": "",
+  "AssemblyTitle": "Laboratório Arduino / IoT",
+  "AssemblyDescription": "Joystick, GPIO, sensores, matriz e semáforo",
+  "AssemblyCompany": "FlowForge",
+  "AssemblyProduct": "LaboratorioIoT",
+  "AssemblyCopyright": "",
+  "AssemblyTrademark": "",
+  "AssemblyVersion": "1.0.0.0",
+  "FileVersion": "1.0.0.0",
+  "Libraries": []
+}

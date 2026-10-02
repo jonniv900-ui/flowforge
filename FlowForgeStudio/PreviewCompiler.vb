@@ -1,4 +1,4 @@
-﻿Imports System
+Imports System
 Imports System.CodeDom.Compiler
 Imports System.Collections.Generic
 Imports System.ComponentModel
@@ -57,6 +57,11 @@ Namespace FlowForgeStudio
             If Not String.IsNullOrWhiteSpace(project.ApplicationIcon) AndAlso File.Exists(project.ApplicationIcon) Then compilerOptions &= " /win32icon:" & ChrW(34) & project.ApplicationIcon & ChrW(34)
             Dim options As New CompilerParameters With {.GenerateExecutable = True, .GenerateInMemory = False, .OutputAssembly = exe, .CompilerOptions = compilerOptions, .IncludeDebugInformation = False}
             For Each reference As String In {"System.dll", "System.Core.dll", "System.Data.dll", "System.Drawing.dll", "System.Windows.Forms.dll", "System.Net.Http.dll", "System.Web.Extensions.dll", "System.Xml.dll"} : options.ReferencedAssemblies.Add(reference) : Next
+            AddFrameworkReference(options, "PresentationCore.dll")
+            AddFrameworkReference(options, "PresentationFramework.dll")
+            AddFrameworkReference(options, "WindowsBase.dll")
+            AddFrameworkReference(options, "System.Xaml.dll")
+            AddFrameworkReference(options, "WindowsFormsIntegration.dll")
             AddExternalReferences(project, options, outputFolder, temp)
             Dim provider As New VBCodeProvider(New Dictionary(Of String, String) From {{"CompilerVersion", "v4.0"}})
             Dim result As CompilerResults = provider.CompileAssemblyFromFile(options, sourceFiles.ToArray())
@@ -74,6 +79,45 @@ Namespace FlowForgeStudio
         Private Shared Sub WriteRuntimeConfig(exe As String)
             Dim config As String = "<?xml version=""1.0"" encoding=""utf-8""?>" & vbCrLf & "<configuration>" & vbCrLf & "  <startup useLegacyV2RuntimeActivationPolicy=""true"">" & vbCrLf & "    <supportedRuntime version=""v4.0"" sku="".NETFramework,Version=v4.8"" />" & vbCrLf & "  </startup>" & vbCrLf & "</configuration>"
             File.WriteAllText(exe & ".config", config, New UTF8Encoding(False))
+        End Sub
+        Private Shared Sub AddFrameworkReference(options As CompilerParameters, fileName As String)
+            ' Primeiro tenta obter a DLL pelo próprio CLR/GAC. Isso evita o erro BC2017
+            ' causado quando o VBCodeProvider não consegue resolver PresentationCore.dll
+            ' apenas pelo nome durante a compilação temporária do Preview.
+            Try
+                Dim assemblyName As String = Path.GetFileNameWithoutExtension(fileName)
+                Dim loadedAssembly As Reflection.Assembly = Reflection.Assembly.Load(New Reflection.AssemblyName(assemblyName))
+                If loadedAssembly IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(loadedAssembly.Location) AndAlso File.Exists(loadedAssembly.Location) Then
+                    options.ReferencedAssemblies.Add(loadedAssembly.Location)
+                    Return
+                End If
+            Catch
+            End Try
+
+            Dim candidates As New List(Of String)()
+            Dim programFilesX86 As String = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
+            Dim programFiles As String = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
+            Dim roots As New List(Of String)()
+            If Not String.IsNullOrWhiteSpace(programFilesX86) Then roots.Add(programFilesX86)
+            If Not String.IsNullOrWhiteSpace(programFiles) AndAlso Not roots.Contains(programFiles, StringComparer.OrdinalIgnoreCase) Then roots.Add(programFiles)
+            For Each root As String In roots
+                For Each version As String In {"v4.8", "v4.7.2", "v4.7.1", "v4.7", "v4.6.2", "v4.6.1", "v4.6", "v4.5.2", "v4.5.1", "v4.5"}
+                    candidates.Add(Path.Combine(root, "Reference Assemblies", "Microsoft", "Framework", ".NETFramework", version, fileName))
+                Next
+            Next
+            Dim runtimeDirectory As String = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory()
+            If Not String.IsNullOrWhiteSpace(runtimeDirectory) Then
+                candidates.Add(Path.Combine(runtimeDirectory, fileName))
+                candidates.Add(Path.Combine(runtimeDirectory, "WPF", fileName))
+            End If
+            For Each candidate As String In candidates
+                If File.Exists(candidate) Then
+                    options.ReferencedAssemblies.Add(candidate)
+                    Return
+                End If
+            Next
+            ' Fallback for machines where the compiler resolves framework assemblies by name.
+            options.ReferencedAssemblies.Add(fileName)
         End Sub
         Private Shared Sub AddExternalReferences(project As FlowProject, options As CompilerParameters, outputFolder As String, buildFolder As String)
             Dim files = project.Forms.SelectMany(Function(f) f.Controls).Select(Function(c) c.AssemblyPath).Where(Function(p) Not String.IsNullOrWhiteSpace(p) AndAlso File.Exists(p)).Distinct(StringComparer.OrdinalIgnoreCase).ToList()
@@ -330,7 +374,7 @@ Namespace FlowForgeStudio
         End Function
 
         Private Shared Function IsCustomControl(typeName As String) As Boolean
-            Return {"RoundedButton", "GradientPanel", "LedIndicator", "ToggleSwitch", "DigitalDisplay", "CircularProgress", "LevelMeter", "BadgeLabel", "SeparatorLine", "StarRating", "NumericKnob", "CardPanel", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "NotificationBanner", "ToggleButton", "ColorSwatch", "NavigationButton", "MarqueeLabel", "FontPreviewComboBox", "RichTextEditor", "SyntaxCodeEditor", "Sparkline", "ImageButton", "SearchBox", "PasswordBox", "IPAddressBox", "ModernDatePicker", "SimpleChart", "VirtualJoystick", "LcdDisplay", "LedMatrix", "TrafficLight", "SevenSegmentDigit", "ArduinoPin", "IoTSensor", "TagInput", "TabStripCustom", "JsonTreeViewer", "ToastNotification", "Accordion", "ProgressStepper", "TerminalView", "GlyphImageList"}.Contains(typeName, StringComparer.OrdinalIgnoreCase)
+            Return {"RoundedButton", "AudioPlayer", "MediaPlayer", "GradientPanel", "LedIndicator", "ToggleSwitch", "DigitalDisplay", "CircularProgress", "LevelMeter", "BadgeLabel", "SeparatorLine", "StarRating", "NumericKnob", "CardPanel", "BatteryIndicator", "SignalStrength", "ThermometerGauge", "AnalogGauge", "LoadingSpinner", "NotificationBanner", "ToggleButton", "ColorSwatch", "NavigationButton", "MarqueeLabel", "FontPreviewComboBox", "RichTextEditor", "SyntaxCodeEditor", "Sparkline", "ImageButton", "SearchBox", "PasswordBox", "IPAddressBox", "ModernDatePicker", "SimpleChart", "VirtualJoystick", "LcdDisplay", "LedMatrix", "TrafficLight", "SevenSegmentDigit", "ArduinoPin", "IoTSensor", "TagInput", "TabStripCustom", "JsonTreeViewer", "ToastNotification", "Accordion", "ProgressStepper", "TerminalView", "GlyphImageList"}.Contains(typeName, StringComparer.OrdinalIgnoreCase)
         End Function
 
         Private Shared Function WithFlowForgeImport(code As String) As String

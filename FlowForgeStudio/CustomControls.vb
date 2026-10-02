@@ -1,8 +1,12 @@
-﻿Imports System
+Option Strict Off
+Option Explicit On
+Option Infer On
+Imports System
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Drawing
 Imports System.Drawing.Drawing2D
+Imports System.IO
 Imports System.Linq
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
@@ -4345,4 +4349,984 @@ Namespace FlowForgeStudio
         End Function
     End Class
 
-End Namespace
+
+    Public Class MediaTargetConverter
+        Inherits StringConverter
+
+        Public Overrides Function GetStandardValuesSupported(context As ITypeDescriptorContext) As Boolean
+            Return True
+        End Function
+
+        Public Overrides Function GetStandardValuesExclusive(context As ITypeDescriptorContext) As Boolean
+            Return True
+        End Function
+
+        Public Overrides Function GetStandardValues(context As ITypeDescriptorContext) As TypeConverter.StandardValuesCollection
+            Dim names As New List(Of String) From {"(Nenhum)"}
+            Try
+                Dim owner As Object = context.Instance
+                Dim descriptor As ICustomTypeDescriptor = TryCast(owner, ICustomTypeDescriptor)
+                If descriptor IsNot Nothing Then owner = descriptor.GetPropertyOwner(Nothing)
+                Dim media As Control = TryCast(owner, Control)
+                If media Is Nothing Then Return New StandardValuesCollection(names)
+                Dim root As Control = media
+                While root.Parent IsNot Nothing
+                    root = root.Parent
+                End While
+                Dim canvas As Control = FindCanvas(root)
+                If canvas Is Nothing Then canvas = root
+                For Each c As Control In EnumerateControls(canvas)
+                    If c Is media Then Continue For
+                    If String.IsNullOrWhiteSpace(c.Name) Then Continue For
+                    If c.Name.Equals("__FORM__", StringComparison.OrdinalIgnoreCase) Then Continue For
+                    If Not names.Contains(c.Name, StringComparer.OrdinalIgnoreCase) Then names.Add(c.Name)
+                Next
+            Catch
+            End Try
+            Return New StandardValuesCollection(names)
+        End Function
+
+        Public Overrides Function ConvertFrom(context As ITypeDescriptorContext, culture As Globalization.CultureInfo, value As Object) As Object
+            If value Is Nothing Then Return ""
+            Dim text As String = CStr(value)
+            If text.Equals("(Nenhum)", StringComparison.OrdinalIgnoreCase) Then Return ""
+            Return text
+        End Function
+
+        Private Shared Function FindCanvas(root As Control) As Control
+            If root Is Nothing Then Return Nothing
+            If root.Name.Equals("__FORM__", StringComparison.OrdinalIgnoreCase) Then Return root
+            For Each child As Control In root.Controls
+                Dim found As Control = FindCanvas(child)
+                If found IsNot Nothing Then Return found
+            Next
+            Return Nothing
+        End Function
+
+        Private Shared Iterator Function EnumerateControls(root As Control) As IEnumerable(Of Control)
+            If root Is Nothing Then Return
+            For Each child As Control In root.Controls
+                Yield child
+                For Each nested As Control In EnumerateControls(child)
+                    Yield nested
+                Next
+            Next
+        End Function
+    End Class
+
+    Public Enum MediaPlaybackType
+        Auto = 0
+        Audio = 1
+        Video = 2
+    End Enum
+
+    <DefaultEvent("PlayStarted")>
+    Public Class MediaPlayer
+        Inherits Control
+
+        Private _source As String = ""
+        Private _volume As Integer = 100
+        Private _autoPlay As Boolean
+        Private _loop As Boolean
+        Private _muted As Boolean
+        Private _showControls As Boolean = True
+        Private _showProgress As Boolean = True
+        Private _showVolume As Boolean = True
+        Private _showTitle As Boolean = False
+        Private _title As String = "MediaPlayer"
+        Private _artist As String = ""
+        Private _displayTarget As String = ""
+        Private _mediaType As MediaPlaybackType = MediaPlaybackType.Auto
+        Private _durationSeconds As Double
+        Private _positionSeconds As Double
+        Private _isPlaying As Boolean
+        Private _loading As Boolean
+        Private _seeking As Boolean
+        Private _errorText As String = ""
+        Private _mediaElement As System.Windows.Controls.MediaElement
+        Private _elementHost As System.Windows.Forms.Integration.ElementHost
+        Private _targetControl As Control
+        Private _wmp As Object
+        Private _initializedVideo As Boolean
+        Private _initializedAudio As Boolean
+        Private _pendingPlay As Boolean
+        Private _lastWmpPlayState As Integer = -1
+        Private _mediaOpenedRaised As Boolean
+        Private ReadOnly _uiTimer As System.Windows.Forms.Timer
+
+        Public Event PlayStarted As EventHandler
+        Public Event Paused As EventHandler
+        Public Event Stopped As EventHandler
+        Public Event Ended As EventHandler
+        Public Event TimeChanged As EventHandler
+        Public Event VolumeChanged As EventHandler
+        Public Event ErrorOccurred As EventHandler
+        Public Event MediaOpened As EventHandler
+
+        Public Sub New()
+            SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.UserPaint Or ControlStyles.ResizeRedraw, True)
+            BackColor = Color.FromArgb(28, 30, 34)
+            ForeColor = Color.White
+            Size = New Size(360, 88)
+            MinimumSize = New Size(220, 72)
+            Font = New Font("Segoe UI", 9.0F, FontStyle.Regular)
+            _uiTimer = New System.Windows.Forms.Timer With {.Interval = 200}
+            AddHandler _uiTimer.Tick, AddressOf UpdatePlaybackState
+            _uiTimer.Start()
+        End Sub
+
+        <Category("Mídia"), Description("Arquivo local ou URL de áudio/vídeo.")>
+        Public Property Source As String
+            Get
+                Return _source
+            End Get
+            Set(value As String)
+                Dim newValue As String = If(value, String.Empty).Trim()
+                If String.Equals(_source, newValue, StringComparison.Ordinal) Then Return
+                StopInternal(False)
+                ReleaseVideoEngine()
+                _source = newValue
+                _errorText = ""
+                _durationSeconds = 0
+                _positionSeconds = 0
+                _pendingPlay = False
+                _mediaOpenedRaised = False
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Mídia"), Description("Define como a mídia será reproduzida. Auto usa vídeo para extensões conhecidas e áudio para streams sem extensão de vídeo.")>
+        Public Property MediaType As MediaPlaybackType
+            Get
+                Return _mediaType
+            End Get
+            Set(value As MediaPlaybackType)
+                If _mediaType = value Then Return
+                StopInternal(False)
+                ReleaseVideoEngine()
+                _mediaType = value
+                _errorText = ""
+                _durationSeconds = 0
+                _positionSeconds = 0
+                _mediaOpenedRaised = False
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Mídia"), Description("Componente do formulário que receberá a imagem do vídeo. Em áudio esta propriedade não é usada."), TypeConverter(GetType(MediaTargetConverter))>
+        Public Property DisplayTarget As String
+            Get
+                Return _displayTarget
+            End Get
+            Set(value As String)
+                Dim newValue As String = If(value, "").Trim()
+                If newValue.Equals("(Nenhum)", StringComparison.OrdinalIgnoreCase) Then newValue = ""
+                If String.Equals(_displayTarget, newValue, StringComparison.OrdinalIgnoreCase) Then Return
+                _displayTarget = newValue
+                If IsHandleCreated AndAlso Not IsDesignModeSafe() AndAlso IsVideoMode() Then AttachDisplayTarget()
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Mídia"), Description("Volume de 0 a 100.")>
+        Public Property Volume As Integer
+            Get
+                Return _volume
+            End Get
+            Set(value As Integer)
+                Dim newValue As Integer = Math.Max(0, Math.Min(100, value))
+                If _volume = newValue Then Return
+                _volume = newValue
+                ApplyVolume()
+                Invalidate()
+                RaiseEvent VolumeChanged(Me, EventArgs.Empty)
+            End Set
+        End Property
+
+        <Category("Comportamento")>
+        Public Property AutoPlay As Boolean
+            Get
+                Return _autoPlay
+            End Get
+            Set(value As Boolean)
+                _autoPlay = value
+                If _autoPlay AndAlso Not IsDesignModeSafe() AndAlso IsHandleCreated AndAlso Not String.IsNullOrWhiteSpace(_source) Then Play()
+            End Set
+        End Property
+
+        <Category("Comportamento")>
+        Public Property [Loop] As Boolean
+            Get
+                Return _loop
+            End Get
+            Set(value As Boolean)
+                _loop = value
+            End Set
+        End Property
+
+        <Category("Comportamento")>
+        Public Property Muted As Boolean
+            Get
+                Return _muted
+            End Get
+            Set(value As Boolean)
+                If _muted = value Then Return
+                _muted = value
+                ApplyVolume()
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Aparência")>
+        Public Property ShowControls As Boolean
+            Get
+                Return _showControls
+            End Get
+            Set(value As Boolean)
+                _showControls = value
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Aparência")>
+        Public Property ShowProgress As Boolean
+            Get
+                Return _showProgress
+            End Get
+            Set(value As Boolean)
+                _showProgress = value
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Aparência")>
+        Public Property ShowVolume As Boolean
+            Get
+                Return _showVolume
+            End Get
+            Set(value As Boolean)
+                _showVolume = value
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Aparência"), Description("Exibe ou oculta o título no player.")>
+        Public Property ShowTitle As Boolean
+            Get
+                Return _showTitle
+            End Get
+            Set(value As Boolean)
+                _showTitle = value
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Texto")>
+        Public Property Title As String
+            Get
+                Return _title
+            End Get
+            Set(value As String)
+                _title = If(value, "")
+                Invalidate()
+            End Set
+        End Property
+
+        <Category("Texto")>
+        Public Property Artist As String
+            Get
+                Return _artist
+            End Get
+            Set(value As String)
+                _artist = If(value, "")
+                Invalidate()
+            End Set
+        End Property
+
+        <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+        Public ReadOnly Property DurationSeconds As Double
+            Get
+                Return _durationSeconds
+            End Get
+        End Property
+
+        <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+        Public Property PositionSeconds As Double
+            Get
+                Return _positionSeconds
+            End Get
+            Set(value As Double)
+                SetPosition(value)
+            End Set
+        End Property
+
+        <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+        Public ReadOnly Property IsPlaying As Boolean
+            Get
+                Return _isPlaying
+            End Get
+        End Property
+
+        Public Sub PlayMedia()
+            Play()
+        End Sub
+
+        Public Sub Play()
+            If IsDesignModeSafe() OrElse String.IsNullOrWhiteSpace(_source) Then Return
+            If IsVideoMode() Then
+                PlayVideo()
+            Else
+                PlayAudio()
+            End If
+        End Sub
+
+        Private Sub PlayAudio()
+            If Not EnsureAudioPlayer() Then Return
+            Try
+                _loading = True
+                _pendingPlay = True
+                _errorText = ""
+                _wmp.settings.volume = _volume
+                _wmp.settings.mute = _muted
+                _wmp.URL = _source
+                _wmp.controls.play()
+                _isPlaying = True
+                _loading = False
+                RaiseEvent PlayStarted(Me, EventArgs.Empty)
+                Invalidate()
+            Catch ex As Exception
+                _loading = False
+                _isPlaying = False
+                _pendingPlay = False
+                SetError(CleanMediaError(ex.Message))
+            End Try
+        End Sub
+
+        Private Sub PlayVideo()
+            If Not EnsureVideoEngine() Then Return
+            Try
+                _loading = True
+                _pendingPlay = True
+                _errorText = ""
+                _durationSeconds = 0
+                _positionSeconds = 0
+                _mediaOpenedRaised = False
+                _mediaElement.Stop()
+                _mediaElement.Volume = If(_muted, 0.0R, _volume / 100.0R)
+                _mediaElement.Source = CreateUri(_source)
+                BeginDeferredVideoPlay()
+            Catch ex As Exception
+                _pendingPlay = False
+                _loading = False
+                _isPlaying = False
+                SetError(CleanMediaError(ex.Message))
+            End Try
+        End Sub
+
+        Private Sub BeginDeferredVideoPlay()
+            If _mediaElement Is Nothing OrElse IsDisposed Then Return
+            Try
+                If IsHandleCreated Then
+                    BeginInvoke(New MethodInvoker(AddressOf StartDeferredVideoPlay))
+                Else
+                    StartDeferredVideoPlay()
+                End If
+            Catch
+                StartDeferredVideoPlay()
+            End Try
+        End Sub
+
+        Private Sub StartDeferredVideoPlay()
+            If Not _pendingPlay OrElse _mediaElement Is Nothing OrElse IsDisposed Then Return
+            Try
+                If _mediaElement.NaturalDuration.HasTimeSpan Then
+                    _mediaElement.Play()
+                    _pendingPlay = False
+                    _isPlaying = True
+                    _loading = False
+                    RaiseEvent PlayStarted(Me, EventArgs.Empty)
+                    Invalidate()
+                End If
+            Catch ex As Exception
+                _pendingPlay = False
+                _loading = False
+                _isPlaying = False
+                SetError(CleanMediaError(ex.Message))
+            End Try
+        End Sub
+
+        Public Sub PauseMedia()
+            Pause()
+        End Sub
+
+        Public Sub Pause()
+            Try
+                If IsVideoMode() Then
+                    If _mediaElement Is Nothing Then Return
+                    _mediaElement.Pause()
+                Else
+                    If _wmp Is Nothing Then Return
+                    _wmp.controls.pause()
+                End If
+                _isPlaying = False
+                _pendingPlay = False
+                RaiseEvent Paused(Me, EventArgs.Empty)
+                Invalidate()
+            Catch ex As Exception
+                SetError(CleanMediaError(ex.Message))
+            End Try
+        End Sub
+
+        Public Sub StopMedia()
+            [Stop]()
+        End Sub
+
+        Public Sub [Stop]()
+            StopInternal(True)
+        End Sub
+
+        Private Sub StopInternal(raiseStopEvent As Boolean)
+            If _mediaElement IsNot Nothing Then
+                Try
+                    _mediaElement.Stop()
+                Catch
+                End Try
+            End If
+            If _wmp IsNot Nothing Then
+                Try
+                    _wmp.controls.stop()
+                Catch
+                End Try
+            End If
+            _isPlaying = False
+            _pendingPlay = False
+            _loading = False
+            _positionSeconds = 0
+            If raiseStopEvent Then
+                RaiseEvent Stopped(Me, EventArgs.Empty)
+                RaiseEvent TimeChanged(Me, EventArgs.Empty)
+            End If
+            Invalidate()
+        End Sub
+
+        Public Sub TogglePlayPause()
+            If IsPlaying Then Pause() Else Play()
+        End Sub
+
+        Public Sub Reload()
+            If String.IsNullOrWhiteSpace(_source) OrElse IsDesignModeSafe() Then Return
+            StopInternal(False)
+            Play()
+        End Sub
+
+        Protected Overrides Sub OnCreateControl()
+            MyBase.OnCreateControl()
+            If Not IsDesignModeSafe() AndAlso _autoPlay AndAlso Not String.IsNullOrWhiteSpace(_source) Then Play()
+        End Sub
+
+        Protected Overrides Sub OnResize(e As EventArgs)
+            MyBase.OnResize(e)
+            If _elementHost IsNot Nothing AndAlso IsVideoMode() AndAlso String.IsNullOrWhiteSpace(_displayTarget) Then
+                _elementHost.Bounds = GetInternalVideoBounds()
+            End If
+            Invalidate()
+        End Sub
+
+        Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+            ReleaseVideoEngine()
+            ReleaseAudioPlayer()
+            MyBase.OnHandleDestroyed(e)
+        End Sub
+
+        Protected Overrides Sub Dispose(disposing As Boolean)
+            If disposing Then
+                Try
+                    If _uiTimer IsNot Nothing Then _uiTimer.Stop()
+                Catch
+                End Try
+                ReleaseVideoEngine()
+                ReleaseAudioPlayer()
+            End If
+            MyBase.Dispose(disposing)
+        End Sub
+
+        Protected Overrides Sub OnMouseClick(e As MouseEventArgs)
+            MyBase.OnMouseClick(e)
+            If IsDesignModeSafe() OrElse Not _showControls Then Return
+            If GetPlayButtonRect().Contains(e.Location) Then
+                TogglePlayPause()
+                Return
+            End If
+            If _showProgress Then
+                Dim progressRect As Rectangle = GetProgressRect()
+                If progressRect.Contains(e.Location) Then
+                    SetPositionFromPoint(e.X)
+                    Return
+                End If
+            End If
+            If _showVolume Then
+                Dim volumeRect As Rectangle = GetVolumeRect()
+                If volumeRect.Contains(e.Location) Then
+                    Dim pct As Integer = CInt(Math.Round(((e.X - volumeRect.X) / Math.Max(1.0, volumeRect.Width)) * 100.0))
+                    Volume = Math.Max(0, Math.Min(100, pct))
+                End If
+            End If
+        End Sub
+
+        Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            MyBase.OnPaint(e)
+            e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+            Using background As New SolidBrush(BackColor)
+                e.Graphics.FillRectangle(background, ClientRectangle)
+            End Using
+
+            Dim contentTop As Integer = 9
+            If _showTitle AndAlso Not String.IsNullOrWhiteSpace(_title) Then
+                Using titleBrush As New SolidBrush(ForeColor)
+                    Using titleFont As New Font(Font, FontStyle.Bold)
+                        e.Graphics.DrawString(_title, titleFont, titleBrush, New Rectangle(14, 9, Math.Max(80, Width - 28), 21))
+                    End Using
+                End Using
+                contentTop = 29
+            End If
+            If Not String.IsNullOrWhiteSpace(_artist) Then
+                Using artistBrush As New SolidBrush(Color.Gainsboro)
+                    e.Graphics.DrawString(_artist, Font, artistBrush, New Rectangle(14, contentTop, Math.Max(80, Width - 28), 18))
+                End Using
+            End If
+
+            If Not _showControls Then
+                If _errorText <> "" Then DrawError(e.Graphics)
+                Return
+            End If
+
+            Dim playRect As Rectangle = GetPlayButtonRect()
+            Using buttonBrush As New SolidBrush(Color.FromArgb(52, 58, 66))
+                e.Graphics.FillEllipse(buttonBrush, playRect)
+            End Using
+            Using glyphBrush As New SolidBrush(Color.White)
+                If IsPlaying Then
+                    e.Graphics.FillRectangle(glyphBrush, playRect.X + 10, playRect.Y + 9, 5, playRect.Height - 18)
+                    e.Graphics.FillRectangle(glyphBrush, playRect.X + 19, playRect.Y + 9, 5, playRect.Height - 18)
+                Else
+                    e.Graphics.FillPolygon(glyphBrush, New PointF() {New PointF(playRect.X + 11, playRect.Y + 8), New PointF(playRect.X + 24, playRect.Y + playRect.Height \ 2), New PointF(playRect.X + 11, playRect.Bottom - 8)})
+                End If
+            End Using
+
+            If _showProgress Then
+                Dim progressRect As Rectangle = GetProgressRect()
+                Using track As New SolidBrush(Color.FromArgb(70, 76, 84))
+                    e.Graphics.FillRectangle(track, progressRect)
+                End Using
+                Dim progressWidth As Integer = If(_durationSeconds > 0, CInt(progressRect.Width * Math.Max(0, Math.Min(1, _positionSeconds / _durationSeconds))), 0)
+                If progressWidth > 0 Then
+                    Using fill As New SolidBrush(Color.DeepSkyBlue)
+                        e.Graphics.FillRectangle(fill, progressRect.X, progressRect.Y, progressWidth, progressRect.Height)
+                    End Using
+                End If
+                Using timeBrush As New SolidBrush(Color.Gainsboro)
+                    Using timeFont As New Font("Segoe UI", 7.5F)
+                        e.Graphics.DrawString(FormatTime(_positionSeconds) & " / " & FormatTime(_durationSeconds), timeFont, timeBrush, New PointF(progressRect.X, progressRect.Bottom + 2))
+                    End Using
+                End Using
+            End If
+
+            If _showVolume Then
+                Dim volumeRect As Rectangle = GetVolumeRect()
+                Using track As New SolidBrush(Color.FromArgb(70, 76, 84))
+                    e.Graphics.FillRectangle(track, volumeRect)
+                End Using
+                Dim fillWidth As Integer = CInt(volumeRect.Width * (_volume / 100.0))
+                If fillWidth > 0 Then
+                    Using fill As New SolidBrush(Color.LightGreen)
+                        e.Graphics.FillRectangle(fill, volumeRect.X, volumeRect.Y, fillWidth, volumeRect.Height)
+                    End Using
+                End If
+                Using volumeBrush As New SolidBrush(Color.Gainsboro)
+                    Using volumeFont As New Font("Segoe UI", 7.0F, FontStyle.Bold)
+                        e.Graphics.DrawString(If(_muted, "M", "V"), volumeFont, volumeBrush, New PointF(volumeRect.Right + 5, volumeRect.Y - 3))
+                    End Using
+                End Using
+            End If
+            If _errorText <> "" Then DrawError(e.Graphics)
+        End Sub
+
+        Private Sub DrawError(g As Graphics)
+            Using b As New SolidBrush(Color.OrangeRed), f As New Font("Segoe UI", 7.5F)
+                Dim text As String = _errorText
+                If text.Length > 100 Then text = text.Substring(0, 100) & "..."
+                g.DrawString(text, f, b, New RectangleF(10, Math.Max(10, Height - 20), Math.Max(100, Width - 20), 16))
+            End Using
+        End Sub
+
+        Private Function GetPlayButtonRect() As Rectangle
+            Return New Rectangle(12, Math.Max(Height - 39, 42), 34, 34)
+        End Function
+
+        Private Function GetProgressRect() As Rectangle
+            Dim left As Integer = 56
+            Dim right As Integer = If(_showVolume, Math.Max(left + 40, Width - 86), Math.Max(left + 40, Width - 18))
+            Return New Rectangle(left, Math.Max(Height - 29, 52), Math.Max(30, right - left), 5)
+        End Function
+
+        Private Function GetVolumeRect() As Rectangle
+            Return New Rectangle(Math.Max(Width - 78, 80), Math.Max(Height - 15, 66), 56, 5)
+        End Function
+
+        Private Sub SetPositionFromPoint(x As Integer)
+            If _durationSeconds <= 0 Then Return
+            Dim rect As Rectangle = GetProgressRect()
+            Dim ratio As Double = (x - rect.X) / CDbl(Math.Max(1, rect.Width))
+            SetPosition(_durationSeconds * Math.Max(0, Math.Min(1, ratio)))
+        End Sub
+
+        Private Sub SetPosition(value As Double)
+            Dim maxValue As Double = If(_durationSeconds > 0, _durationSeconds, Double.MaxValue)
+            Dim newValue As Double = Math.Max(0, Math.Min(maxValue, value))
+            _positionSeconds = newValue
+            Try
+                If IsVideoMode() AndAlso _mediaElement IsNot Nothing Then
+                    _seeking = True
+                    _mediaElement.Position = TimeSpan.FromSeconds(newValue)
+                ElseIf _wmp IsNot Nothing Then
+                    _seeking = True
+                    _wmp.controls.currentPosition = newValue
+                End If
+            Catch
+            Finally
+                _seeking = False
+            End Try
+            Invalidate()
+            RaiseEvent TimeChanged(Me, EventArgs.Empty)
+        End Sub
+
+        Private Function EnsureAudioPlayer() As Boolean
+            If _wmp IsNot Nothing AndAlso _initializedAudio Then Return True
+            Try
+                Dim playerType As Type = Type.GetTypeFromProgID("WMPlayer.OCX.7")
+                If playerType Is Nothing Then playerType = Type.GetTypeFromProgID("WMPlayer.OCX")
+                If playerType Is Nothing Then
+                    SetError("Windows Media Player não está disponível neste Windows.")
+                    Return False
+                End If
+                _wmp = Activator.CreateInstance(playerType)
+                _initializedAudio = True
+                _wmp.settings.volume = _volume
+                _wmp.settings.mute = _muted
+                Return True
+            Catch ex As Exception
+                _wmp = Nothing
+                _initializedAudio = False
+                SetError("Não foi possível inicializar o mecanismo de áudio: " & CleanMediaError(ex.Message))
+                Return False
+            End Try
+        End Function
+
+        Private Function EnsureVideoEngine() As Boolean
+            If _initializedVideo AndAlso _mediaElement IsNot Nothing Then
+                AttachDisplayTarget()
+                Return True
+            End If
+            Try
+                Dim host As New System.Windows.Forms.Integration.ElementHost With {.Dock = DockStyle.None, .BackColor = Color.Black}
+                Dim element As New System.Windows.Controls.MediaElement()
+                element.LoadedBehavior = System.Windows.Controls.MediaState.Manual
+                element.UnloadedBehavior = System.Windows.Controls.MediaState.Manual
+                element.Stretch = System.Windows.Media.Stretch.Uniform
+                element.ScrubbingEnabled = True
+                AddHandler element.MediaOpened, AddressOf HandleMediaOpened
+                AddHandler element.MediaEnded, AddressOf HandleMediaEnded
+                AddHandler element.MediaFailed, AddressOf HandleMediaFailed
+                host.Child = element
+                _elementHost = host
+                _mediaElement = element
+                _initializedVideo = True
+                ApplyVolume()
+                AttachDisplayTarget()
+                Return True
+            Catch ex As Exception
+                _mediaElement = Nothing
+                _elementHost = Nothing
+                _initializedVideo = False
+                SetError("Não foi possível inicializar o mecanismo de vídeo: " & CleanMediaError(ex.Message))
+                Return False
+            End Try
+        End Function
+
+        Private Sub AttachDisplayTarget()
+            If Not IsVideoMode() OrElse _elementHost Is Nothing Then Return
+            Dim host As System.Windows.Forms.Integration.ElementHost = _elementHost
+            If host.Parent IsNot Nothing Then host.Parent.Controls.Remove(host)
+            _targetControl = ResolveTargetControl(_displayTarget)
+            If _targetControl Is Nothing OrElse _targetControl Is Me Then
+                host.Parent = Me
+                host.Bounds = GetInternalVideoBounds()
+                host.SendToBack()
+            Else
+                host.Parent = _targetControl
+                host.Dock = DockStyle.Fill
+                host.BringToFront()
+            End If
+        End Sub
+
+        Private Function GetInternalVideoBounds() As Rectangle
+            Dim bottomReserve As Integer = If(_showControls, 42, 2)
+            Return New Rectangle(1, 1, Math.Max(1, Width - 2), Math.Max(1, Height - bottomReserve - 1))
+        End Function
+
+        Private Function ResolveTargetControl(name As String) As Control
+            If String.IsNullOrWhiteSpace(name) Then Return Nothing
+            Dim root As Control = Me
+            While root.Parent IsNot Nothing
+                root = root.Parent
+            End While
+            Return FindControlByName(root, name)
+        End Function
+
+        Private Shared Function FindControlByName(root As Control, name As String) As Control
+            If root Is Nothing Then Return Nothing
+            For Each c As Control In root.Controls
+                If c.Name.Equals(name, StringComparison.OrdinalIgnoreCase) Then Return c
+                Dim nested As Control = FindControlByName(c, name)
+                If nested IsNot Nothing Then Return nested
+            Next
+            Return Nothing
+        End Function
+
+        Private Sub ApplyVolume()
+            Try
+                If IsVideoMode() AndAlso _mediaElement IsNot Nothing Then
+                    _mediaElement.Volume = If(_muted, 0.0R, _volume / 100.0R)
+                ElseIf _wmp IsNot Nothing Then
+                    _wmp.settings.volume = _volume
+                    _wmp.settings.mute = _muted
+                End If
+            Catch
+            End Try
+        End Sub
+
+        Private Sub HandleMediaOpened(sender As Object, e As System.Windows.RoutedEventArgs)
+            Try
+                _durationSeconds = If(_mediaElement.NaturalDuration.HasTimeSpan, Math.Max(0, _mediaElement.NaturalDuration.TimeSpan.TotalSeconds), 0)
+            Catch
+                _durationSeconds = 0
+            End Try
+            _loading = False
+            If Not _mediaOpenedRaised Then
+                _mediaOpenedRaised = True
+                RaiseEvent MediaOpened(Me, EventArgs.Empty)
+            End If
+            If _pendingPlay Then StartDeferredVideoPlay()
+            Invalidate()
+        End Sub
+
+        Private Sub HandleMediaEnded(sender As Object, e As System.Windows.RoutedEventArgs)
+            _isPlaying = False
+            _positionSeconds = _durationSeconds
+            RaiseEvent Ended(Me, EventArgs.Empty)
+            If _loop Then
+                Try
+                    _mediaElement.Position = TimeSpan.Zero
+                    _mediaElement.Play()
+                    _isPlaying = True
+                    _positionSeconds = 0
+                    RaiseEvent PlayStarted(Me, EventArgs.Empty)
+                Catch ex As Exception
+                    SetError(CleanMediaError(ex.Message))
+                End Try
+            End If
+            Invalidate()
+        End Sub
+
+        Private Sub HandleMediaFailed(sender As Object, e As System.Windows.ExceptionRoutedEventArgs)
+            _isPlaying = False
+            _loading = False
+            _pendingPlay = False
+            Dim message As String = "Não foi possível abrir o vídeo pelo mecanismo do Windows."
+            Try
+                If e IsNot Nothing AndAlso e.ErrorException IsNot Nothing Then message = CleanMediaError(e.ErrorException.Message)
+            Catch
+            End Try
+            SetError(message)
+        End Sub
+
+        Private Sub UpdatePlaybackState(sender As Object, e As EventArgs)
+            If IsDesignModeSafe() OrElse _seeking Then Return
+            Try
+                If IsVideoMode() Then
+                    If _mediaElement Is Nothing Then Return
+                    If _isPlaying Then
+                        Dim position As Double = Math.Max(0, _mediaElement.Position.TotalSeconds)
+                        If Math.Abs(position - _positionSeconds) > 0.05 Then
+                            _positionSeconds = position
+                            RaiseEvent TimeChanged(Me, EventArgs.Empty)
+                            Invalidate()
+                        End If
+                    End If
+                Else
+                    If _wmp Is Nothing Then Return
+                    Dim position As Double = Math.Max(0, Convert.ToDouble(_wmp.controls.currentPosition))
+                    If Math.Abs(position - _positionSeconds) > 0.05 Then
+                        _positionSeconds = position
+                        RaiseEvent TimeChanged(Me, EventArgs.Empty)
+                        Invalidate()
+                    End If
+                    Dim state As Integer = Convert.ToInt32(_wmp.playState)
+                    If state <> _lastWmpPlayState Then
+                        If state = 8 Then
+                            _isPlaying = False
+                            RaiseEvent Ended(Me, EventArgs.Empty)
+                            If _loop Then
+                                _wmp.controls.currentPosition = 0
+                                _wmp.controls.play()
+                                _isPlaying = True
+                                RaiseEvent PlayStarted(Me, EventArgs.Empty)
+                            End If
+                        ElseIf state = 2 Then
+                            _isPlaying = False
+                        ElseIf state = 3 Then
+                            If Not _isPlaying Then
+                                _isPlaying = True
+                                RaiseEvent PlayStarted(Me, EventArgs.Empty)
+                            End If
+                        End If
+                        _lastWmpPlayState = state
+                    End If
+                    Try
+                        Dim media As Object = _wmp.currentMedia
+                        If media IsNot Nothing Then
+                            Dim duration As Double = Math.Max(0, Convert.ToDouble(media.duration))
+                            If duration > 0 AndAlso Math.Abs(duration - _durationSeconds) > 0.05 Then
+                                _durationSeconds = duration
+                                If Not _mediaOpenedRaised Then
+                                    _mediaOpenedRaised = True
+                                    RaiseEvent MediaOpened(Me, EventArgs.Empty)
+                                End If
+                                Invalidate()
+                            End If
+                        End If
+                    Catch
+                    End Try
+                End If
+            Catch
+            End Try
+        End Sub
+
+        Private Sub ReleaseVideoEngine()
+            If _mediaElement IsNot Nothing Then
+                Try
+                    _mediaElement.Stop()
+                    RemoveHandler _mediaElement.MediaOpened, AddressOf HandleMediaOpened
+                    RemoveHandler _mediaElement.MediaEnded, AddressOf HandleMediaEnded
+                    RemoveHandler _mediaElement.MediaFailed, AddressOf HandleMediaFailed
+                Catch
+                End Try
+            End If
+            If _elementHost IsNot Nothing Then
+                Try
+                    If _elementHost.Parent IsNot Nothing Then _elementHost.Parent.Controls.Remove(_elementHost)
+                    _elementHost.Child = Nothing
+                    _elementHost.Dispose()
+                Catch
+                End Try
+            End If
+            _mediaElement = Nothing
+            _elementHost = Nothing
+            _targetControl = Nothing
+            _initializedVideo = False
+        End Sub
+
+        Private Sub ReleaseAudioPlayer()
+            If _wmp IsNot Nothing Then
+                Try
+                    _wmp.controls.stop()
+                Catch
+                End Try
+                Try
+                    If Marshal.IsComObject(_wmp) Then Marshal.FinalReleaseComObject(_wmp)
+                Catch
+                End Try
+            End If
+            _wmp = Nothing
+            _initializedAudio = False
+        End Sub
+
+        Private Function IsVideoMode() As Boolean
+            Select Case _mediaType
+                Case MediaPlaybackType.Video
+                    Return True
+                Case MediaPlaybackType.Audio
+                    Return False
+                Case Else
+                    Return IsLikelyVideoSource(_source)
+            End Select
+        End Function
+
+        Private Shared Function IsLikelyVideoSource(source As String) As Boolean
+            If String.IsNullOrWhiteSpace(source) Then Return False
+            Dim clean As String = source.Trim().ToLowerInvariant()
+            Dim q As Integer = clean.IndexOfAny(New Char() {"?"c, "#"c})
+            If q >= 0 Then clean = clean.Substring(0, q)
+            Dim videoExts() As String = {".mp4", ".m4v", ".webm", ".avi", ".wmv", ".mov", ".mkv", ".mpeg", ".mpg", ".m2ts", ".ts", ".flv", ".3gp"}
+            For Each ext As String In videoExts
+                If clean.EndsWith(ext, StringComparison.OrdinalIgnoreCase) Then Return True
+            Next
+            Return False
+        End Function
+
+        Private Sub SetError(message As String)
+            _errorText = If(String.IsNullOrWhiteSpace(message), "Falha ao reproduzir mídia.", message)
+            RaiseEvent ErrorOccurred(Me, EventArgs.Empty)
+            Invalidate()
+        End Sub
+
+        Private Shared Function CreateUri(source As String) As Uri
+            If Uri.TryCreate(source, UriKind.Absolute, Nothing) Then Return New Uri(source, UriKind.Absolute)
+            Return New Uri(Path.GetFullPath(source), UriKind.Absolute)
+        End Function
+
+        Private Shared Function CleanMediaError(message As String) As String
+            Dim result As String = If(message, "")
+            If result.IndexOf("Object reference not set", StringComparison.OrdinalIgnoreCase) >= 0 OrElse result.IndexOf("Referência de objeto não definida", StringComparison.OrdinalIgnoreCase) >= 0 OrElse result.IndexOf("Referência de objeto", StringComparison.OrdinalIgnoreCase) >= 0 Then
+                Return "A mídia não pôde ser aberta pelo mecanismo do Windows."
+            End If
+            If result.IndexOf("The operation is not valid", StringComparison.OrdinalIgnoreCase) >= 0 OrElse result.IndexOf("A operação não é válida", StringComparison.OrdinalIgnoreCase) >= 0 Then
+                Return "A mídia ainda não está pronta para reprodução."
+            End If
+            If result.Length > 140 Then result = result.Substring(0, 140) & "..."
+            Return If(String.IsNullOrWhiteSpace(result), "Falha ao reproduzir mídia.", result)
+        End Function
+
+        Private Function IsDesignModeSafe() As Boolean
+            Try
+                If LicenseManager.UsageMode = LicenseUsageMode.Designtime OrElse (Site IsNot Nothing AndAlso Site.DesignMode) Then Return True
+                Dim p As Control = Me
+                While p IsNot Nothing
+                    If p.GetType().Name.Equals("DesignerSurface", StringComparison.OrdinalIgnoreCase) Then Return True
+                    p = p.Parent
+                End While
+            Catch
+            End Try
+            Return False
+        End Function
+
+        Private Shared Function FormatTime(seconds As Double) As String
+            If Double.IsNaN(seconds) OrElse Double.IsInfinity(seconds) OrElse seconds < 0 Then seconds = 0
+            Dim ts As TimeSpan = TimeSpan.FromSeconds(seconds)
+            If ts.TotalHours >= 1 Then Return ts.ToString("hh\:mm\:ss")
+            Return ts.ToString("mm\:ss")
+        End Function
+    End Class
+
+    <DefaultEvent("PlayStarted")>
+    Public Class AudioPlayer
+        Inherits MediaPlayer
+        Public Sub New()
+            MyBase.New()
+            ShowTitle = False
+            MediaType = MediaPlaybackType.Audio
+        End Sub
+    End Class
+
+
+    End Namespace

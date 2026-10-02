@@ -1,4 +1,4 @@
-﻿Imports System
+Imports System
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Drawing
@@ -956,6 +956,7 @@ Namespace FlowForgeStudio
             If typeName = "LedIndicator" Then Return New Size(36, 36)
             If typeName = "ToggleSwitch" Then Return New Size(58, 28)
             If typeName = "RoundedButton" Then Return New Size(140, 42)
+            If typeName = "AudioPlayer" OrElse typeName = "MediaPlayer" Then Return New Size(360, 88)
             If typeName = "CircularProgress" Then Return New Size(100, 100)
             If typeName = "LevelMeter" Then Return New Size(38, 160)
             If typeName = "BadgeLabel" Then Return New Size(100, 30)
@@ -1010,6 +1011,8 @@ Namespace FlowForgeStudio
                 Case "ComboBox" : Return New ComboBox()
                 Case "ColorComboBox" : Return New ColorComboBox()
                 Case "RoundedButton" : Return New RoundedButton()
+                Case "AudioPlayer" : Return New AudioPlayer()
+                Case "MediaPlayer" : Return New MediaPlayer()
                 Case "GradientPanel" : Return New GradientPanel()
                 Case "LedIndicator" : Return New LedIndicator()
                 Case "ToggleSwitch" : Return New ToggleSwitch()
