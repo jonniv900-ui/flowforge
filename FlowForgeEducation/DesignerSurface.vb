@@ -145,7 +145,7 @@ Namespace FlowForgeStudio
             Dim size As Size = FormTemplate.ClientSize : If size.Width < 100 Then size = ParseSize(GetValue(data.Properties, "ClientSize", "800, 500"), New Size(800, 500))
             Dim canvasTop As Integer = 30
             If ShowFormChrome AndAlso FormTemplate.FormBorderStyle <> FormBorderStyle.None Then canvasTop += ChromeHeightFor(FormTemplate.FormBorderStyle)
-            Dim canvas As New Panel With {.Name = "__FORM__", .Location = New Point(30, canvasTop), .Size = size, .BackColor = ParseColor(GetValue(data.Properties, "BackColor", "White"), Color.White), .BorderStyle = BorderStyle.FixedSingle, .AutoScroll = False}
+            Dim canvas As New Panel With {.Name = "__FORM__", .Location = New Point(30, canvasTop), .Size = size, .BackColor = ParseColor(GetValue(data.Properties, "BackColor", "White"), Color.White), .ForeColor = FormTemplate.ForeColor, .BorderStyle = BorderStyle.FixedSingle, .AutoScroll = False}
             If ShowFormChrome AndAlso FormTemplate.FormBorderStyle <> FormBorderStyle.None Then CreateFormChrome(canvas)
             AddHandler canvas.MouseDown, AddressOf CanvasMouseDown
             AddHandler canvas.MouseMove, AddressOf CanvasMouseMove
